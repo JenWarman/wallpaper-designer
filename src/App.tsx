@@ -1,34 +1,43 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import supabase from './utils/supabase'
 
 function App() {
-  const [count, setCount] = useState(0)
+const [newUser, setNewUser] = useState({
+  username: '',
+  email: '',
+  password: ''
+})
+
+async function handleAddNewUser() {
+  event.preventDefault()
+
+  const {data, error} = await supabase.auth.signUp({
+    email: newUser.email,
+    password: newUser.password,
+    options: {
+      data: {
+        username: newUser.username
+      }
+    }
+  })
+  if (error) {
+    console.log(error)
+  } else {
+    console.log('New User Added', data)
+  }
+}
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <form onSubmit={handleAddNewUser}>
+      <label>Name</label>
+        <input type="text" placeholder='name' value={newUser.username} onChange={(event) => setNewUser({...newUser, username: event.target.value})}/>
+      <label>Email</label>
+        <input type="text" placeholder='email' value={newUser.email} onChange={(event) => setNewUser({...newUser, email: event.target.value})}/>
+      <label>Password</label>
+        <input type="text" placeholder='password' value={newUser.password} onChange={(event) => setNewUser({...newUser, password: event.target.value})}/>
+      <button>Submit</button>
+    </form>
   )
 }
 
