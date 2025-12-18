@@ -1,19 +1,21 @@
 import { useState } from "react";
-import { registerUser } from "../../supabase/supabase";
+import { createUserAccount, registerUser } from "../../supabase/supabase";
 
 export function RegisterUser() {
-    const [newUser, setNewUser] = useState({
+  const [newUser, setNewUser] = useState({
     username: "",
     email: "",
     password: "",
   });
 
   const handleRegisterUser = () => {
-    registerUser({newUser, event})
-  }
-   return (
+    event?.preventDefault();
+    registerUser({ newUser });
+    createUserAccount({newUser});
+  };
+  return (
     <div>
-      <h1>Sign Up</h1>
+      <h3>Sign Up</h3>
       <form onSubmit={handleRegisterUser}>
         <label>Name</label>
         <input
@@ -45,5 +47,5 @@ export function RegisterUser() {
         <button>Submit</button>
       </form>
     </div>
-   )
+  );
 }
