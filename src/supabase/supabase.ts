@@ -1,20 +1,20 @@
 import supabase from "./supabaseClient";
 
-export async function registerUser({newUser}) {
-    event.preventDefault();
+export async function registerUser({ newUser, event }) {
+  event.preventDefault();
 
-    const { data, error } = await supabase.auth.signUp({
-      email: newUser.email,
-      password: newUser.password,
-      options: {
-        data: {
-          username: newUser.username,
-        },
+  const { data, error } = await supabase.auth.signUp({
+    email: newUser.email,
+    password: newUser.password,
+    options: {
+      data: {
+        username: newUser.username,
       },
-    });
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("New User Added", data);
-    }
+    },
+  });
+  if (error) {
+    return { success: false, error };
   }
+  console.log("successfully signedup!", data)
+  return { success: true, data };
+}

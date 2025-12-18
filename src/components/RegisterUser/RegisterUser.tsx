@@ -9,7 +9,7 @@ export function RegisterUser() {
   });
 
   const handleRegisterUser = () => {
-    registerUser({newUser})
+    registerUser({newUser, event})
   }
    return (
     <div>
