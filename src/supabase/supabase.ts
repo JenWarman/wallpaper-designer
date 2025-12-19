@@ -50,3 +50,20 @@ export async function fetchUserById(userId: string) {
   console.log("user data", data);
   return { success: true, data };
 }
+
+export async function updateOrderByUserId(user_id: string, quantity: number, price: number ) {
+   const { data, error } = await supabase.from("orders").insert({
+    user_id: user_id,
+    quantity,
+    price,
+  });
+if (error) {
+    return { success: false, error };
+  }
+  return {
+    success: true,
+    orders: data
+  }
+
+}
+
