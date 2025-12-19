@@ -37,7 +37,7 @@ describe("signUpAndCreateAccount", () => {
         error: null,
       });
 
-    vi.mocked(supabase.from).mockReturnValue({ insert: insertMock } as any);
+    vi.mocked(supabase.from).mockReturnValue({ insert: insertMock } as unknown as ReturnType<typeof supabase.from>);
 
     const result = await signUpAndCreateAccount(newUser);
 
