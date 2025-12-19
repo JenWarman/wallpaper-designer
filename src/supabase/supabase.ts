@@ -1,8 +1,8 @@
 import supabase from "./supabaseClient";
+import type { NewUser } from "../types/types";
 
-export async function registerUser({ newUser}) {
-
-  const { data, error } = await supabase.auth.signUp({
+export async function signUpAndCreateAccount(newUser:NewUser) {
+    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
     email: newUser.email,
     password: newUser.password,
     options: {
@@ -11,32 +11,40 @@ export async function registerUser({ newUser}) {
       },
     },
   });
-  if (error) {
-    return { success: false, error };
+  if (signUpError || !signUpData) {
+    return { success: false, signUpError };
   }
-  console.log("successfully signedup!", data);
-  return { success: true, data };
-}
 
-export async function createUserAccount({newUser}) {
+  const userId = signUpData.user?.id
 
-  const { data, error } = await supabase.from("usersAccount").insert({
+  const { data: accountData, error:accountError } = await supabase.from("usersAccount").insert({
+    user_id: userId,
     username: newUser.username,
     designs: [],
     orders: [],
-    progress_status: "design",
   });
-
-  if (error) {
-    return { success: false, error };
+if (accountError) {
+    return { success: false, accountError };
   }
-  console.log("new user account has been created", data);
-  return { success: true, data };
+  return {
+    success: true,
+    user: signUpData,
+    account: accountData
+  }
 }
 
 export async function fetchUsers() {
   const { data, error } = await supabase.from('usersAccount').select()
    if (error) {
+    return { success: false, error };
+  }
+  console.log("all user data", data);
+  return { success: true, data };
+}
+
+export async function fetchUserById(userId: string) {
+    const {data, error} = await supabase.from('usersAccount').select("*").eq('user_id', userId)
+    if (error) {
     return { success: false, error };
   }
   console.log("user data", data);
