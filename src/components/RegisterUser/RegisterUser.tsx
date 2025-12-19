@@ -1,19 +1,29 @@
 import { useState } from "react";
-import { registerUser } from "../../supabase/supabase";
+import { signUpAndCreateAccount } from "../../supabase/supabase";
+import type { NewUser } from "../../types/types";
 
 export function RegisterUser() {
-    const [newUser, setNewUser] = useState({
+  const [newUser, setNewUser] = useState<NewUser>({
     username: "",
     email: "",
     password: "",
   });
 
-  const handleRegisterUser = () => {
-    registerUser({newUser, event})
-  }
-   return (
+  const handleRegisterUser = async (event: React.FormEvent<HTMLFormElement>) => {
+    event?.preventDefault();
+    const newUserResult = await signUpAndCreateAccount(newUser)
+
+    if (!newUserResult.success) {
+        console.log("ERROR: could not create account")
+        return;
+    }
+    console.log("new user registered", newUserResult.user)
+    console.log("new account created")
+  };
+  
+  return (
     <div>
-      <h1>Sign Up</h1>
+      <h3>Sign Up</h3>
       <form onSubmit={handleRegisterUser}>
         <label>Name</label>
         <input
@@ -45,5 +55,5 @@ export function RegisterUser() {
         <button>Submit</button>
       </form>
     </div>
-   )
+  );
 }
