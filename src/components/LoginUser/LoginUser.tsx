@@ -1,32 +1,46 @@
 import styles from "./LoginUser.module.scss";
+import supabase from "../../supabase/supabaseClient";
+import { useState } from "react";
 
 export function LoginUser() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    const handleLoginUser = async (event: React.FormEvent<HTMLFormElement>) => {
-          event?.preventDefault();
-        console.log("logged in!")
-    }
+  const loginAndGetSession = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
 
+    const { data, error } =
+      await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        return { success: false, error }
+      }
+      console.log("user signed in with id: ", data.user.id)
+  };
+  
   return (
     <div className={styles.container}>
       <h3>Login</h3>
-      <form onSubmit={handleLoginUser}>
+      <form onSubmit={loginAndGetSession}>
         <div>
-          <label>Username</label>
+          <label>Email</label>
           <input
             type="text"
-            placeholder="username"
-            value="username"
-            onChange={(event) => console.log(event?.target.value)}
+            placeholder="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
           />
         </div>
         <div>
           <label>Password</label>
           <input
-            type="text"
+            type="password"
             placeholder="password"
-            value="password"
-            onChange={(event) => console.log(event?.target.value)}
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
           />
         </div>
         <button>Login</button>
