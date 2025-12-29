@@ -4,6 +4,9 @@ import { fetchOrderByUserId } from "../supabase";
 
 vi.mock("../supabaseClient", () => ({
   default: {
+    auth: {
+      getUser: vi.fn(),
+    },
     from: vi.fn(),
   },
 }));
@@ -21,6 +24,13 @@ describe("fetchOrderByUserId", () => {
       },
     ];
 
+    vi.mocked(supabase.auth.getUser).mockResolvedValue({
+      data: {
+        user: { id: user_id},
+      },
+      error: null,
+    });
+
     const eqMock = vi
       .fn()
       .mockResolvedValue({ data: mockOrderData, error: null });
@@ -30,10 +40,10 @@ describe("fetchOrderByUserId", () => {
       select: selectMock,
     } as unknown as ReturnType<typeof supabase.from>);
 
-    const result = await fetchOrderByUserId(user_id);
+    const result = await fetchOrderByUserId();
 
-    expect(result.success).toBe(true);
-    expect(result.data).toEqual(mockOrderData);
+    expect(result?.success).toBe(true);
+    expect(result?.data).toEqual(mockOrderData);
     expect(selectMock).toHaveBeenCalledWith("*");
     expect(eqMock).toHaveBeenCalledWith("user_id", user_id);
   });
@@ -48,9 +58,9 @@ describe("fetchOrderByUserId", () => {
       select: selectMock,
     } as unknown as ReturnType<typeof supabase.from>);
 
-    const result = await fetchOrderByUserId(user_id);
+    const result = await fetchOrderByUserId();
 
-    expect(result.success).toBe(false);
-    expect(result.error).toBe(error);
+    expect(result?.success).toBe(false);
+    expect(result?.error).toBe(error);
   });
 });

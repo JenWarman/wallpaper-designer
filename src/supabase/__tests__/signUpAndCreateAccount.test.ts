@@ -18,13 +18,13 @@ describe("signUpAndCreateAccount", () => {
     password: "test1234",
   };
 
+  const signUpMock = vi.mocked(supabase.auth.signUp);
+
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   test("it signs up a new using adding them to the auth table and inserts them into the usersAccount table.", async () => {
-    const signUpMock = vi.mocked(supabase.auth.signUp);
-
     signUpMock.mockResolvedValue({
       data: { user: { id: "user-1" } },
       error: null,
@@ -53,8 +53,6 @@ describe("signUpAndCreateAccount", () => {
     expect(result.user?.user?.id).toBe("user-1");
   });
   test("it returns failure when signup is unsuccessful and account can not be created", async () => {
-    const signUpMock = vi.mocked(supabase.auth.signUp);
-
     signUpMock.mockResolvedValue({
       data: null,
       error: new Error("Signup failed!"),

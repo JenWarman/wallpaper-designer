@@ -7,30 +7,29 @@ import {
   fetchUsers,
   updateOrderByUserId,
 } from "./supabase/supabase";
+import { LoginUser } from "./components/LoginUser/LoginUser";
 function App() {
 
   useEffect(() => {
     (async () => {
       await fetchUsers();
-      await fetchUserById("59f88701-892a-4a52-9b2b-6cbaa435a610");
-     const orderById = await fetchOrderByUserId("59f88701-892a-4a52-9b2b-6cbaa435a610")
+      await fetchUserById();
+     const orderById = await fetchOrderByUserId()
     //  console.log(orderById, "<---order")
     })();
   }, []);
 
   const handleUpdateOrder = async () => {
     const orders = await updateOrderByUserId(
-      "59f88701-892a-4a52-9b2b-6cbaa435a610",
       5, 350.79
     );
     // console.log("ORDER", orders)
   };
 
- 
-
   return (
     <>
       <RegisterUser />
+      <LoginUser/>
       <button onClick={handleUpdateOrder}>Order</button>
     </>
   );
