@@ -7,6 +7,7 @@ import {
   fetchUsers,
   updateOrderByUserId,
 } from "./supabase/supabase";
+import { LoginUser } from "./components/LoginUser/LoginUser";
 function App() {
 
   useEffect(() => {
@@ -31,6 +32,7 @@ function App() {
   return (
     <>
       <RegisterUser />
+      <LoginUser/>
       <button onClick={handleUpdateOrder}>Order</button>
     </>
   );
