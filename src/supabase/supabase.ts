@@ -20,8 +20,6 @@ export async function signUpAndCreateAccount(newUser:NewUser) {
   const { data: accountData, error:accountError } = await supabase.from("usersAccount").insert({
     user_id: userId,
     username: newUser.username,
-    designs: [],
-    orders: [],
   });
 if (accountError) {
     return { success: false, accountError };
@@ -38,7 +36,7 @@ export async function fetchUsers() {
    if (error) {
     return { success: false, error };
   }
-  console.log("all user data", data);
+  // console.log("all user data", data);
   return { success: true, data };
 }
 
@@ -47,6 +45,31 @@ export async function fetchUserById(userId: string) {
     if (error) {
     return { success: false, error };
   }
-  console.log("user data", data);
+  // console.log("user data", data);
   return { success: true, data };
 }
+
+export async function updateOrderByUserId(user_id: string, quantity: number, price: number ) {
+   const { data, error } = await supabase.from("orders").insert({
+    user_id,
+    quantity,
+    price,
+  });
+if (error) {
+    return { success: false, error };
+  }
+  return {
+    success: true,
+    orders: data
+  }
+
+}
+
+export async function fetchOrderByUserId(user_id: string) {
+  const {data, error} = await supabase.from('orders').select("*").eq('user_id', user_id)
+    if (error) {
+    return { success: false, error };
+  }
+  return { success: true, data };
+}
+

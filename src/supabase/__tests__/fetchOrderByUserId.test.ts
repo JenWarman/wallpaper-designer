@@ -1,6 +1,6 @@
-import supabase from "../supabaseClient";
-import { fetchUserById } from "../supabase";
 import { describe, expect, test, vi } from "vitest";
+import supabase from "../supabaseClient";
+import { fetchOrderByUserId } from "../supabase";
 
 vi.mock("../supabaseClient", () => ({
   default: {
@@ -10,36 +10,35 @@ vi.mock("../supabaseClient", () => ({
 
 const user_id = "user-1";
 
-describe("fetchUserById", () => {
-  test("it successfully fetches the user data by user_id", async () => {
-    const mockUserData = [
+describe("fetchOrderByUserId", () => {
+  test("it successfully fetchs order data by the user_id", async () => {
+    const mockOrderData = [
       {
         id: 1,
         user_id,
-        username: "test",
-        designs: [],
-        orders: [],
+        quantity: 5,
+        price: 475.99,
       },
     ];
 
     const eqMock = vi
       .fn()
-      .mockResolvedValue({ data: mockUserData, error: null });
+      .mockResolvedValue({ data: mockOrderData, error: null });
     const selectMock = vi.fn().mockReturnValue({ eq: eqMock });
 
     vi.mocked(supabase.from).mockReturnValue({
       select: selectMock,
     } as unknown as ReturnType<typeof supabase.from>);
 
-    const result = await fetchUserById(user_id);
+    const result = await fetchOrderByUserId(user_id);
 
     expect(result.success).toBe(true);
-    expect(result.data).toEqual(mockUserData);
+    expect(result.data).toEqual(mockOrderData);
     expect(selectMock).toHaveBeenCalledWith("*");
     expect(eqMock).toHaveBeenCalledWith("user_id", user_id);
   });
   test("it returns failure when there is a query error", async () => {
-    const error = new Error("Query Failed");
+    const error = new Error("Query Failed.");
 
     const eqMock = vi.fn().mockResolvedValue({ data: null, error });
 
@@ -49,7 +48,7 @@ describe("fetchUserById", () => {
       select: selectMock,
     } as unknown as ReturnType<typeof supabase.from>);
 
-    const result = await fetchUserById(user_id);
+    const result = await fetchOrderByUserId(user_id);
 
     expect(result.success).toBe(false);
     expect(result.error).toBe(error);

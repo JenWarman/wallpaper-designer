@@ -33,7 +33,7 @@ describe("signUpAndCreateAccount", () => {
     const insertMock = vi
       .fn()
       .mockResolvedValue({
-        data: [{ id: "user-1", designs: [], orders: [], username: "test" }],
+        data: [{ id: "user-1", username: "test" }],
         error: null,
       });
 
@@ -46,8 +46,6 @@ describe("signUpAndCreateAccount", () => {
     expect(insertMock).toHaveBeenCalledWith(
       expect.objectContaining({
         user_id: "user-1",
-        designs: [],
-        orders: [],
         username: "test",
       })
     );

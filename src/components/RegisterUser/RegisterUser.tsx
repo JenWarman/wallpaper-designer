@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { signUpAndCreateAccount } from "../../supabase/supabase";
 import type { NewUser } from "../../types/types";
+import styles from "./RegisterUser.module.scss"
 
 export function RegisterUser() {
   const [newUser, setNewUser] = useState<NewUser>({
@@ -22,9 +23,10 @@ export function RegisterUser() {
   };
   
   return (
-    <div>
+    <div className={styles.container}>
       <h3>Sign Up</h3>
       <form onSubmit={handleRegisterUser}>
+        <div>
         <label>Name</label>
         <input
           type="text"
@@ -34,6 +36,8 @@ export function RegisterUser() {
             setNewUser({ ...newUser, username: event.target.value })
           }
         />
+        </div>
+        <div>
         <label>Email</label>
         <input
           type="text"
@@ -43,6 +47,8 @@ export function RegisterUser() {
             setNewUser({ ...newUser, email: event.target.value })
           }
         />
+        </div>
+        <div>
         <label>Password</label>
         <input
           type="text"
@@ -52,6 +58,7 @@ export function RegisterUser() {
             setNewUser({ ...newUser, password: event.target.value })
           }
         />
+        </div>
         <button>Submit</button>
       </form>
     </div>
