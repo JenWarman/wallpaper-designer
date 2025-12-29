@@ -1,30 +1,21 @@
+import { loginAndStartSession } from "../../supabase/supabase";
 import styles from "./LoginUser.module.scss";
-import supabase from "../../supabase/supabaseClient";
 import { useState } from "react";
 
 export function LoginUser() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const loginAndGetSession = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleLoginAndStartSession = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    loginAndStartSession(email, password)
 
-    const { data, error } =
-      await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+  }
 
-      if (error) {
-        return { success: false, error }
-      }
-      console.log("user signed in with id: ", data.user.id)
-  };
-  
   return (
     <div className={styles.container}>
       <h3>Login</h3>
-      <form onSubmit={loginAndGetSession}>
+      <form onSubmit={handleLoginAndStartSession}>
         <div>
           <label>Email</label>
           <input

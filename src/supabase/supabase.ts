@@ -100,3 +100,17 @@ const { data, error } = await supabase
   }
   
 }
+
+
+export async function loginAndStartSession(email: string, password: string) {
+  const { data, error } =
+      await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        return { success: false, error }
+      }
+      console.log("user signed in with id: ", data.user.id)
+}
