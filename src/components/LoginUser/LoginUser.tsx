@@ -9,7 +9,6 @@ export function LoginUser() {
   const handleLoginAndStartSession = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     loginAndStartSession(email, password)
-
   }
 
   return (

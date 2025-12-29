@@ -109,8 +109,12 @@ export async function loginAndStartSession(email: string, password: string) {
         password,
       });
 
-      if (error) {
+      if (error || !data.user) {
         return { success: false, error }
       }
       console.log("user signed in with id: ", data.user.id)
+      return {
+        success: true,
+        user: data.user
+      }
 }
