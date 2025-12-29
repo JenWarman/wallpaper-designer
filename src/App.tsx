@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import "./App.css";
 import { RegisterUser } from "./components/RegisterUser/RegisterUser";
 import {
+  fetchDesignsByUserId,
   fetchOrderByUserId,
-  fetchUserById,
-  fetchUsers,
+  saveDesignByUserId,
   updateOrderByUserId,
 } from "./supabase/supabase";
 import { LoginUser } from "./components/LoginUser/LoginUser";
@@ -12,10 +12,10 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      await fetchUsers();
-      await fetchUserById();
      const orderById = await fetchOrderByUserId()
     //  console.log(orderById, "<---order")
+    const designs = await fetchDesignsByUserId()
+    // console.log("Users designs: ", designs)
     })();
   }, []);
 
@@ -26,11 +26,17 @@ function App() {
     // console.log("ORDER", orders)
   };
 
+  const handleSaveDesign = async () => {
+    const design = await saveDesignByUserId("design-4")
+    console.log(design)
+  }
+
   return (
     <>
       <RegisterUser />
       <LoginUser/>
       <button onClick={handleUpdateOrder}>Order</button>
+      <button onClick={handleSaveDesign}>Save Design</button>
     </>
   );
 }
