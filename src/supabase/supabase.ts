@@ -73,3 +73,17 @@ export async function fetchOrderByUserId(user_id: string) {
   return { success: true, data };
 }
 
+export async function saveDesignByUserId(user_id: string, design_url: string) {
+  const {data, error} = await supabase.from("designs").insert({
+    user_id,
+    design_url
+  })
+
+  if (error) {
+    return {success: false, error}
+  }
+
+  return {
+    success:true, design: data
+  }
+}
