@@ -3,7 +3,10 @@ import { updateOrderByUserId } from "../supabase";
 import supabase from "../supabaseClient";
 
 vi.mock("../supabaseClient", () => ({
-  default: {
+ default: {
+    auth: {
+      getUser: vi.fn(),
+    },
     from: vi.fn(),
   },
 }));
@@ -16,6 +19,13 @@ beforeEach(() => {
 
 describe("updateOrderByUserId", () => {
   test("it successfully inserts order into order table using user_id", async () => {
+      vi.mocked(supabase.auth.getUser).mockResolvedValue({
+      data: {
+        user: { id: user_id},
+      },
+      error: null,
+    });
+
     const insertMock = vi.fn().mockResolvedValue({
       data: [{ id: "user-1", quantity: 4, price: 350.79 }],
       error: null,
@@ -25,8 +35,8 @@ describe("updateOrderByUserId", () => {
       insert: insertMock,
     } as unknown as ReturnType<typeof supabase.from>);
 
-    const result = await updateOrderByUserId(user_id, 4, 350.79);
-    expect(result.success).toBe(true);
+    const result = await updateOrderByUserId(4, 350.79);
+    expect(result?.success).toBe(true);
     expect(insertMock).toHaveBeenCalledWith(
       expect.objectContaining({
         user_id: "user-1",
@@ -34,7 +44,7 @@ describe("updateOrderByUserId", () => {
         price: 350.79,
       })
     );
-    expect(result.orders).toBeDefined();
+    expect(result?.orders).toBeDefined();
   });
   test("it returns failure when user_id is invalid", async () => {
     const insertMock = vi.fn().mockResolvedValue({
@@ -46,9 +56,9 @@ describe("updateOrderByUserId", () => {
       insert: insertMock,
     } as unknown as ReturnType<typeof supabase.from>);
 
-    const result = await updateOrderByUserId(user_id, 4, 350.99);
+    const result = await updateOrderByUserId(4, 350.99);
 
-    expect(result.success).toBe(false);
+    expect(result?.success).toBe(false);
     expect(insertMock).toHaveBeenCalled()
     expect(supabase.from).toHaveBeenCalledWith("orders")
   })

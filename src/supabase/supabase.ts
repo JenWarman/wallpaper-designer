@@ -1,8 +1,8 @@
 import supabase from "./supabaseClient";
 import type { NewUser } from "../types/types";
 
-export async function signUpAndCreateAccount(newUser:NewUser) {
-    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+export async function signUpAndCreateAccount(newUser: NewUser) {
+  const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
     email: newUser.email,
     password: newUser.password,
     options: {
@@ -15,65 +15,109 @@ export async function signUpAndCreateAccount(newUser:NewUser) {
     return { success: false, signUpError };
   }
 
-  const userId = signUpData.user?.id
+  const userId = signUpData.user?.id;
 
-  const { data: accountData, error:accountError } = await supabase.from("usersAccount").insert({
-    user_id: userId,
-    username: newUser.username,
-  });
-if (accountError) {
+  const { data: accountData, error: accountError } = await supabase
+    .from("usersAccount")
+    .insert({
+      user_id: userId,
+      username: newUser.username,
+    });
+  if (accountError) {
     return { success: false, accountError };
   }
   return {
     success: true,
     user: signUpData,
-    account: accountData
-  }
+    account: accountData,
+  };
 }
 
 export async function fetchUsers() {
-  const { data, error } = await supabase.from('usersAccount').select()
-   if (error) {
+  const { data, error } = await supabase.from("usersAccount").select();
+  if (error) {
     return { success: false, error };
   }
-  // console.log("all user data", data);
   return { success: true, data };
 }
 
-export async function fetchUserById(userId: string) {
-    const {data, error} = await supabase.from('usersAccount').select("*").eq('user_id', userId)
+export async function fetchUserById() {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+    const { data, error } = await supabase
+      .from("usersAccount")
+      .select("*")
+      .eq("user_id", user.id);
     if (error) {
-    return { success: false, error };
+      return { success: false, error };
+    }
+    return { success: true, data };
   }
-  // console.log("user data", data);
-  return { success: true, data };
 }
 
-export async function updateOrderByUserId(user_id: string, quantity: number, price: number ) {
-   const { data, error } = await supabase.from("orders").insert({
-    user_id,
+export async function updateOrderByUserId(
+  quantity: number,
+  price: number
+) {
+   const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+  const { data, error } = await supabase.from("orders").insert({
+    user_id: user.id,
     quantity,
     price,
   });
-if (error) {
+  if (error) {
     return { success: false, error };
   }
   return {
     success: true,
-    orders: data
+    orders: data,
+  };
   }
 
 }
 
-export async function fetchOrderByUserId(user_id: string) {
-  const {data, error} = await supabase.from('orders').select("*").eq('user_id', user_id)
-    if (error) {
+export async function fetchOrderByUserId() {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+const { data, error } = await supabase
+    .from("orders")
+    .select("*")
+    .eq("user_id", user.id);
+  if (error) {
     return { success: false, error };
   }
   return { success: true, data };
+  }
+  
 }
 
-export async function saveDesignByUserId(user_id: string, design_url: string) {
+
+export async function loginAndStartSession(email: string, password: string) {
+  const { data, error } =
+      await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error || !data.user) {
+        return { success: false, error }
+      }
+      console.log("user signed in with id: ", data.user.id)
+      return {
+        success: true,
+        user: data.user
+      }
+}export async function saveDesignByUserId(user_id: string, design_url: string) {
   const {data, error} = await supabase.from("designs").insert({
     user_id,
     design_url
