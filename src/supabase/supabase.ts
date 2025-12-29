@@ -36,7 +36,7 @@ export async function fetchUsers() {
    if (error) {
     return { success: false, error };
   }
-  console.log("all user data", data);
+  // console.log("all user data", data);
   return { success: true, data };
 }
 
@@ -45,13 +45,13 @@ export async function fetchUserById(userId: string) {
     if (error) {
     return { success: false, error };
   }
-  console.log("user data", data);
+  // console.log("user data", data);
   return { success: true, data };
 }
 
 export async function updateOrderByUserId(user_id: string, quantity: number, price: number ) {
    const { data, error } = await supabase.from("orders").insert({
-    user_id: user_id,
+    user_id,
     quantity,
     price,
   });
@@ -72,3 +72,4 @@ export async function fetchOrderByUserId(user_id: string) {
   }
   return { success: true, data };
 }
+

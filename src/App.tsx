@@ -7,7 +7,6 @@ import {
   fetchUsers,
   updateOrderByUserId,
 } from "./supabase/supabase";
-
 function App() {
 
   useEffect(() => {
@@ -15,7 +14,7 @@ function App() {
       await fetchUsers();
       await fetchUserById("59f88701-892a-4a52-9b2b-6cbaa435a610");
      const orderById = await fetchOrderByUserId("59f88701-892a-4a52-9b2b-6cbaa435a610")
-     console.log(orderById, "<---order")
+    //  console.log(orderById, "<---order")
     })();
   }, []);
 
@@ -24,8 +23,10 @@ function App() {
       "59f88701-892a-4a52-9b2b-6cbaa435a610",
       5, 350.79
     );
-    console.log("ORDER", orders)
+    // console.log("ORDER", orders)
   };
+
+ 
 
   return (
     <>
