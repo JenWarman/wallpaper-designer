@@ -133,3 +133,21 @@ export async function saveDesignByUserId(design_url: string) {
     };
   }
 }
+
+export async function fetchDesignsByUserId() {
+   const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+    const { data, error } = await supabase
+      .from("designs")
+      .select("*")
+      .eq("user_id", user.id);
+    if (error) {
+      return { success: false, error };
+    }
+    console.log(data)
+    return { success: true, data };
+  }
+}
