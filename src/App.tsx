@@ -5,6 +5,7 @@ import {
   fetchOrderByUserId,
   fetchUserById,
   fetchUsers,
+  saveDesignByUserId,
   updateOrderByUserId,
 } from "./supabase/supabase";
 import { LoginUser } from "./components/LoginUser/LoginUser";
@@ -12,10 +13,9 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      await fetchUsers();
-      await fetchUserById();
      const orderById = await fetchOrderByUserId()
     //  console.log(orderById, "<---order")
+    
     })();
   }, []);
 
@@ -26,11 +26,17 @@ function App() {
     // console.log("ORDER", orders)
   };
 
+  const handleSaveDesign = async () => {
+    const design = await saveDesignByUserId("design-3")
+    console.log(design)
+  }
+
   return (
     <>
       <RegisterUser />
       <LoginUser/>
       <button onClick={handleUpdateOrder}>Order</button>
+      <button onClick={handleSaveDesign}>Save Design</button>
     </>
   );
 }
