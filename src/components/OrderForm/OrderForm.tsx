@@ -6,11 +6,11 @@ export function OrderForm() {
   const [measurement, setMeasurement] = useState("");
   const [width, setWidth] = useState('');
   const [height, setHeight] = useState('');
-  const [design, setDesign] = useState('DESIGN-11')
+  const [design, setDesign] = useState('DESIGN-1')
 
   const handleUpdateOrder = async (event: React.FormEvent<HTMLFormElement>) => {
     event?.preventDefault()
-    const orders = await updateOrderByUserId(5, 350.79, design);
+    const orders = await updateOrderByUserId(3, 240.79, design);
     console.log("ORDER", orders);
   };
 

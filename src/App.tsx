@@ -15,7 +15,7 @@ function App() {
      const orderById = await fetchOrderByUserId()
     //  console.log(orderById, "<---order")
     const designs = await fetchDesignsByUserId()
-    // console.log("Users designs: ", designs)
+    console.log("Users designs: ", designs)
     })();
   }, []);
 

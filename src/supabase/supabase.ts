@@ -58,22 +58,30 @@ export async function fetchUserById() {
   }
 }
 
-export async function updateOrderByUserId(quantity: number, price: number, design: string) {
+export async function updateOrderByUserId(
+  quantity: number,
+  price: number,
+  design: string
+) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (user) {
-    const { data, error } = await supabase.from("orders").insert({
-      user_id: user.id,
-      quantity,
-      price,
-      design,
-    });
+    const { data, error } = await supabase
+      .from("orders")
+      .insert({
+        user_id: user.id,
+        quantity,
+        price,
+        design,
+      })
+      .select()
+      .single();
     if (error) {
       return { success: false, error };
     }
-    console.log(data, "order data")
+    console.log(data, "order data");
     return {
       success: true,
       orders: data,
@@ -120,10 +128,14 @@ export async function saveDesignByUserId(design_url: string) {
   } = await supabase.auth.getUser();
 
   if (user) {
-    const { data, error } = await supabase.from("designs").insert({
-      user_id: user.id,
-      design_url,
-    });
+    const { data, error } = await supabase
+      .from("designs")
+      .insert({
+        user_id: user.id,
+        design_url,
+      })
+      .select()
+      .single();
 
     if (error) {
       return { success: false, error };
@@ -137,7 +149,7 @@ export async function saveDesignByUserId(design_url: string) {
 }
 
 export async function fetchDesignsByUserId() {
-   const {
+  const {
     data: { user },
   } = await supabase.auth.getUser();
 
@@ -149,7 +161,29 @@ export async function fetchDesignsByUserId() {
     if (error) {
       return { success: false, error };
     }
-    console.log(data)
+    console.log(data);
+    return { success: true, data };
+  }
+}
+
+export async function updateProgressStatus(design_url: string, status: string) {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+    const { data, error } = await supabase
+      .from("progressStatus")
+      .insert({
+        design: design_url,
+        user_id: user.id,
+        status,
+      })
+      .select()
+      .single();
+    if (error) {
+      return { success: false, error };
+    }
     return { success: true, data };
   }
 }
