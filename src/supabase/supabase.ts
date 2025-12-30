@@ -58,7 +58,7 @@ export async function fetchUserById() {
   }
 }
 
-export async function updateOrderByUserId(quantity: number, price: number, design: string) {
+export async function updateOrderByUserId(quantity: number, price: number, design: string, date: string) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -69,6 +69,7 @@ export async function updateOrderByUserId(quantity: number, price: number, desig
       quantity,
       price,
       design,
+      date,
     });
     if (error) {
       return { success: false, error };
