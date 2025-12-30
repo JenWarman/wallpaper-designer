@@ -4,7 +4,7 @@ import { RegisterUser } from "./components/RegisterUser/RegisterUser";
 import {
   fetchDesignsByUserId,
   fetchOrderByUserId,
-  saveDesignByUserId,
+  createDesignByUserId,
 } from "./supabase/supabase";
 import { LoginUser } from "./components/LoginUser/LoginUser";
 import { OrderForm } from "./components/OrderForm/OrderForm";
@@ -15,13 +15,13 @@ function App() {
      const orderById = await fetchOrderByUserId()
     //  console.log(orderById, "<---order")
     const designs = await fetchDesignsByUserId()
-    console.log("Users designs: ", designs)
+    // console.log("Users designs: ", designs)
     })();
   }, []);
 
   const handleSaveDesign = async () => {
-    const design = await saveDesignByUserId("design-4")
-    console.log(design)
+    const design = await createDesignByUserId("design-4")
+    console.log(design, "design")
   }
 
   return (
