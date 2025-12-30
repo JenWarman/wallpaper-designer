@@ -27,7 +27,7 @@ describe("updateOrderByUserId", () => {
     });
 
     const insertMock = vi.fn().mockResolvedValue({
-      data: [{ id: "user-1", quantity: 4, price: 350.79 }],
+      data: [{ id: "user-1", quantity: 4, price: 350.79, design: "DESIGN-1" }],
       error: null,
     });
 
@@ -35,7 +35,7 @@ describe("updateOrderByUserId", () => {
       insert: insertMock,
     } as unknown as ReturnType<typeof supabase.from>);
 
-    const result = await updateOrderByUserId(4, 350.79);
+    const result = await updateOrderByUserId(4, 350.79, 'DESIGN-1');
     expect(result?.success).toBe(true);
     expect(insertMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -56,7 +56,7 @@ describe("updateOrderByUserId", () => {
       insert: insertMock,
     } as unknown as ReturnType<typeof supabase.from>);
 
-    const result = await updateOrderByUserId(4, 350.99);
+    const result = await updateOrderByUserId(4, 350.99, 'DESIGN-1');
 
     expect(result?.success).toBe(false);
     expect(insertMock).toHaveBeenCalled()
