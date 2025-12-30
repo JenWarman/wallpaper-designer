@@ -81,18 +81,11 @@ export async function updateOrderByUserId(
     if (error) {
       return { success: false, error };
     }
-    const { data: statusData, error: statusError } = await supabase
-      .from("progressStatus")
-      .insert({
-        design,
-        user_id: user.id,
-        status: "ordered",
-      })
-      .select()
-      .single();
-    if (statusError) {
-      return { success: false, statusError };
-    }
+    const statusData = await updateProgressStatus(
+      design,
+      "ordered",
+      user.id
+    );
     return {
       success: true,
       orders: data,
@@ -152,21 +145,34 @@ export async function createDesignByUserId(design_url: string) {
     if (designError) {
       return { success: false, designError };
     }
+    const statusData = await updateProgressStatus(
+      designData.design_url,
+      "saved",
+      user.id
+    );
 
-    const { data: statusData, error: statusError } = await supabase
-      .from("progressStatus")
-      .insert({
-        design: designData.design_url,
-        user_id: user.id,
-        status: "saved",
-      })
-      .select()
-      .single();
-    if (statusError) {
-      return { success: false, statusError };
-    }
-    return { success: true, design: designData, status: statusData.status };
+    return { success: true, design: designData, status: statusData };
   }
+}
+
+export async function updateProgressStatus(
+  design: string,
+  status: string,
+  user_id: string
+) {
+  const { data: statusData, error: statusError } = await supabase
+    .from("progressStatus")
+    .insert({
+      design,
+      user_id,
+      status,
+    })
+    .select()
+    .single();
+  if (statusError) {
+    return { success: false, statusError };
+  }
+  return { success: true, status: statusData.status };
 }
 
 export async function fetchDesignsByUserId() {
