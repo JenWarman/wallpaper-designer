@@ -19,7 +19,6 @@ export function RegisterUser() {
         return;
     }
     console.log("new user registered", newUserResult.user)
-    console.log("new account created")
   };
   
   return (

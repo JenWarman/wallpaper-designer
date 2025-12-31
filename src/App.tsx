@@ -2,39 +2,50 @@ import { useEffect } from "react";
 import "./App.css";
 import { RegisterUser } from "./components/RegisterUser/RegisterUser";
 import {
-  fetchDesignsByUserId,
-  fetchOrderByUserId,
   createDesignByUserId,
-  fetchUserById
+  getUserSession,
 } from "./supabase/supabase";
 import { LoginUser } from "./components/LoginUser/LoginUser";
 import { OrderForm } from "./components/OrderForm/OrderForm";
 import { ProgressBar } from "./components/ProgressBar/ProgressBar";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "./store/store";
+import { saveUser } from "./store/userSlice";
+import { getUserId, getUsername } from "./store/selectors/userSelector";
+
 function App() {
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
-     const orderById = await fetchOrderByUserId()
-    //  console.log(orderById, "<---order")
-    const designs = await fetchDesignsByUserId()
-    // console.log("Users designs: ", designs)
-    const user = await fetchUserById()
-    console.log(user)
+      const userSession = await getUserSession();
+      if (userSession) {
+        dispatch(
+          saveUser({
+            user_id: userSession.user_id,
+            username: userSession.username,
+          })
+        );
+      }
     })();
-    
-  }, []);
+  }, [dispatch]);
 
   const handleSaveDesign = async () => {
-    const design = await createDesignByUserId("design-4")
-    // console.log(design, "design")
-  }
+    await createDesignByUserId("design-4");
+  };
+
+  const userId = useSelector(getUserId);
+  const username = useSelector(getUsername);
 
   return (
     <>
-    <ProgressBar/>
+      <p>
+        User_id: {userId}, Username: {username}
+      </p>
+      <ProgressBar />
       <RegisterUser />
-      <LoginUser/>
-      <OrderForm/>
+      <LoginUser />
+      <OrderForm />
       <button onClick={handleSaveDesign}>Save Design</button>
     </>
   );

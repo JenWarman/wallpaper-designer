@@ -11,8 +11,6 @@ const [progressStatus, setProgressStatus] = useState('design')
       if (!progressStatus) return;
       if (progressStatus) {
         setProgressStatus(progressStatus?.status[0].status)
-        // console.log(progressStatus)
-        // console.log(progressStatus?.status[0].status, "progress status");
       }
     })();
   }, [progressStatus]);

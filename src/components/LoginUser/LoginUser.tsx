@@ -6,10 +6,12 @@ export function LoginUser() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLoginAndStartSession = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    loginAndStartSession(email, password)
-  }
+  const handleLoginAndStartSession = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
+    await loginAndStartSession(email, password);
+  };
 
   return (
     <div className={styles.container}>
