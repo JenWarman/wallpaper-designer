@@ -150,6 +150,23 @@ export async function createDesignByUserId(design_url: string) {
   }
 }
 
+export async function fetchDesignsByUserId() {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+    const { data, error } = await supabase
+      .from("designs")
+      .select("*")
+      .eq("user_id", user.id);
+    if (error) {
+      return { success: false, error };
+    }
+    return { success: true, data };
+  }
+}
+
 export async function updateProgressStatus({
   design,
   status,
@@ -174,19 +191,15 @@ export async function updateProgressStatus({
   return { success: true, status: statusData.status };
 }
 
-export async function fetchDesignsByUserId() {
-  const {
+export async function fetchProgressStatusByDesign () {
+const {
     data: { user },
   } = await supabase.auth.getUser();
-
   if (user) {
-    const { data, error } = await supabase
-      .from("designs")
-      .select("*")
-      .eq("user_id", user.id);
+    const {data, error} = await supabase.from("progressStatus").select("*").eq("design", "DESIGN-1")
     if (error) {
-      return { success: false, error };
+      return { success: false, error}
     }
-    return { success: true, data };
+    return { success: true, status: data}
   }
 }

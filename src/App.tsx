@@ -8,6 +8,7 @@ import {
 } from "./supabase/supabase";
 import { LoginUser } from "./components/LoginUser/LoginUser";
 import { OrderForm } from "./components/OrderForm/OrderForm";
+import { ProgressBar } from "./components/ProgressBar/ProgressBar";
 function App() {
 
   useEffect(() => {
@@ -17,6 +18,7 @@ function App() {
     const designs = await fetchDesignsByUserId()
     // console.log("Users designs: ", designs)
     })();
+    
   }, []);
 
   const handleSaveDesign = async () => {
@@ -26,6 +28,7 @@ function App() {
 
   return (
     <>
+    <ProgressBar/>
       <RegisterUser />
       <LoginUser/>
       <OrderForm/>
