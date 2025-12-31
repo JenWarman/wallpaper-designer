@@ -81,7 +81,11 @@ export async function updateOrderByUserId(
     if (error) {
       return { success: false, error };
     }
-    const statusData = await updateProgressStatus({design: design, status: "ordered", user_id:user.id});
+    const statusData = await updateProgressStatus({
+      design: design,
+      status: "ordered",
+      user_id: user.id,
+    });
     return {
       success: true,
       orders: data,
@@ -140,11 +144,11 @@ export async function createDesignByUserId(design_url: string) {
     if (designError) {
       return { success: false, designError };
     }
-    const statusData = await updateProgressStatus(
-      {design: designData.design_url,
+    const statusData = await updateProgressStatus({
+      design: designData.design_url,
       status: "saved",
-      user_id: user.id}
-    );
+      user_id: user.id,
+    });
 
     return { success: true, design: designData, status: statusData };
   }
@@ -191,15 +195,18 @@ export async function updateProgressStatus({
   return { success: true, status: statusData.status };
 }
 
-export async function fetchProgressStatusByDesign () {
-const {
+export async function fetchProgressStatusByDesign(design: string) {
+  const {
     data: { user },
   } = await supabase.auth.getUser();
   if (user) {
-    const {data, error} = await supabase.from("progressStatus").select("*").eq("design", "DESIGN-1")
+    const { data, error } = await supabase
+      .from("progressStatus")
+      .select("*")
+      .eq("design", design);
     if (error) {
-      return { success: false, error}
+      return { success: false, error };
     }
-    return { success: true, status: data}
+    return { success: true, status: data };
   }
 }
