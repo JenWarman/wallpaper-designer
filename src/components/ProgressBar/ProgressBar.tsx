@@ -11,15 +11,15 @@ const [progressStatus, setProgressStatus] = useState('design')
       if (!progressStatus) return;
       if (progressStatus) {
         setProgressStatus(progressStatus?.status[0].status)
-        console.log(progressStatus)
-        console.log(progressStatus?.status[0].status, "progress status");
+        // console.log(progressStatus)
+        // console.log(progressStatus?.status[0].status, "progress status");
       }
     })();
   }, [progressStatus]);
 
   return (
     <div className={styles.container}>
-      <h1>Progress of this design: {progressStatus} </h1>
+      <h3>Progress of this design: {progressStatus} </h3>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import {
   fetchDesignsByUserId,
   fetchOrderByUserId,
   createDesignByUserId,
+  fetchUserById
 } from "./supabase/supabase";
 import { LoginUser } from "./components/LoginUser/LoginUser";
 import { OrderForm } from "./components/OrderForm/OrderForm";
@@ -17,13 +18,15 @@ function App() {
     //  console.log(orderById, "<---order")
     const designs = await fetchDesignsByUserId()
     // console.log("Users designs: ", designs)
+    const user = await fetchUserById()
+    console.log(user)
     })();
     
   }, []);
 
   const handleSaveDesign = async () => {
     const design = await createDesignByUserId("design-4")
-    console.log(design, "design")
+    // console.log(design, "design")
   }
 
   return (
