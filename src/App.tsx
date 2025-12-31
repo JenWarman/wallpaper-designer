@@ -4,10 +4,12 @@ import { RegisterUser } from "./components/RegisterUser/RegisterUser";
 import {
   fetchDesignsByUserId,
   fetchOrderByUserId,
-  saveDesignByUserId,
+  createDesignByUserId,
+  fetchUserById
 } from "./supabase/supabase";
 import { LoginUser } from "./components/LoginUser/LoginUser";
 import { OrderForm } from "./components/OrderForm/OrderForm";
+import { ProgressBar } from "./components/ProgressBar/ProgressBar";
 function App() {
 
   useEffect(() => {
@@ -16,16 +18,20 @@ function App() {
     //  console.log(orderById, "<---order")
     const designs = await fetchDesignsByUserId()
     // console.log("Users designs: ", designs)
+    const user = await fetchUserById()
+    console.log(user)
     })();
+    
   }, []);
 
   const handleSaveDesign = async () => {
-    const design = await saveDesignByUserId("design-4")
-    console.log(design)
+    const design = await createDesignByUserId("design-4")
+    // console.log(design, "design")
   }
 
   return (
     <>
+    <ProgressBar/>
       <RegisterUser />
       <LoginUser/>
       <OrderForm/>
