@@ -33,6 +33,23 @@ export async function signUpAndCreateAccount(newUser: NewUser) {
   };
 }
 
+export async function getUserSession() {
+  const {data, error} = await supabase.auth.getSession()
+
+  if (error) {
+    return {
+      success: false, error
+    }
+  }
+  if (data.session?.user) {
+    return {
+      success: true,
+      user_id: data.session.user.id,
+      username: data.session.user.user_metadata.username
+    }
+  }
+}
+
 export async function fetchUsers() {
   const { data, error } = await supabase.from("usersAccount").select();
   if (error) {

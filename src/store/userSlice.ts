@@ -9,15 +9,18 @@ interface User {
 }
 
 const initialState: User = {
-    userAccount: {user_id: "", username: ""}
+    userAccount: {
+        user_id: "", 
+        username: ""
+    }
 }
 const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
         saveUser: (state, action) => {
-            console.log(action.payload)
-            return action.payload
+            state.userAccount.user_id = action.payload.user_id;
+            state.userAccount.username = action.payload.username;
         }
     }
 })
