@@ -11,7 +11,6 @@ export function LoginUser() {
   ) => {
     event.preventDefault();
     await loginAndStartSession(email, password);
-   
   };
 
   return (

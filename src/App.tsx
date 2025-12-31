@@ -11,6 +11,7 @@ import { ProgressBar } from "./components/ProgressBar/ProgressBar";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "./store/store";
 import { saveUser } from "./store/userSlice";
+import { getUserId, getUsername } from "./store/selectors/userSelector";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,12 +34,8 @@ function App() {
     await createDesignByUserId("design-4");
   };
 
-  const userId = useSelector(
-    (state: RootState) => state.user.userAccount.user_id
-  );
-  const username = useSelector(
-    (state: RootState) => state.user.userAccount.username
-  );
+  const userId = useSelector(getUserId);
+  const username = useSelector(getUsername);
 
   return (
     <>
