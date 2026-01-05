@@ -1,5 +1,6 @@
 import { loginAndStartSession } from "../../supabase/supabase";
 import { Form } from "../Form/Form";
+import { Input } from "../Input/Input";
 import styles from "./LoginUser.module.scss";
 import { useState } from "react";
 
@@ -17,38 +18,26 @@ export function LoginUser() {
   return (
     <div className={styles.container}>
       <h3>Login</h3>
-      {/* <form onSubmit={handleLoginAndStartSession}>
-        <div>
-          <label>Email</label>
-          <input
-            type="text"
-            placeholder="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </div>
-        <button>Login</button>
-      </form> */}
-      <Form
-        label={["email", "password"]}
-        type="text"
-        placeholder="email"
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-        ctaLabel="Login"
-        onSubmit={handleLoginAndStartSession}
-        arialabel="Login"
-        id="email"
-      />
+      <Form onSubmit={handleLoginAndStartSession} ctaLabel="Login">
+        <Input
+          label="email"
+          id="email"
+          ariaLabel="log in with email"
+          type="text"
+          placeholder="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+         <Input
+          label="password"
+          id="password"
+          ariaLabel="log in with password"
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+      </Form>
     </div>
   );
 }
