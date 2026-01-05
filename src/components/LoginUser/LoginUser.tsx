@@ -1,4 +1,5 @@
 import { loginAndStartSession } from "../../supabase/supabase";
+import { Form } from "../Form/Form";
 import styles from "./LoginUser.module.scss";
 import { useState } from "react";
 
@@ -16,7 +17,7 @@ export function LoginUser() {
   return (
     <div className={styles.container}>
       <h3>Login</h3>
-      <form onSubmit={handleLoginAndStartSession}>
+      {/* <form onSubmit={handleLoginAndStartSession}>
         <div>
           <label>Email</label>
           <input
@@ -36,7 +37,18 @@ export function LoginUser() {
           />
         </div>
         <button>Login</button>
-      </form>
+      </form> */}
+      <Form
+        label={["email", "password"]}
+        type="text"
+        placeholder="email"
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+        ctaLabel="Login"
+        onSubmit={handleLoginAndStartSession}
+        arialabel="Login"
+        id="email"
+      />
     </div>
   );
 }
