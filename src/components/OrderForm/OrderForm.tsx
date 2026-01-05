@@ -21,7 +21,7 @@ export function OrderForm() {
 
   return (
     <div className={styles.container}>
-      <h4>Your Design: {design}</h4>
+      <h3 className={styles.heading}>Your Design: {design}</h3>
       <Form onSubmit={handleCalculatePrice} ctaLabel="Get Price">
         <Input
           type="radio"

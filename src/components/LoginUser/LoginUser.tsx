@@ -17,7 +17,7 @@ export function LoginUser() {
 
   return (
     <div className={styles.container}>
-      <h3>Login</h3>
+      <h3 className={styles.heading}>Login</h3>
       <Form onSubmit={handleLoginAndStartSession} ctaLabel="Login">
         <Input
           label="email"

@@ -27,7 +27,7 @@ export function RegisterUser() {
 
   return (
     <div className={styles.container}>
-      <h3>Sign Up</h3>
+      <h3 className={styles.heading}>Sign Up</h3>
       <Form onSubmit={handleRegisterUser} ctaLabel="Get Price">
         <Input
           label="Name"

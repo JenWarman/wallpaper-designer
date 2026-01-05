@@ -19,17 +19,20 @@ export function Input({
   onChange,
   ariaLabel,
 }: InputProps) {
+
   return (
-    <label className={styles.input__label} htmlFor={id}>
-      {label}
+    <>
+      <label className={styles.input__label} htmlFor={id}>
+        {label}
+      </label>
       <input
         type={type}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
         aria-label={ariaLabel}
-        className={styles.input__input}
+        className={type !== "radio" ? styles.input__input : styles.input__radio}
       />
-    </label>
+    </>
   );
 }
