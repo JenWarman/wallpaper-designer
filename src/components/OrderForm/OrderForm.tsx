@@ -1,61 +1,73 @@
-import { useState } from "react";
-import { updateOrderByUserId } from "../../supabase/supabase";
+import { useActionState, useState } from "react";
 import styles from "./OrderForm.module.scss";
+import { Form } from "../Form/Form";
+import { Input } from "../Input/Input";
+import type { FormState } from "../../types/types";
+import { handleUpdateOrder } from "../../utils/formActions";
+import { dataTestIds } from "../../utils/dataTestIds";
 
 export function OrderForm() {
   const [measurement, setMeasurement] = useState("");
-  const [width, setWidth] = useState("");
-  const [height, setHeight] = useState("");
-  const [design, setDesign] = useState("DESIGN-1");
 
-  const handleUpdateOrder = async (event: React.FormEvent<HTMLFormElement>) => {
+  const [state, action, isPending] = useActionState<FormState, FormData>(
+    handleUpdateOrder,
+    {}
+  );
+
+  const handleCalculatePrice = (event: React.FormEvent<HTMLFormElement>) => {
     event?.preventDefault();
-    await updateOrderByUserId(3, 240.79, design);
+    console.log("calculate price");
   };
 
   return (
-    <div className={styles.container}>
-      <h4>Your Design: {design}</h4>
-      <form action="" onSubmit={handleUpdateOrder}>
-        <div>
-          <input
-            type="radio"
-            name="cms"
-            id="cms"
-            onChange={() => setMeasurement("cms")}
-          />
-          <label htmlFor="cms">cms</label>
-          <input
-            type="radio"
-            name="inches"
-            id="inches"
-            onChange={() => setMeasurement("inches")}
-          />
-          <label htmlFor="inches">inches</label>
+    <div className={styles.orderForm__container}>
+      <h3 className={styles.orderForm__heading}>Your Design: "Design-1"</h3>
+      <Form action={action} ctaLabel="Order" dataTestId={dataTestIds.form}>
+        <div className={styles.orderForm__radio}>
+        <Input
+          type="radio"
+          id="cms"
+          onChange={() => setMeasurement("cms")}
+          ariaLabel="select cms as measurment"
+          label="cms"
+          name="cms"
+          dataTestId={dataTestIds.input}
+        />
+        <Input
+          type="radio"
+          id="inches"
+          onChange={() => setMeasurement("inches")}
+          ariaLabel="select inches as measurment"
+          label="inches"
+          name="inches"
+          dataTestId={dataTestIds.input}
+        />
         </div>
-        <div>
-          <label htmlFor="width">Width of Wall</label>
-          <input
-            type="number"
-            value={width}
-            onChange={(event) => setWidth(event.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="height">Height of Wall</label>
-          <input
-            type="number"
-            value={height}
-            onChange={(event) => setHeight(event.target.value)}
-          />
-        </div>
-        <button>Get Price</button>
+        <Input
+          type="number"
+          name="width"
+          id="width"
+          ariaLabel="width of wall"
+          label="Width of Wall"
+          dataTestId={dataTestIds.input}
+        />
+        <Input
+          type="number"
+          id="height"
+          ariaLabel="height of wall"
+          label="height of Wall"
+          name="height"
+          dataTestId={dataTestIds.input}
+        />
+        <p className={styles.ordefForm__link}>Measuring Guide</p>
+        <button onClick={handleCalculatePrice}>Calculate Price</button>
         <div>
           <p>Our Price: </p>
           <p>£388.75</p>
         </div>
-        <button>Order</button>
-      </form>
+        {isPending && <p>Ordering...</p>}
+        {state.message}
+      </Form>
     </div>
   );
 }

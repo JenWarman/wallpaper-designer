@@ -1,42 +1,39 @@
-import { loginAndStartSession } from "../../supabase/supabase";
+import { handleLoginAndStartSession } from "../../utils/formActions";
+import { Form } from "../Form/Form";
+import { Input } from "../Input/Input";
 import styles from "./LoginUser.module.scss";
-import { useState } from "react";
+import { useActionState } from "react";
+import type { FormState } from "../../types/types";
+import {dataTestIds} from "../../utils/dataTestIds"
 
 export function LoginUser() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleLoginAndStartSession = async (
-    event: React.FormEvent<HTMLFormElement>
-  ) => {
-    event.preventDefault();
-    await loginAndStartSession(email, password);
-  };
+  const [state, action, isPending] = useActionState<FormState, FormData>(handleLoginAndStartSession, {})
 
   return (
     <div className={styles.container}>
-      <h3>Login</h3>
-      <form onSubmit={handleLoginAndStartSession}>
-        <div>
-          <label>Email</label>
-          <input
-            type="text"
-            placeholder="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </div>
-        <button>Login</button>
-      </form>
+      <h3 className={styles.heading}>Login</h3>
+      <Form action={action} ctaLabel="Login" dataTestId={dataTestIds.form}>
+        <Input
+          label="email"
+          id="email"
+          ariaLabel="log in with email"
+          type="text"
+          placeholder="email"
+          name="email"
+          dataTestId={dataTestIds.input}
+        />
+         <Input
+          label="password"
+          id="password"
+          ariaLabel="log in with password"
+          type="password"
+          placeholder="password"
+          name="password"
+          dataTestId={dataTestIds.input}
+        />
+      </Form>
+      {isPending && (<p>Logging in...</p>)}
+      {state.message}
     </div>
   );
 }

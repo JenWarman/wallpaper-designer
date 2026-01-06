@@ -1,65 +1,51 @@
-import { useState } from "react";
-import { signUpAndCreateAccount } from "../../supabase/supabase";
-import type { NewUser } from "../../types/types";
-import styles from "./RegisterUser.module.scss"
+import { useActionState } from "react";
+import styles from "./RegisterUser.module.scss";
+import { Form } from "../Form/Form";
+import { Input } from "../Input/Input";
+import type { FormState } from "../../types/types";
+import { handleRegisterUser } from "../../utils/formActions";
+import { dataTestIds } from "../../utils/dataTestIds";
 
 export function RegisterUser() {
-  const [newUser, setNewUser] = useState<NewUser>({
-    username: "",
-    email: "",
-    password: "",
-  });
+  const [state, action, isPending] = useActionState<FormState, FormData>(
+    handleRegisterUser,
+    {}
+  );
 
-  const handleRegisterUser = async (event: React.FormEvent<HTMLFormElement>) => {
-    event?.preventDefault();
-    const newUserResult = await signUpAndCreateAccount(newUser)
-
-    if (!newUserResult.success) {
-        console.log("ERROR: could not create account")
-        return;
-    }
-    console.log("new user registered", newUserResult.user)
-  };
-  
   return (
     <div className={styles.container}>
-      <h3>Sign Up</h3>
-      <form onSubmit={handleRegisterUser}>
-        <div>
-        <label>Name</label>
-        <input
+      <h3 className={styles.heading}>Sign Up</h3>
+      <Form action={action} ctaLabel="Register" dataTestId={dataTestIds.form}>
+        <Input
+          label="Username"
+          id="username"
+          ariaLabel="username"
           type="text"
-          placeholder="name"
-          value={newUser.username}
-          onChange={(event) =>
-            setNewUser({ ...newUser, username: event.target.value })
-          }
+          placeholder="username"
+          name="username"
+          dataTestId={dataTestIds.input}
         />
-        </div>
-        <div>
-        <label>Email</label>
-        <input
+        <Input
+          label="Email"
+          id="email"
+          ariaLabel="email"
           type="text"
           placeholder="email"
-          value={newUser.email}
-          onChange={(event) =>
-            setNewUser({ ...newUser, email: event.target.value })
-          }
+          name="email"
+          dataTestId={dataTestIds.input}
         />
-        </div>
-        <div>
-        <label>Password</label>
-        <input
-          type="text"
+        <Input
+          label="Password"
+          id="password"
+          ariaLabel="password"
+          type="password"
           placeholder="password"
-          value={newUser.password}
-          onChange={(event) =>
-            setNewUser({ ...newUser, password: event.target.value })
-          }
+          name="password"
+          dataTestId={dataTestIds.input}
         />
-        </div>
-        <button>Submit</button>
-      </form>
+      </Form>
+      {isPending && <p>Registering...</p>}
+      {state.message}
     </div>
   );
 }

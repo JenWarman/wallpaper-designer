@@ -1,0 +1,16 @@
+.input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  &__label,
+  &__input {
+    padding: 6px;
+    margin: 4px;
+    text-transform: uppercase;
+    letter-spacing: .1rem;
+  }
+  &__input {
+    border-radius: 6px;
+  }
+}
