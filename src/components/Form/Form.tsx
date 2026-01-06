@@ -1,14 +1,16 @@
+import { dataTestIds } from "../../utils/dataTestIds";
 import styles from "./Form.module.scss";
 
 type FormProps = {
-  action: React.FormHTMLAttributes<HTMLFormElement>["action"]
+  action: React.FormHTMLAttributes<HTMLFormElement>["action"];
   children: React.ReactNode;
   ctaLabel: string;
+  dataTestId: string;
 };
 
-export function Form({ action, children, ctaLabel }: FormProps) {
+export function Form({ action, children, ctaLabel, dataTestId }: FormProps) {
   return (
-    <form action={action} className={styles.form}>
+    <form action={action} className={styles.form} data-testid={dataTestId}>
       {children}
       <button className={styles.form__cta}>{ctaLabel}</button>
     </form>

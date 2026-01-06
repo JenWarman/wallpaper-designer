@@ -7,7 +7,8 @@ type InputProps = {
   placeholder?: string;
   ariaLabel: string;
   name: string;
-  onChange?:(value: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (value: React.ChangeEvent<HTMLInputElement>) => void;
+  dataTestId: string;
 };
 
 export function Input({
@@ -17,22 +18,24 @@ export function Input({
   placeholder,
   ariaLabel,
   name,
-  onChange
+  onChange,
+  dataTestId,
 }: InputProps) {
-
   return (
-    <>
+    <div className={styles.input}>
       <label className={styles.input__label} htmlFor={id}>
         {label}
+        <input
+          id={id}
+          type={type}
+          placeholder={placeholder}
+          name={name}
+          aria-label={ariaLabel}
+          onChange={onChange}
+          data-testid={dataTestId}
+          className={styles.input__input}
+        />
       </label>
-      <input
-        type={type}
-        placeholder={placeholder}
-        name={name}
-        aria-label={ariaLabel}
-        onChange={onChange}
-        className={type !== "radio" ? styles.input__input : styles.input__radio}
-      />
-    </>
+    </div>
   );
 }

@@ -1,17 +1,16 @@
 .input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   &__label,
   &__input {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px;
+    padding: 6px;
+    margin: 4px;
+    text-transform: uppercase;
+    letter-spacing: .1rem;
   }
   &__input {
-    margin-bottom: 10px;
     border-radius: 6px;
-  }
-
-  &__radio {
-    display: inline-block;
   }
 }

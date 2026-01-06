@@ -4,6 +4,7 @@ import { Input } from "../Input/Input";
 import styles from "./LoginUser.module.scss";
 import { useActionState } from "react";
 import type { FormState } from "../../types/types";
+import {dataTestIds} from "../../utils/dataTestIds"
 
 export function LoginUser() {
   const [state, action, isPending] = useActionState<FormState, FormData>(handleLoginAndStartSession, {})
@@ -11,7 +12,7 @@ export function LoginUser() {
   return (
     <div className={styles.container}>
       <h3 className={styles.heading}>Login</h3>
-      <Form action={action} ctaLabel="Login">
+      <Form action={action} ctaLabel="Login" dataTestId={dataTestIds.form}>
         <Input
           label="email"
           id="email"
@@ -19,6 +20,7 @@ export function LoginUser() {
           type="text"
           placeholder="email"
           name="email"
+          dataTestId={dataTestIds.input}
         />
          <Input
           label="password"
@@ -27,6 +29,7 @@ export function LoginUser() {
           type="password"
           placeholder="password"
           name="password"
+          dataTestId={dataTestIds.input}
         />
       </Form>
       {isPending && (<p>Logging in...</p>)}
