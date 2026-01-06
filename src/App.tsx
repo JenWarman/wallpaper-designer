@@ -42,10 +42,10 @@ function App() {
         User_id: {userId}, Username: {username}
       </p>
       <ProgressBar />
-      <RegisterUser />
+      {/* <RegisterUser /> */}
       <LoginUser />
-      <OrderForm />
-      <button onClick={handleSaveDesign}>Save Design</button>
+      {/* <OrderForm /> */}
+      {/* <button onClick={handleSaveDesign}>Save Design</button> */}
     </>
   );
 }

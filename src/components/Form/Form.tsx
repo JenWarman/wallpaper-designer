@@ -1,14 +1,14 @@
 import styles from "./Form.module.scss";
 
 type FormProps = {
-  onSubmit: (value: React.FormEvent<HTMLFormElement>) => void;
+  action: React.FormHTMLAttributes<HTMLFormElement>["action"]
   children: React.ReactNode;
   ctaLabel: string;
 };
 
-export function Form({ onSubmit, children, ctaLabel }: FormProps) {
+export function Form({ action, children, ctaLabel }: FormProps) {
   return (
-    <form onSubmit={onSubmit} className={styles.form}>
+    <form action={action} className={styles.form}>
       {children}
       <button className={styles.form__cta}>{ctaLabel}</button>
     </form>

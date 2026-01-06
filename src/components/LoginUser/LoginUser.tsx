@@ -1,32 +1,24 @@
-import { loginAndStartSession } from "../../supabase/supabase";
+import { handleLoginAndStartSession } from "../../utils/formActions";
 import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
 import styles from "./LoginUser.module.scss";
-import { useState } from "react";
+import { useActionState } from "react";
+import type { LoginState } from "../../types/types";
 
 export function LoginUser() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleLoginAndStartSession = async (
-    event: React.FormEvent<HTMLFormElement>
-  ) => {
-    event.preventDefault();
-    await loginAndStartSession(email, password);
-  };
+  const [state, action, isPending] = useActionState<LoginState, FormData>(handleLoginAndStartSession, {})
 
   return (
     <div className={styles.container}>
       <h3 className={styles.heading}>Login</h3>
-      <Form onSubmit={handleLoginAndStartSession} ctaLabel="Login">
+      <Form action={action} ctaLabel="Login">
         <Input
           label="email"
           id="email"
           ariaLabel="log in with email"
           type="text"
           placeholder="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          name="email"
         />
          <Input
           label="password"
@@ -34,10 +26,11 @@ export function LoginUser() {
           ariaLabel="log in with password"
           type="password"
           placeholder="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
+          name="password"
         />
       </Form>
+      {isPending && (<p>Logging in...</p>)}
+      {state.message}
     </div>
   );
 }

@@ -3,3 +3,5 @@ export interface NewUser {
     email: string;
     password: string;
 }
+
+export type LoginState ={ message?: string}
