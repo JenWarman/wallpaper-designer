@@ -43,8 +43,8 @@ function App() {
       </p>
       <ProgressBar />
       {/* <RegisterUser /> */}
-      <LoginUser />
-      {/* <OrderForm /> */}
+      {/* <LoginUser /> */}
+      <OrderForm />
       {/* <button onClick={handleSaveDesign}>Save Design</button> */}
     </>
   );

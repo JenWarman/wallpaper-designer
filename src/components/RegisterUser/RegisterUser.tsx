@@ -1,53 +1,35 @@
-import { useState } from "react";
-import { signUpAndCreateAccount } from "../../supabase/supabase";
-import type { NewUser } from "../../types/types";
+import { useActionState } from "react";
 import styles from "./RegisterUser.module.scss";
 import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
+import type { FormState } from "../../types/types";
+import { handleRegisterUser } from "../../utils/formActions";
 
 export function RegisterUser() {
-  const [newUser, setNewUser] = useState<NewUser>({
-    username: "",
-    email: "",
-    password: "",
-  });
-
-  const handleRegisterUser = async (
-    event: React.FormEvent<HTMLFormElement>
-  ) => {
-    event?.preventDefault();
-    const newUserResult = await signUpAndCreateAccount(newUser);
-
-    if (!newUserResult.success) {
-      console.log("ERROR: could not create account");
-      return;
-    }
-    console.log("new user registered", newUserResult.user);
-  };
+  const [state, action, isPending] = useActionState<FormState, FormData>(
+    handleRegisterUser,
+    {}
+  );
 
   return (
     <div className={styles.container}>
       <h3 className={styles.heading}>Sign Up</h3>
-      <Form onSubmit={handleRegisterUser} ctaLabel="Get Price">
+      <Form action={action} ctaLabel="Register">
         <Input
-          label="Name"
-          id="name"
-          ariaLabel="name"
+          label="Username"
+          id="username"
+          ariaLabel="username"
           type="text"
-          placeholder="name"
-          value={newUser.username}
-          onChange={(event) =>
-            setNewUser({ ...newUser, username: event.target.value })}
+          placeholder="username"
+          name="username"
         />
-          <Input
+        <Input
           label="Email"
           id="email"
           ariaLabel="email"
           type="text"
           placeholder="email"
-          value={newUser.email}
-          onChange={(event) =>
-            setNewUser({ ...newUser, username: event.target.value })}
+          name="email"
         />
         <Input
           label="Password"
@@ -55,11 +37,11 @@ export function RegisterUser() {
           ariaLabel="password"
           type="password"
           placeholder="password"
-          value={newUser.password}
-          onChange={(event) =>
-            setNewUser({ ...newUser, username: event.target.value })}
+          name="password"
         />
       </Form>
+      {isPending && <p>Registering...</p>}
+      {state.message}
     </div>
   );
 }

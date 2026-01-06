@@ -3,10 +3,10 @@ import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
 import styles from "./LoginUser.module.scss";
 import { useActionState } from "react";
-import type { LoginState } from "../../types/types";
+import type { FormState } from "../../types/types";
 
 export function LoginUser() {
-  const [state, action, isPending] = useActionState<LoginState, FormData>(handleLoginAndStartSession, {})
+  const [state, action, isPending] = useActionState<FormState, FormData>(handleLoginAndStartSession, {})
 
   return (
     <div className={styles.container}>

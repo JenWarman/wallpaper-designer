@@ -6,7 +6,8 @@ type InputProps = {
   type: string;
   placeholder?: string;
   ariaLabel: string;
-  name: string
+  name: string;
+  onChange?:(value: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export function Input({
@@ -16,6 +17,7 @@ export function Input({
   placeholder,
   ariaLabel,
   name,
+  onChange
 }: InputProps) {
 
   return (
@@ -28,6 +30,7 @@ export function Input({
         placeholder={placeholder}
         name={name}
         aria-label={ariaLabel}
+        onChange={onChange}
         className={type !== "radio" ? styles.input__input : styles.input__radio}
       />
     </>

@@ -4,4 +4,4 @@ export interface NewUser {
     password: string;
 }
 
-export type LoginState ={ message?: string}
+export type FormState ={ message?: string}
