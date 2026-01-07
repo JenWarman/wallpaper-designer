@@ -2,21 +2,22 @@ import { useActionState} from "react";
 import styles from "./OrderForm.module.scss";
 import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
-import type { FormState } from "../../types/types";
+import type { OrderFormState } from "../../types/types";
 import {
   handleCalculatePrice,
 } from "../../utils/formActions";
 import { dataTestIds } from "../../utils/dataTestIds";
+import { updateOrderByUserId } from "../../supabase/supabase";
 
 export function OrderForm() {
 
-  const [state, action, isPending] = useActionState<FormState, FormData>(
+  const [state, action, isPending] = useActionState<OrderFormState, FormData>(
     handleCalculatePrice,
-    {}
+    {quantity: 0, price: 0}
   );
 
-  const handlePlaceOrder = () => {
-    console.log("placing order...")
+  const handlePlaceOrder = async() => {
+    await updateOrderByUserId(state.quantity, state.price, "design-1")
   }
 
   return (
