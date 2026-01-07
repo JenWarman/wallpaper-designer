@@ -5,3 +5,5 @@ export interface NewUser {
 }
 
 export type FormState ={ message?: string}
+
+export type OrderFormState ={ message?: string, quantity: number, price: number}
