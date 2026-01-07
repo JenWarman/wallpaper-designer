@@ -1,24 +1,22 @@
-import { useActionState} from "react";
+import { useActionState } from "react";
 import styles from "./OrderForm.module.scss";
 import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
 import type { OrderFormState } from "../../types/types";
-import {
-  handleCalculatePrice,
-} from "../../utils/formActions";
+import { handleCalculatePrice } from "../../utils/formActions";
 import { dataTestIds } from "../../utils/dataTestIds";
 import { updateOrderByUserId } from "../../supabase/supabase";
+import { Cta } from "../Cta/Cta";
 
 export function OrderForm() {
-
   const [state, action, isPending] = useActionState<OrderFormState, FormData>(
     handleCalculatePrice,
-    {quantity: 0, price: 0}
+    { quantity: 0, price: 0 }
   );
 
-  const handlePlaceOrder = async() => {
-    await updateOrderByUserId(state.quantity, state.price, "design-1")
-  }
+  const handlePlaceOrder = async () => {
+    await updateOrderByUserId(state.quantity, state.price, "design-1");
+  };
 
   return (
     <div className={styles.orderForm__container}>
@@ -63,13 +61,19 @@ export function OrderForm() {
           dataTestId={dataTestIds.input}
         />
         <p className={styles.orderForm__link}>Measuring Guide</p>
-        
+
         <div>
-          {isPending && <p>Ordering...</p>}
+          {isPending && <p>Calculating...</p>}
           {state.message}
         </div>
       </Form>
-      <button onClick={handlePlaceOrder}>Place Order</button>
+      <Cta
+        ctaFunction={handlePlaceOrder}
+        label="Order"
+        ariaLabel="Place order"
+        type="button"
+        dataTestId={dataTestIds.cta}
+      />
     </div>
   );
 }

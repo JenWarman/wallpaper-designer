@@ -1,0 +1,25 @@
+.cta {
+    display: inline-flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    height: 2.2rem;
+    margin: 1rem;
+    border: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.2rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    background-color: black;
+    color: white;
+    font-family: "Aboreto", system-ui;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        background-color: rgb(75, 74, 74);
+    }
+    &:disabled {
+        background-color: rgb(143, 143, 142);
+    }
+}
