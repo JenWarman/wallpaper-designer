@@ -4,6 +4,7 @@ import {
   updateOrderByUserId,
 } from "../supabase/supabase";
 import type { FormState } from "../types/types";
+import { calculatePrice, calculateQuantity } from "./calculateWallpaper";
 
 export const handleLoginAndStartSession = async (
   prevState: FormState,
@@ -46,23 +47,56 @@ export const handleRegisterUser = async (
   return { message: `Welcome ${username}` };
 };
 
-export const handleUpdateOrder = async (
+// export const handleUpdateOrder = async (
+//     prevState: FormState,
+//     formData: FormData
+//   ): Promise<FormState> => {
+//     const width = formData.get("width")
+//     const height = formData.get("height")
+//     const design = "Design-1"
+//     const cms = formData.get("cms")
+//     const inches = formData.get("inches")
+
+//     console.log(cms, "cms")
+//     console.log(inches, "inches")
+//     if (!width || !height || !design) {
+//       return {message: "Please enter valid measurements"}
+//     }
+
+//     // const quantity = calculateQuantity(width, height, measurment)
+
+//     const result = await updateOrderByUserId(3, 240.79, design);
+
+//     if (!result?.success) {
+//       return {message: "Order could not be placed"}
+//     }
+
+//     return {message: "Order has been placed."}
+//   };
+
+  export const handleCalculatePrice = async (
     prevState: FormState,
     formData: FormData
   ): Promise<FormState> => {
-    const width = formData.get("width")
-    const height = formData.get("height")
+    const width = formData.get("width") as string
+    const height = formData.get("height") as string
     const design = "Design-1"
+    const cms = formData.get("cms") as string
+    const inches = formData.get("inches") as string
 
     if (!width || !height || !design) {
       return {message: "Please enter valid measurements"}
     }
 
-    const result = await updateOrderByUserId(3, 240.79, design);
-
-    if (!result?.success) {
-      return {message: "Order could not be placed"}
+    let measurement;
+    if (cms) {
+      measurement = "cms"
+    } else {
+      measurement = "inches"
     }
 
-    return {message: "Order has been placed."}
+    const quantity = calculateQuantity(parseInt(width), parseInt(height), measurement)
+    const price = calculatePrice(quantity)
+    
+    return {message: `Total price: £${price}`}
   };
