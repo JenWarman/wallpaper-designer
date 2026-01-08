@@ -15,7 +15,7 @@ export function RegisterUser() {
   return (
     <div className={styles.container}>
       <h3 className={styles.heading}>Sign Up</h3>
-      <Form action={action} ctaLabel="Register" dataTestId={dataTestIds.form}>
+      <Form action={action} ctaLabel="Register" dataTestId={dataTestIds.form} ctaAriaLabel="Register as new user">
         <Input
           label="Username"
           id="username"

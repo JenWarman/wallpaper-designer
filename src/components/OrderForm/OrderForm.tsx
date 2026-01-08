@@ -1,4 +1,4 @@
-import { useActionState } from "react";
+import { useActionState, useEffect} from "react";
 import styles from "./OrderForm.module.scss";
 import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
@@ -7,8 +7,13 @@ import { handleCalculatePrice } from "../../utils/formActions";
 import { dataTestIds } from "../../utils/dataTestIds";
 import { updateOrderByUserId } from "../../supabase/supabase";
 import { Cta } from "../Cta/Cta";
+import { useDispatch, useSelector } from "react-redux";
+import { orderPlaced, priceCalculated } from "../../store/orderSlice";
+import type { RootState } from "../../store/store";
 
 export function OrderForm() {
+  const dispatch = useDispatch()
+
   const [state, action, isPending] = useActionState<OrderFormState, FormData>(
     handleCalculatePrice,
     { quantity: 0, price: 0 }
@@ -18,6 +23,14 @@ export function OrderForm() {
     await updateOrderByUserId(state.quantity, state.price, "design-1");
   };
 
+  useEffect(() => {
+    dispatch(priceCalculated())
+    dispatch(orderPlaced())
+  }, [state, dispatch])
+
+  const readyToCalculate = useSelector((state: RootState) => state.order.priceCalculated)
+  const readyToOrder = useSelector((state: RootState) => state.order.orderPlaced)
+
   return (
     <div className={styles.orderForm__container}>
       <h3 className={styles.orderForm__heading}>Your Design: "Design-1"</h3>
@@ -25,6 +38,8 @@ export function OrderForm() {
         action={action}
         ctaLabel="Calculate Price"
         dataTestId={dataTestIds.form}
+        ctaAriaLabel="calculate price of wallpaper"
+        // ctaDisabled={!readyToCalculate}
       >
         <div className={styles.orderForm__radio}>
           <Input
@@ -73,6 +88,7 @@ export function OrderForm() {
         ariaLabel="Place order"
         type="button"
         dataTestId={dataTestIds.cta}
+        disabled={!readyToOrder}
       />
     </div>
   );

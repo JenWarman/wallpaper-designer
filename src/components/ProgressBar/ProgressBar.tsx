@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
-import styles from "./ProgressBar.module.scss";
-import { fetchProgressStatusByDesign } from "../../supabase/supabase";
+// import { useEffect, useState } from "react";
+// import styles from "./ProgressBar.module.scss";
+// import { fetchProgressStatusByDesign } from "../../supabase/supabase";
 
-export function ProgressBar() {
-const [progressStatus, setProgressStatus] = useState('design')
+// export function ProgressBar() {
+// const [progressStatus, setProgressStatus] = useState('design')
 
-  useEffect(() => {
-    (async () => {
-      const progressStatus = await fetchProgressStatusByDesign("DESIGN-1");
-      if (!progressStatus) return;
-      if (progressStatus) {
-        setProgressStatus(progressStatus?.status[0].status)
-      }
-    })();
-  }, [progressStatus]);
+//   useEffect(() => {
+//     (async () => {
+//       const progressStatus = await fetchProgressStatusByDesign("DESIGN-1");
+//       if (!progressStatus) return;
+//       if (progressStatus) {
+//         setProgressStatus(progressStatus?.status[0].status)
+//       }
+//     })();
+//   }, [progressStatus]);
 
-  return (
-    <div className={styles.container}>
-      <h3>Progress of this design: {progressStatus} </h3>
-    </div>
-  );
-}
+//   return (
+//     <div className={styles.container}>
+//       <h3>Progress of this design: {progressStatus} </h3>
+//     </div>
+//   );
+// }

@@ -12,7 +12,7 @@ export function LoginUser() {
   return (
     <div className={styles.container}>
       <h3 className={styles.heading}>Login</h3>
-      <Form action={action} ctaLabel="Login" dataTestId={dataTestIds.form}>
+      <Form action={action} ctaLabel="Login" dataTestId={dataTestIds.form} ctaAriaLabel="Login">
         <Input
           label="email"
           id="email"
