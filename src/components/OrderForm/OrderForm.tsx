@@ -9,7 +9,7 @@ import { updateOrderByUserId } from "../../supabase/supabase";
 import { Cta } from "../Cta/Cta";
 import { useDispatch, useSelector } from "react-redux";
 import { orderPlaced } from "../../store/orderSlice";
-import type { RootState } from "../../store/store";
+import { getOrderPlaced } from "../../store/selectors/userSelector";
 
 export function OrderForm() {
   const [formData, setFormData] = useState({
@@ -48,9 +48,7 @@ export function OrderForm() {
     }
   }, [state.price, state.quantity, dispatch]);
 
-  const readyToOrder = useSelector(
-    (state: RootState) => state.order.orderPlaced
-  );
+  const readyToOrder = useSelector(getOrderPlaced)
 
   return (
     <div className={styles.orderForm__container}>
