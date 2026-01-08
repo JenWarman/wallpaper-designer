@@ -7,10 +7,12 @@ import {
 } from "./supabase/supabase";
 import { LoginUser } from "./components/LoginUser/LoginUser";
 import { OrderForm } from "./components/OrderForm/OrderForm";
-import { ProgressBar } from "./components/ProgressBar/ProgressBar";
+// import { ProgressBar } from "./components/ProgressBar/ProgressBar";
 import { useDispatch, useSelector } from "react-redux";
 import { saveUser } from "./store/userSlice";
 import { getUserId, getUsername } from "./store/selectors/userSelector";
+import { Cta } from "./components/Cta/Cta";
+import { dataTestIds } from "./utils/dataTestIds";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,11 +43,11 @@ function App() {
       <p>
         User_id: {userId}, Username: {username}
       </p>
-      <ProgressBar />
-      {/* <RegisterUser /> */}
-      {/* <LoginUser /> */}
+      {/* <ProgressBar /> */}
+     {/* <RegisterUser />  */}
+      {/* <LoginUser />  */}
       <OrderForm />
-      {/* <button onClick={handleSaveDesign}>Save Design</button> */}
+      <Cta ctaFunction={handleSaveDesign} dataTestId={dataTestIds.cta} label="Save Design" ariaLabel="save your design" type="button"/>
     </>
   );
 }

@@ -53,8 +53,7 @@ export const handleCalculatePrice = async (
   const width = formData.get("width") as string;
   const height = formData.get("height") as string;
   const design = "Design-1";
-  const cms = formData.get("cms") as string;
-  const inches = formData.get("inches") as string;
+ const measurement = formData.get("measurement") as string
 
   if (!width || !height || !design) {
     return {
@@ -64,11 +63,11 @@ export const handleCalculatePrice = async (
     };
   }
 
-  let measurement;
-  if (cms) {
-    measurement = "cms";
+  let measurementType;
+  if (measurement === "cms") {
+    measurementType = "cms";
   } else {
-    measurement = "inches";
+    measurementType = "inches";
   }
 
   const quantity = calculateQuantity(

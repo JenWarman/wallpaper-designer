@@ -1,4 +1,5 @@
 import { dataTestIds } from "../../utils/dataTestIds";
+import { Cta } from "../Cta/Cta";
 import styles from "./Form.module.scss";
 
 type FormProps = {
@@ -6,13 +7,28 @@ type FormProps = {
   children: React.ReactNode;
   ctaLabel: string;
   dataTestId: string;
+  ctaAriaLabel: string;
+  ctaDisabled?: boolean;
 };
 
-export function Form({ action, children, ctaLabel, dataTestId }: FormProps) {
+export function Form({
+  action,
+  children,
+  ctaLabel,
+  dataTestId,
+  ctaAriaLabel,
+  ctaDisabled,
+}: FormProps) {
   return (
     <form action={action} className={styles.form} data-testid={dataTestId}>
       {children}
-      <button className={styles.form__cta}>{ctaLabel}</button>
+      <Cta
+        dataTestId={dataTestIds["form-cta"]}
+        label={ctaLabel}
+        type="submit"
+        ariaLabel={ctaAriaLabel}
+        disabled={ctaDisabled}
+      />
     </form>
   );
 }
