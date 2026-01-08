@@ -45,8 +45,8 @@ function App() {
       </p>
       {/* <ProgressBar /> */}
      {/* <RegisterUser />  */}
-      <LoginUser /> 
-      {/* <OrderForm /> */}
+      {/* <LoginUser />  */}
+      <OrderForm />
       <Cta ctaFunction={handleSaveDesign} dataTestId={dataTestIds.cta} label="Save Design" ariaLabel="save your design" type="button"/>
     </>
   );

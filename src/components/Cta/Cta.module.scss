@@ -16,7 +16,7 @@
     font-family: "Aboreto", system-ui;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    &:hover {
+    &:hover, &:focus {
         background-color: rgb(75, 74, 74);
     }
     &:disabled {

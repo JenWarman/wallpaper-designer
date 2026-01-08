@@ -23,7 +23,7 @@ export function Form({
     <form action={action} className={styles.form} data-testid={dataTestId}>
       {children}
       <Cta
-        dataTestId={dataTestIds.cta}
+        dataTestId={dataTestIds["form-cta"]}
         label={ctaLabel}
         type="submit"
         ariaLabel={ctaAriaLabel}

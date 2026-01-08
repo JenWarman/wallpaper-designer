@@ -17,6 +17,18 @@ export function Cta({
   ariaLabel,
   type= "submit"
 }: CtaProps) {
+
+  if (type === "submit") {
+    return (
+      <button
+      data-testid={dataTestId}
+      disabled={disabled}
+      aria-label={ariaLabel}
+      type={type}
+      className={styles.cta}
+      >{label}</button>
+    )
+  }
   return (
     <button
       onClick={ctaFunction}
