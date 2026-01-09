@@ -1,9 +1,9 @@
 import {
   loginAndStartSession,
   signUpAndCreateAccount,
-} from "../supabase/supabase";
-import type { FormState, OrderFormState } from "../types/types";
-import { calculatePrice, calculateQuantity } from "./calculateWallpaper";
+} from "../../supabase/supabase";
+import type { FormState, OrderFormState } from "../../types/types";
+import { calculatePrice, calculateQuantity } from "../calculateWallpaper";
 
 export const handleLoginAndStartSession = async (
   prevState: FormState,
