@@ -31,3 +31,12 @@ export const validatePassword = (value: string) => {
     return "Password must include one uppercase letter, one lowercase letter, one number, one special character and be at least 8 characters long.";
   return "";
 };
+
+export const validateMeasurement = (
+  value: string,
+) => {
+  if (value.length < 2) {
+    return "Please enter a valid measurement";
+  }
+  return "";
+};

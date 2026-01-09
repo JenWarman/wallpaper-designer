@@ -50,8 +50,8 @@ export const handleCalculatePrice = async (
   prevState: OrderFormState,
   formData: FormData
 ): Promise<OrderFormState> => {
-  const width = formData.get("width")
-  const height = formData.get("height")
+  const width = formData.get("width") as string
+  const height = formData.get("height") as string
  const measurement = formData.get("measurement") as string
 
   if (!width || !height) {
@@ -69,7 +69,7 @@ export const handleCalculatePrice = async (
     measurementType = "inches";
   }
 
-  const quantity = calculateQuantity( width, height, measurement);
+  const quantity = calculateQuantity( parseInt(width), parseInt(height), measurement);
 
   const price = calculatePrice(quantity);
 

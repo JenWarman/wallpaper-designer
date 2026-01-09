@@ -10,6 +10,7 @@ import { Cta } from "../Cta/Cta";
 import { useDispatch, useSelector } from "react-redux";
 import { orderPlaced } from "../../store/orderSlice";
 import { getOrderPlaced } from "../../store/selectors/userSelector";
+import { validateMeasurement } from "../../utils/forms/formValidation";
 
 export function OrderForm() {
   const [formData, setFormData] = useState({
@@ -17,6 +18,8 @@ export function OrderForm() {
     height: "",
     measurement: "",
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [ordered, setOrdered] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -27,6 +30,7 @@ export function OrderForm() {
 
   const handlePlaceOrder = async () => {
     await updateOrderByUserId(state.quantity, state.price, "design-1");
+    setOrdered(true);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +38,24 @@ export function OrderForm() {
       ...prev,
       [event.target.type === "radio" ? "measurement" : event.target.name]:
         event.target.value,
+    }));
+  };
+
+  const handleBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let errorMessage = "";
+    switch (event.target.name) {
+      case "width":
+        errorMessage = validateMeasurement(event.target.value);
+        break;
+      case "height":
+        errorMessage = errorMessage = validateMeasurement(event.target.value);
+        break;
+      default:
+        errorMessage = "Please enter a valid measurements";
+    }
+    setErrors((prev) => ({
+      ...prev,
+      [event?.target.name]: errorMessage,
     }));
   };
 
@@ -48,7 +70,7 @@ export function OrderForm() {
     }
   }, [state.price, state.quantity, dispatch]);
 
-  const readyToOrder = useSelector(getOrderPlaced)
+  const readyToOrder = useSelector(getOrderPlaced);
 
   return (
     <div className={styles.orderForm__container}>
@@ -69,6 +91,7 @@ export function OrderForm() {
             name="measurement"
             dataTestId={dataTestIds.input}
             onChange={handleChange}
+            onBlur={handleBlur}
           />
           <Input
             type="radio"
@@ -78,6 +101,7 @@ export function OrderForm() {
             name="measurement"
             dataTestId={dataTestIds.input}
             onChange={handleChange}
+            onBlur={handleBlur}
           />
         </div>
         <Input
@@ -88,7 +112,9 @@ export function OrderForm() {
           label="Width of Wall"
           dataTestId={dataTestIds.input}
           onChange={handleChange}
+          onBlur={handleBlur}
         />
+        {errors && <span className="error">{errors.width}</span>}
         <Input
           type="number"
           id="height"
@@ -97,22 +123,32 @@ export function OrderForm() {
           name="height"
           dataTestId={dataTestIds.input}
           onChange={handleChange}
+          onBlur={handleBlur}
         />
-        <p className={styles.orderForm__link}>Measuring Guide</p>
-
-        <div>
-          {isPending && <p>Calculating...</p>}
-          {state.message}
+        {errors && <span className="error">{errors.height}</span>}
+        <div className={styles.orderForm__link}>
+          <a href="">Measuring Guide</a>
         </div>
       </Form>
-      <Cta
-        ctaFunction={handlePlaceOrder}
-        label="Order"
-        ariaLabel="Place order"
-        type="button"
-        dataTestId={dataTestIds.cta}
-        disabled={!readyToOrder}
-      />
+      <div className={styles.orderForm__price}>
+        {isPending && <p>Calculating...</p>}
+        {state.message}
+      </div>
+      <div className={styles.orderForm__cta}>
+        <Cta
+          ctaFunction={handlePlaceOrder}
+          label="Order"
+          ariaLabel="Place order"
+          type="button"
+          dataTestId={dataTestIds.cta}
+          disabled={!readyToOrder}
+        />
+        {ordered && (
+          <p className={styles.orderForm__message}>
+            Your Order has been placed.
+          </p>
+        )}
+      </div>
     </div>
   );
 }

@@ -23,9 +23,11 @@ export function Input({
   onBlur,
   dataTestId,
 }: InputProps) {
+  const conditionalClassName = type === "radio" ? "radio" : "input"
+    
   return (
-    <div className={styles.input}>
-      <label className={styles.input__label} htmlFor={id}>
+      <div className={styles[conditionalClassName]}>
+      <label className={styles[`${conditionalClassName}__label`]} htmlFor={id}>
         {label}
         <input
           id={id}
@@ -36,7 +38,7 @@ export function Input({
           onChange={onChange}
           onBlur={onBlur}
           data-testid={dataTestId}
-          className={styles.input__input}
+          className={styles[`${conditionalClassName}__input`]}
         />
       </label>
     </div>
