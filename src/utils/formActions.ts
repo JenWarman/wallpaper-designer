@@ -50,12 +50,11 @@ export const handleCalculatePrice = async (
   prevState: OrderFormState,
   formData: FormData
 ): Promise<OrderFormState> => {
-  const width = formData.get("width") as string;
-  const height = formData.get("height") as string;
-  const design = "Design-1";
+  const width = formData.get("width")
+  const height = formData.get("height")
  const measurement = formData.get("measurement") as string
 
-  if (!width || !height || !design) {
+  if (!width || !height) {
     return {
       message: "Please enter valid measurements",
       quantity: 0,
@@ -70,11 +69,8 @@ export const handleCalculatePrice = async (
     measurementType = "inches";
   }
 
-  const quantity = calculateQuantity(
-    parseInt(width),
-    parseInt(height),
-    measurement
-  );
+  const quantity = calculateQuantity( width, height, measurement);
+
   const price = calculatePrice(quantity);
 
   return { message: `Total price: £${price}`, quantity, price };

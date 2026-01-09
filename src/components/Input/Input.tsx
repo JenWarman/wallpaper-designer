@@ -8,6 +8,7 @@ type InputProps = {
   ariaLabel: string;
   name: string;
   onChange?: (value: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (value: React.ChangeEvent<HTMLInputElement>) => void;
   dataTestId: string;
 };
 
@@ -19,6 +20,7 @@ export function Input({
   ariaLabel,
   name,
   onChange,
+  onBlur,
   dataTestId,
 }: InputProps) {
   return (
@@ -32,6 +34,7 @@ export function Input({
           name={name}
           aria-label={ariaLabel}
           onChange={onChange}
+          onBlur={onBlur}
           data-testid={dataTestId}
           className={styles.input__input}
         />

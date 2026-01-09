@@ -81,7 +81,7 @@ export function OrderForm() {
           />
         </div>
         <Input
-          type="text"
+          type="number"
           name="width"
           id="width"
           ariaLabel="width of wall"
@@ -90,7 +90,7 @@ export function OrderForm() {
           onChange={handleChange}
         />
         <Input
-          type="text"
+          type="number"
           id="height"
           ariaLabel="height of wall"
           label="height of Wall"
