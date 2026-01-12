@@ -13,6 +13,7 @@ import { saveUser } from "./store/userSlice";
 import { getUserId, getUsername } from "./store/selectors/userSelector";
 import { Cta } from "./components/Cta/Cta";
 import { dataTestIds } from "./utils/dataTestIds";
+import { DesignForm } from "./components/DesignForm/DesignForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,11 +41,12 @@ function App() {
 
   return (
     <>
-      <p>
+      {/* <p>
         User_id: {userId}, Username: {username}
-      </p>
+      </p> */}
+      <DesignForm/>
       {/* <ProgressBar /> */}
-     <RegisterUser /> 
+     {/* <RegisterUser />  */}
       {/* <LoginUser />  */}
       {/* <OrderForm /> */}
       {/* <Cta ctaFunction={handleSaveDesign} dataTestId={dataTestIds.cta} label="Save Design" ariaLabel="save your design" type="button"/> */}
