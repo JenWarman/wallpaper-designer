@@ -44,10 +44,10 @@ function App() {
         User_id: {userId}, Username: {username}
       </p>
       {/* <ProgressBar /> */}
-     {/* <RegisterUser />  */}
+     <RegisterUser /> 
       {/* <LoginUser />  */}
-      <OrderForm />
-      <Cta ctaFunction={handleSaveDesign} dataTestId={dataTestIds.cta} label="Save Design" ariaLabel="save your design" type="button"/>
+      {/* <OrderForm /> */}
+      {/* <Cta ctaFunction={handleSaveDesign} dataTestId={dataTestIds.cta} label="Save Design" ariaLabel="save your design" type="button"/> */}
     </>
   );
 }

@@ -1,13 +1,12 @@
 .orderForm {
   &__container {
-    border: 1px black solid;
+    background-color: rgb(255, 247, 238);
+    border-radius: 5px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.148) ;
     padding: 10px;
     margin: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
   }
+
   &__heading {
     font-size: 1.6rem;
     letter-spacing: 8px;
@@ -17,11 +16,35 @@
   }
 
   &__radio {
-    display: flex;
+    display: inline-flex;
   }
+
   &__link {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 2rem;
     font-size: 0.8rem;
-    text-decoration: underline;
     text-transform: uppercase;
+  }
+
+  &__price {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 16px;
+    font-size: 1.4rem;
+    font-family: "Aboreto", system-ui;
+    font-weight: bolder;
+  }
+
+  &__cta {
+    padding-right: 16px;
+  }
+
+  &__message {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1rem;
+    font-family: "Aboreto", system-ui;
+    font-weight: bolder;
   }
 }
