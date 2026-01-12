@@ -1,19 +1,15 @@
 import { useEffect } from "react";
 import "./App.css";
 import { RegisterUser } from "./components/RegisterUser/RegisterUser";
-import {
-  createDesignByUserId,
-  getUserSession,
-} from "./supabase/supabase";
+import { getUserSession } from "./supabase/supabase";
 import { LoginUser } from "./components/LoginUser/LoginUser";
 import { OrderForm } from "./components/OrderForm/OrderForm";
 // import { ProgressBar } from "./components/ProgressBar/ProgressBar";
 import { useDispatch, useSelector } from "react-redux";
 import { saveUser } from "./store/userSlice";
 import { getUserId, getUsername } from "./store/selectors/userSelector";
-import { Cta } from "./components/Cta/Cta";
-import { dataTestIds } from "./utils/dataTestIds";
 import { DesignForm } from "./components/DesignForm/DesignForm";
+import { Routes, Route } from "react-router";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,24 +28,21 @@ function App() {
     })();
   }, [dispatch]);
 
-  const handleSaveDesign = async () => {
-    await createDesignByUserId("design-4");
-  };
-
   const userId = useSelector(getUserId);
   const username = useSelector(getUsername);
 
   return (
     <>
+      <Routes>
+        <Route path="/" element={<RegisterUser />} />
+        <Route path="/design" element={<DesignForm />} />
+      </Routes>
       {/* <p>
         User_id: {userId}, Username: {username}
       </p> */}
-      <DesignForm/>
       {/* <ProgressBar /> */}
-     {/* <RegisterUser />  */}
       {/* <LoginUser />  */}
       {/* <OrderForm /> */}
-      {/* <Cta ctaFunction={handleSaveDesign} dataTestId={dataTestIds.cta} label="Save Design" ariaLabel="save your design" type="button"/> */}
     </>
   );
 }
