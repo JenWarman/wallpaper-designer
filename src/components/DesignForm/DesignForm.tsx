@@ -31,88 +31,88 @@ export function DesignForm() {
   const handleSaveDesign = async () => {
     await createDesignByUserId(searchParams.toString());
   };
+
+  const handleClearForm = () => {
+    setSearchParams({})     
+  }
+
+
   return (
     <div className={styles.designForm__container}>
       <form className={styles.designForm}>
-        <label className={styles.designForm__label} htmlFor="theme">
-          Theme
-        </label>
         <select
           name="theme"
           id="theme"
           value={formData.theme}
           className={styles.designForm__select}
           onChange={handleChange}
+          aria-label="Select wallpaper theme."
         >
-          <option value=""></option>
+          <option value="">Select Theme</option>
           <option value="floral">Floral</option>
         </select>
-        <label className={styles.designForm__label} htmlFor="motif">
-          Motif
-        </label>
         <select
           name="motif"
           id="motif"
           value={formData.motif}
           className={styles.designForm__select}
           onChange={handleChange}
+           aria-label="Select wallpaper motif."
         >
-          <option value=""></option>
+          <option value="">Select Motif</option>
           <option value="orchid">Orchid</option>
           <option value="daisy">Daisy</option>
           <option value="rose">Rose</option>
         </select>
-        <label className={styles.designForm__label} htmlFor="scale">
-          Scale
-        </label>
         <select
           name="scale"
           id="scale"
           className={styles.designForm__select}
           value={formData.scale}
           onChange={handleChange}
+           aria-label="Select wallpaper scale."
         >
-          <option value=""></option>
+          <option value="">Select Scale</option>
           <option value="small">Small</option>
           <option value="medium">Medium</option>
           <option value="large">Large</option>
         </select>
-        <label className={styles.designForm__label} htmlFor="background-colour">
-          Background Colour
-        </label>
         <select
           name="background-colour"
           id="background-colour"
           value={formData["background-colour"]}
           className={styles.designForm__select}
           onChange={handleChange}
+           aria-label="Select wallpaper background colour."
         >
-          <option value=""></option>
+          <option value="">Select Background Colour</option>
           <option value="pink">Pink</option>
           <option value="blue">Blue</option>
         </select>
-        <label className={styles.designForm__label} htmlFor="repeat">
-          Pattern Repeat
-        </label>
         <select
           name="repeat"
           id="repeat"
           className={styles.designForm__select}
           value={formData.repeat}
           onChange={handleChange}
+           aria-label="Select wallpaper repeat style."
         >
-          <option value=""></option>
+          <option value="">Select Pattern Repeat</option>
           <option value="tile">Tile</option>
           <option value="half-drop">Half Drop</option>
         </select>
       </form>
-      <Cta
-        ctaFunction={handleSaveDesign}
-        dataTestId={dataTestIds.cta}
-        label="Save Design"
-        ariaLabel="save your design"
-        type="button"
-      />
+      <div className={styles.designForm__Ctas}>
+        <Cta
+          ctaFunction={handleSaveDesign}
+          dataTestId={dataTestIds.cta}
+          label="Save"
+          ariaLabel="save your design"
+          type="button"
+          disabled={searchParams.size === 0}
+        />
+        <Cta ctaFunction={handleClearForm} dataTestId={dataTestIds.cta} label="Cancel" ariaLabel="cancel and clear form." type="button"/>
+      </div>
     </div>
   );
 }
