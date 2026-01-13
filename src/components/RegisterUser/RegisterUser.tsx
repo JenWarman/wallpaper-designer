@@ -11,6 +11,7 @@ import {
   validateMinLength,
   validatePassword,
 } from "../../utils/forms/formValidation";
+import { Link } from "react-router";
 
 export function RegisterUser() {
   const [formData, setFormData] = useState({
@@ -131,7 +132,7 @@ export function RegisterUser() {
       </Form>
       {isPending && <p>Registering...</p>}
       {state.message}
-      <p>Already have an account? <a href="">Login here.</a></p>
+      <p>Already have an account? <Link to="/login">Login here.</Link></p>
     </div>
   );
 }
