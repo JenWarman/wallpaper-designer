@@ -48,13 +48,13 @@ function App() {
       {/* <ProgressBar /> */}
       <div className="savedDesigns">
         <p>See your saved designs </p>
-        {savedDesignsUrl.map((url) => (
-          <ul>
-            <li>
+        <ul>
+          {savedDesignsUrl.map((url) => (
+            <li key={url}>
               <Link to={`/design?${url}`}>HERE</Link>
             </li>
-          </ul>
-        ))}
+          ))}
+        </ul>
       </div>
     </>
   );

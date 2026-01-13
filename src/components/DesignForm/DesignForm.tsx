@@ -37,7 +37,6 @@ export function DesignForm() {
     setSearchParams({})     
   }
 
-
   return (
     <div className={styles.designForm__container}>
       <form className={styles.designForm__form}>
