@@ -2,6 +2,7 @@ import { createDesignByUserId } from "../../supabase/supabase";
 import type { FormDataType } from "../../types/types";
 import { dataTestIds } from "../../utils/dataTestIds";
 import { Cta } from "../Cta/Cta";
+import { DropDown } from "../DropDown/DropDown";
 import styles from "./DesignForm.module.scss";
 import { useSearchParams } from "react-router";
 
@@ -39,68 +40,12 @@ export function DesignForm() {
 
   return (
     <div className={styles.designForm__container}>
-      <form className={styles.designForm}>
-        <select
-          name="theme"
-          id="theme"
-          value={formData.theme}
-          className={styles.designForm__select}
-          onChange={handleChange}
-          aria-label="Select wallpaper theme."
-        >
-          <option value="">Select Theme</option>
-          <option value="floral">Floral</option>
-        </select>
-        <select
-          name="motif"
-          id="motif"
-          value={formData.motif}
-          className={styles.designForm__select}
-          onChange={handleChange}
-           aria-label="Select wallpaper motif."
-        >
-          <option value="">Select Motif</option>
-          <option value="orchid">Orchid</option>
-          <option value="daisy">Daisy</option>
-          <option value="rose">Rose</option>
-        </select>
-        <select
-          name="scale"
-          id="scale"
-          className={styles.designForm__select}
-          value={formData.scale}
-          onChange={handleChange}
-           aria-label="Select wallpaper scale."
-        >
-          <option value="">Select Scale</option>
-          <option value="small">Small</option>
-          <option value="medium">Medium</option>
-          <option value="large">Large</option>
-        </select>
-        <select
-          name="background-colour"
-          id="background-colour"
-          value={formData["background-colour"]}
-          className={styles.designForm__select}
-          onChange={handleChange}
-           aria-label="Select wallpaper background colour."
-        >
-          <option value="">Select Background Colour</option>
-          <option value="pink">Pink</option>
-          <option value="blue">Blue</option>
-        </select>
-        <select
-          name="repeat"
-          id="repeat"
-          className={styles.designForm__select}
-          value={formData.repeat}
-          onChange={handleChange}
-           aria-label="Select wallpaper repeat style."
-        >
-          <option value="">Select Pattern Repeat</option>
-          <option value="tile">Tile</option>
-          <option value="half-drop">Half Drop</option>
-        </select>
+      <form className={styles.designForm__form}>
+        <DropDown label="theme" value={formData.theme} onChange={handleChange} ariaLabel="Select theme" options={["floral"]}/>
+        <DropDown label="motif" value={formData.motif} onChange={handleChange} ariaLabel="Select motif" options={["Orchid", "Daisy", "Rose"]}/>
+        <DropDown label="scale" value={formData.scale} onChange={handleChange} ariaLabel="Select scale" options={["Small", "Medium", "Large"]}/>
+        <DropDown label="background-colour" value={formData["background-colour"]} onChange={handleChange} ariaLabel="Select background colour" options={["pink", "blue"]}/>
+        <DropDown label="repeat" value={formData.repeat} onChange={handleChange} ariaLabel="Select repeat" options={["Tile", "Half Drop"]}/>
       </form>
       <div className={styles.designForm__Ctas}>
         <Cta

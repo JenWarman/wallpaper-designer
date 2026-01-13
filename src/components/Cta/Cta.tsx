@@ -1,13 +1,5 @@
+import type { CtaProps } from "../../types/types";
 import styles from "./Cta.module.scss"
-
-type CtaProps = {
-  label: string;
-  ctaFunction?: () => void;
-  dataTestId: string;
-  disabled?: boolean;
-  ariaLabel: string;
-  type: 'submit' | 'reset' | 'button' | undefined
-};
 
 export function Cta({
   label,

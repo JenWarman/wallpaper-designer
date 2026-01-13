@@ -1,15 +1,7 @@
+import type { FormProps } from "../../types/types";
 import { dataTestIds } from "../../utils/dataTestIds";
 import { Cta } from "../Cta/Cta";
 import styles from "./Form.module.scss";
-
-type FormProps = {
-  action: React.FormHTMLAttributes<HTMLFormElement>["action"];
-  children: React.ReactNode;
-  ctaLabel: string;
-  dataTestId: string;
-  ctaAriaLabel: string;
-  ctaDisabled?: boolean;
-};
 
 export function Form({
   action,
