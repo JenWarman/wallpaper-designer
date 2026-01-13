@@ -5,7 +5,9 @@ import { Input } from "../Input/Input";
 import type { OrderFormState } from "../../types/types";
 import { handleCalculatePrice } from "../../utils/forms/formActions";
 import { dataTestIds } from "../../utils/dataTestIds";
-import { updateOrderByUserId } from "../../supabase/supabase";
+import {
+  updateOrderByUserId,
+} from "../../supabase/supabase";
 import { Cta } from "../Cta/Cta";
 import { useDispatch, useSelector } from "react-redux";
 import { orderPlaced } from "../../store/orderSlice";
