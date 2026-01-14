@@ -21,7 +21,7 @@ describe("DropDown", () => {
    
         const options = screen.getAllByRole("option")
         expect(options).toHaveLength(3)
-        expect(options[0]).toHaveTextContent("Select wallpaper theme")
+        expect(options[0]).toHaveTextContent("Theme")
         expect(options[1]).toHaveTextContent("Floral")
         expect(options[2]).toHaveTextContent("Geometric")
     })

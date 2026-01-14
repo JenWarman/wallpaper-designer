@@ -11,7 +11,7 @@ import {
   validateMinLength,
   validatePassword,
 } from "../../utils/forms/formValidation";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 export function RegisterUser() {
   const [formData, setFormData] = useState({

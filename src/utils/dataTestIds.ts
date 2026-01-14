@@ -3,5 +3,6 @@ export const dataTestIds = {
     form: "form",
     "form-cta": "form-cta",
     cta: "cta",
-    dropDown: "dropDown"
+    dropDown: "dropDown",
+    designForm: "designForm"
 }

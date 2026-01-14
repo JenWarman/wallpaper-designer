@@ -3,15 +3,20 @@ import { beforeEach, describe, expect, test, vi } from "vitest";
 import { Form } from "./Form";
 import { Input } from "../Input/Input";
 
-const mockAction = vi.fn()
+const mockAction = vi.fn();
 
 describe("Input", () => {
-    beforeEach(() => {
-        vi.clearAllMocks()
-    })
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
   test("it calls action when form is submitted ", async () => {
     render(
-      <Form action={mockAction} ctaLabel="Click Button" dataTestId="form">
+      <Form
+        action={mockAction}
+        ctaLabel="Click Button"
+        dataTestId="form"
+        ctaAriaLabel="click button"
+      >
         <Input
           id="input-1"
           label="input-1"
@@ -23,10 +28,10 @@ describe("Input", () => {
       </Form>
     );
     const form = screen.getByTestId("form") as HTMLInputElement;
-    const button = screen.getByRole("button", {name: /click button/i})
+    const button = screen.getByRole("button", { name: /click button/i });
     expect(form).toBeInTheDocument();
-    await button.click()
-    expect(mockAction).toHaveBeenCalledOnce()
-    expect(mockAction).toHaveBeenCalledWith(expect.any(FormData))
+    await button.click();
+    expect(mockAction).toHaveBeenCalledOnce();
+    expect(mockAction).toHaveBeenCalledWith(expect.any(FormData));
   });
 });
