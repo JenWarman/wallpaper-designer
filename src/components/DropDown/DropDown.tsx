@@ -14,7 +14,6 @@ export function DropDown({
       className={styles.dropDown__container}
       data-testid={dataTestIds.dropDown}
     >
-      {/* <label className={styles.dropDown__label} htmlFor={label}>{label}</label> */}
       <select
         className={styles.dropDown__select}
         name={label}
