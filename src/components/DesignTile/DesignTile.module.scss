@@ -1,0 +1,56 @@
+.designTile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 40vh;
+  border-radius: 5px;
+  border: 1px solid black;
+
+  &__blue {
+    background-color: rgb(74, 142, 220);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__pink {
+    background-color: rgb(220, 74, 198);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__daisy {
+    width: 100%;
+    height: 100%;
+    background-image: url("/src/assets/daisy.png");
+    background-repeat: repeat;
+    z-index: 1;
+  }
+
+  &__small {
+    background-size: 50px auto;
+  }
+
+  &__medium {
+    background-size: 100px auto;
+  }
+
+  &__large {
+    background-size: 150px auto;
+  }
+
+  &__header {
+    font-size: 3rem;
+    text-align: center;
+    letter-spacing: 0.2rem;
+  }
+}

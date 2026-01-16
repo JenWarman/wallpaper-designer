@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { saveUser } from "./store/userSlice";
 import { DesignForm } from "./components/DesignForm/DesignForm";
 import { Routes, Route, Link } from "react-router-dom";
+import { DesignTile } from "./components/DesignTile/DesignTile";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<RegisterUser />} />
-        <Route path="/design" element={<DesignForm />} />
+        <Route path="/design" element={<><DesignTile/><DesignForm /></>} />
         <Route path="/login" element={<LoginUser />} />
         <Route path="/order" element={<OrderForm />} />
       </Routes>
