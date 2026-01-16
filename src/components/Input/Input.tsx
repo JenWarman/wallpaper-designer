@@ -1,16 +1,5 @@
+import type { InputProps } from "../../types/types";
 import styles from "./Input.module.scss";
-
-type InputProps = {
-  id: string;
-  label: string;
-  type: string;
-  placeholder?: string;
-  ariaLabel: string;
-  name: string;
-  onChange?: (value: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (value: React.ChangeEvent<HTMLInputElement>) => void;
-  dataTestId: string;
-};
 
 export function Input({
   id,

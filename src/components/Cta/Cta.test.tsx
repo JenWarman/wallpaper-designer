@@ -58,4 +58,18 @@ describe("Cta", () => {
     fireEvent.click(cta);
     expect(ctaFunctionMock).toHaveBeenCalled();
   });
+  test("cta is disabled if disbaled prop is passed", () => {
+    render(
+      <Cta
+        label="Click"
+        ctaFunction={ctaFunctionMock}
+        dataTestId="cta"
+        disabled={true}
+        ariaLabel="click button"
+        type="button"
+      />
+    );
+    const cta = screen.getByTestId("cta") as HTMLButtonElement;
+    expect(cta).toBeDisabled()
+  })
 });

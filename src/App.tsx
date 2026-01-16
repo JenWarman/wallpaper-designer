@@ -5,15 +5,14 @@ import { fetchDesignsByUserId, getUserSession } from "./supabase/supabase";
 import { LoginUser } from "./components/LoginUser/LoginUser";
 import { OrderForm } from "./components/OrderForm/OrderForm";
 // import { ProgressBar } from "./components/ProgressBar/ProgressBar";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { saveUser } from "./store/userSlice";
-import { getUserId, getUsername } from "./store/selectors/userSelector";
 import { DesignForm } from "./components/DesignForm/DesignForm";
 import { Routes, Route, Link } from "react-router-dom";
 
 function App() {
   const dispatch = useDispatch();
-  const [savedDesignsUrl, setSavedDesignsUrl] = useState("");
+  const [savedDesignsUrl, setSavedDesignsUrl] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -29,26 +28,34 @@ function App() {
       const savedDesigns = await fetchDesignsByUserId();
 
       if (savedDesigns?.data.length) {
-        //fetching first design url from table
-        setSavedDesignsUrl(savedDesigns?.data[0].design_url);
+        const designs = [];
+        savedDesigns.data.filter((design) => {
+          designs.push(design.design_url);
+          setSavedDesignsUrl(designs);
+        });
       }
     })();
   }, [dispatch]);
 
-  const userId = useSelector(getUserId);
-  const username = useSelector(getUsername);
-
   return (
     <>
       <Routes>
-        <Route path="/" element={<RegisterUser/>} />
+        <Route path="/" element={<RegisterUser />} />
         <Route path="/design" element={<DesignForm />} />
-        <Route path="/login" element={<LoginUser/>}/>
-        <Route path="/order" element={<OrderForm/>}/>
+        <Route path="/login" element={<LoginUser />} />
+        <Route path="/order" element={<OrderForm />} />
       </Routes>
       {/* <ProgressBar /> */}
-      <p>See your saved designs </p>
-      <Link to={`/design?${savedDesignsUrl}`}>HERE</Link>
+      <div className="savedDesigns">
+        <p>See your saved designs </p>
+        <ul>
+          {savedDesignsUrl.map((url) => (
+            <li key={url}>
+              <Link to={`/design?${url}`}>HERE</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 }

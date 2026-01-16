@@ -1,0 +1,20 @@
+.dropDown {
+  &__container {
+    width: 100%;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__select {
+    padding: 10px;
+    margin: 16px 0;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    width: 90%;
+    border: 1px rgba(0, 0, 0, 0.076) solid;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.148);
+    border-radius: 5px;
+  }
+}
