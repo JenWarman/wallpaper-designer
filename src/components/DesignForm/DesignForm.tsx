@@ -13,9 +13,6 @@ export function DesignForm() {
     updateParam(event.target.name, event.target.value);
   };
 
-  console.log(paramsString);
-  // console.log(formData)
-
   const handleSaveDesign = async () => {
     await createDesignByUserId(paramsString);
   };
@@ -26,7 +23,6 @@ export function DesignForm() {
       data-testid={dataTestIds.designForm}
     >
       <form className={styles.designForm__form}>
-        <h1>{paramsString}</h1>
         <DropDown
           label="theme"
           value={formData.theme}
@@ -63,22 +59,22 @@ export function DesignForm() {
           options={["tile", "half drop"]}
         />
         <div className={styles.designForm__Ctas}>
-        <Cta
+          <Cta
           ctaFunction={handleSaveDesign}
           dataTestId={dataTestIds.cta}
           label="Save"
           ariaLabel="save your design"
           type="button"
-          disabled={!paramsString.length}
+          disabled={!paramsString}
         />
-        <Cta
-          ctaFunction={clearParams}
-          dataTestId={dataTestIds.cta}
-          label="Cancel"
-          ariaLabel="cancel and clear form."
-          type="button"
-        />
-      </div>
+          <Cta
+            ctaFunction={clearParams}
+            dataTestId={dataTestIds.cta}
+            label="Cancel"
+            ariaLabel="cancel and clear form."
+            type="button"
+          />
+        </div>
       </form>
       
     </div>

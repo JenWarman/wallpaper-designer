@@ -1,9 +1,8 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { DesignForm } from "./DesignForm";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, cleanup } from "@testing-library/react";
 import { dataTestIds } from "../../utils/dataTestIds";
 import { createDesignByUserId } from "../../supabase/supabase";
-import { MemoryRouter } from "react-router";
 
 import type { MockedFunction } from "vitest";
 
@@ -13,8 +12,7 @@ vi.mock("../../supabase/supabase", () => ({
 
 const updateParamMock = vi.fn();
 const clearParamMock = vi.fn();
-// const designSearchParamsMock = vi.fn();
-// const useDesignSearchParamsMock = vi.mocked(useDesignSearchParams, true);
+
 vi.mock("../../hooks/useDesignSearchParams");
 
 const useDesignSearchParamsMock = useDesignSearchParams as MockedFunction<
@@ -23,18 +21,8 @@ const useDesignSearchParamsMock = useDesignSearchParams as MockedFunction<
 
 import useDesignSearchParams from "../../hooks/useDesignSearchParams";
 
-// const useDesignSearchParamsMock = vi.spyOn(useDesignSearchParams, "default")
-// vi.mock("../../hooks/useDesignSearchParams", () => ({
-//   default: () => designSearchParamsMock(),
-// }));
-
 describe("DesignForm", () => {
-  // const useDesignSearchParamsMock = hookModule.useDesignSearchParams as unknown as vi.MockedFunction<typeof hookModule.useDesignSearchParams>
   beforeEach(() => {
-    vi.resetAllMocks();
-    // vi.clearAllMocks()Â
-    // designSearchParamsMock.mockReset();
-
     useDesignSearchParamsMock.mockReturnValue({
       formData: {
         theme: "",
@@ -51,28 +39,29 @@ describe("DesignForm", () => {
   afterEach(() => {
     vi.clearAllMocks();
     vi.resetAllMocks();
+    cleanup()
   });
 
-  // test("the component is rendered", () => {
-  //   render(<DesignForm />);
-  //   expect(screen.getByTestId(dataTestIds.designForm)).toBeInTheDocument();
-  // });
-  // test("updateParam is called when dropdown value changes", () => {
-  //   render(<DesignForm />);
+  test("the component is rendered", () => {
+    render(<DesignForm />);
+    expect(screen.getByTestId(dataTestIds.designForm)).toBeInTheDocument();
+  });
+  test("updateParam is called when dropdown value changes", () => {
+    render(<DesignForm />);
 
-  //   const themeSelect = screen
-  //     .getAllByRole("combobox")
-  //     .find(
-  //       (element) => element.getAttribute("aria-label") === "Select theme"
-  //     )!;
+    const themeSelect = screen
+      .getAllByRole("combobox")
+      .find(
+        (element) => element.getAttribute("aria-label") === "Select theme"
+      )!;
 
-  //   fireEvent.change(themeSelect, {
-  //     target: { name: "theme", value: "floral" },
-  //   });
+    fireEvent.change(themeSelect, {
+      target: { name: "theme", value: "floral" },
+    });
 
-  //   expect(updateParamMock).toHaveBeenCalledWith("theme", "floral");
+    expect(updateParamMock).toHaveBeenCalledWith("theme", "floral");
 
-  // });
+  });
   test("the save Cta is disabled if there are no search params", () => {
     useDesignSearchParamsMock.mockReturnValueOnce({
       formData: {
@@ -86,13 +75,11 @@ describe("DesignForm", () => {
       updateParam: updateParamMock,
       clearParams: clearParamMock,
     });
-    const { getAllByTestId } = render(<DesignForm />);
 
-    const saveCta = getAllByTestId(dataTestIds.cta).find(
-      (button) => button.textContent === "Save"
-    )!;
+    render(<DesignForm/>)
 
-    // screen.debug();
+const saveCta = screen.getByText("Save")
+    screen.debug();
 
     expect(saveCta).toBeDisabled();
   });
@@ -112,47 +99,41 @@ describe("DesignForm", () => {
 
     render(<DesignForm />);
 
-    const saveCtaUpdated = screen
-      .getAllByTestId(dataTestIds.cta)
-      .find((button) => button.textContent === "Save")!;
-
+    const saveCtaUpdated = screen.getByText("Save")
+    console.log(saveCtaUpdated)
       screen.debug();
 
     expect(saveCtaUpdated).not.toBeDisabled();
   });
 
-  // test("save cta calls createDesignByUserId", () => {
-  // useDesignSearchParamsMock.mockReturnValueOnce({
-  //     formData: {
-  //       theme: "floral",
-  //       motif: "",
-  //       scale: "",
-  //       "background-colour": "",
-  //       repeat: "",
-  //     },
-  //     paramsString: "theme=floral",
-  //     updateParam: updateParamMock,
-  //     clearParams: clearParamMock,
-  //   });
+  test("save cta calls createDesignByUserId", () => {
+  useDesignSearchParamsMock.mockReturnValueOnce({
+      formData: {
+        theme: "floral",
+        motif: "",
+        scale: "",
+        "background-colour": "",
+        repeat: "",
+      },
+      paramsString: "theme=floral",
+      updateParam: updateParamMock,
+      clearParams: clearParamMock,
+    });
 
-  //   render(<DesignForm />);
+    render(<DesignForm />);
 
-  //   const saveCta = screen
-  //     .getAllByTestId(dataTestIds.cta)
-  //     .find((button) => button.textContent === "Save")!;
+    const saveCta = screen.getByText("Save")
 
-  //   fireEvent.click(saveCta);
+    fireEvent.click(saveCta);
 
-  //   expect(createDesignByUserId).toHaveBeenCalledWith("theme=floral");
-  // });
-  // test("clear cta calls clearParams", () => {
-  //   render(<DesignForm />);
-  //   const cancelCta = screen
-  //     .getAllByTestId(dataTestIds.cta)
-  //     .find((button) => button.textContent === "Cancel")!;
+    expect(createDesignByUserId).toHaveBeenCalledWith("theme=floral");
+  });
+  test("clear cta calls clearParams", () => {
+    render(<DesignForm />);
+    const cancelCta = screen.getByText("Cancel")
 
-  //   fireEvent.click(cancelCta);
+    fireEvent.click(cancelCta);
 
-  //   expect(clearParamMock).toHaveBeenCalled();
-  // });
+    expect(clearParamMock).toHaveBeenCalled();
+  });
 });
