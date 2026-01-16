@@ -28,7 +28,7 @@
     height: 100%;
   }
 
-  &__daisy {
+  &__tile {
     width: 100%;
     height: 100%;
     background-image: url("/src/assets/daisy.png");
@@ -36,16 +36,26 @@
     z-index: 1;
   }
 
+  &__halfDrop {
+     width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-image: url("/src/assets/daisy_bg.png"), url("/src/assets/daisy_bg.png");
+  }
+
   &__small {
     background-size: 50px auto;
+    background-position: 0 0 ,25px 35px;
   }
 
   &__medium {
     background-size: 100px auto;
+     background-position: 0 0 ,50px 75px;
   }
 
   &__large {
     background-size: 150px auto;
+    background-position: 0 0 ,75px 105px;
   }
 
   &__header {
