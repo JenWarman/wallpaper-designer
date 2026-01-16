@@ -25,10 +25,12 @@ export default function useDesignSearchParams() {
   };
 
   const clearParams = () => setSearchParams({})
+
+  const paramsString = searchParams.toString()
   
   return {
     formData,
-    searchParams,
+    paramsString,
     updateParam,
     clearParams
   };

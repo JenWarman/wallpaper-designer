@@ -6,17 +6,18 @@ import styles from "./DesignForm.module.scss";
 import useDesignSearchParams from "../../hooks/useDesignSearchParams";
 
 export function DesignForm() {
-  const {formData,
-    searchParams,
-    updateParam,
-    clearParams } = useDesignSearchParams()
+  const { formData, paramsString, updateParam, clearParams } =
+    useDesignSearchParams();
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    updateParam(event.target.name, event.target.value)
-  }
+    updateParam(event.target.name, event.target.value);
+  };
+
+  console.log(paramsString);
+  // console.log(formData)
 
   const handleSaveDesign = async () => {
-    await createDesignByUserId(searchParams.toString());
+    await createDesignByUserId(paramsString);
   };
 
   return (
@@ -25,6 +26,7 @@ export function DesignForm() {
       data-testid={dataTestIds.designForm}
     >
       <form className={styles.designForm__form}>
+        <h1>{paramsString}</h1>
         <DropDown
           label="theme"
           value={formData.theme}
@@ -60,15 +62,14 @@ export function DesignForm() {
           ariaLabel="Select repeat"
           options={["tile", "half drop"]}
         />
-      </form>
-      <div className={styles.designForm__Ctas}>
+        <div className={styles.designForm__Ctas}>
         <Cta
           ctaFunction={handleSaveDesign}
           dataTestId={dataTestIds.cta}
           label="Save"
           ariaLabel="save your design"
           type="button"
-          disabled={searchParams.size === 0}
+          disabled={!paramsString.length}
         />
         <Cta
           ctaFunction={clearParams}
@@ -78,6 +79,8 @@ export function DesignForm() {
           type="button"
         />
       </div>
+      </form>
+      
     </div>
   );
 }
