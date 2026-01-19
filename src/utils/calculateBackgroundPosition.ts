@@ -23,3 +23,28 @@ export const calculateBackgroundPosition = (motif: string, scale: string) => {
     positionTwo: ""
   };
 };
+
+export const calculateBackgroundPositionLargeScale = (motif: string, scale: string) => {
+  const positions: any = {
+    daisy: {
+      small: { positionOne: "5px", positionTwo: "8px" },
+      medium: { positionOne: "15px", positionTwo: "22px" },
+      large: { positionOne: "30px", positionTwo: "45px" },
+    },
+    orchid: {
+       small: { positionOne: "5px", positionTwo: "8px" },
+      medium: { positionOne: "15px", positionTwo: "22px" },
+      large: { positionOne: "30px", positionTwo: "45px" },
+    },
+    rose: {
+      small: { positionOne: "5px", positionTwo: "3px" },
+      medium: { positionOne: "75px", positionTwo: "50px" },
+      large: { positionOne: "30px", positionTwo: "20px" },
+    },
+  };
+
+  return positions[motif]?.[scale] ?? {
+    positionOne: "",
+    positionTwo: ""
+  };
+};

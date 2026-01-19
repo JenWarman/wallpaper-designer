@@ -1,41 +1,35 @@
 import useDesignSearchParams from "../../hooks/useDesignSearchParams";
-import { calculateBackgroundPosition } from "../../utils/calculateBackgroundPosition";
+import { calculateBackgroundPositionLargeScale } from "../../utils/calculateBackgroundPosition";
 import conditionalClassNames from "../../utils/conditionalClassNames";
-import { dataTestIds } from "../../utils/dataTestIds";
-import styles from "./DesignTile.module.scss";
+import styles from "./DesignDemo.module.scss";
 
-export function DesignTile() {
+export function DesignDemo() {
   const { formData } = useDesignSearchParams();
 
-  const designTileClassName = conditionalClassNames({
-    [styles.designTile__container]: true,
-    [styles.designTile__pink]: formData["background-colour"] === "pink",
-    [styles.designTile__blue]: formData["background-colour"] === "blue",
+  const designDemoClassName = conditionalClassNames({
+    [styles.designDemo__container]: true,
+    [styles.designDemo__pink]: formData["background-colour"] === "pink",
+    [styles.designDemo__blue]: formData["background-colour"] === "blue",
   });
 
   const imageScale =
     formData.scale === "small"
-      ? "100px"
+      ? "10px"
       : formData.scale === "medium"
-        ? "150px"
-        : "200px";
+        ? "30px"
+        : "60px";
 
-
-  const bgPosition = calculateBackgroundPosition(
+  const bgPosition = calculateBackgroundPositionLargeScale(
     formData.motif,
     formData.scale,
   );
 
   return (
-    <div className={styles.designTile} data-testid={dataTestIds.designTile}>
-      {!formData.theme && (
-         <div className={designTileClassName}>
-        <h1 className={styles.designTile__header}>Your Design Here</h1>
-         </div>
-      )}
-
-      {formData.motif && !formData.repeat ? (
-        <div className={designTileClassName}>
+    <div className={styles.designDemo}>
+      {/* container */}
+      <div className={designDemoClassName}>
+        {formData.motif && !formData.repeat ? (
+        <div className={designDemoClassName}>
           <img
             style={{ width: `${imageScale}`, height: `${imageScale}` }}
             src={`src/assets/${formData.motif}.png`}
@@ -44,7 +38,7 @@ export function DesignTile() {
         </div>
       ) : formData.repeat === "tile" ? (
         <div
-          className={designTileClassName}
+          className={designDemoClassName}
           style={{
             backgroundImage: `url(${`"/src/assets/${formData.motif}.png"`})`,
             backgroundPosition: `0 0, ${bgPosition.positionOne} ${bgPosition.positionTwo} `,
@@ -53,13 +47,20 @@ export function DesignTile() {
         ></div>
       ) : (
         <div
-          className={designTileClassName}
+          className={designDemoClassName}
           style={{
             backgroundImage: `url(${`"/src/assets/${formData.motif}_bg.png"`}), url(${`"/src/assets/${formData.motif}_bg.png"`})`,
             backgroundPosition: `0 0, ${bgPosition.positionOne} ${bgPosition.positionTwo} `, backgroundSize: `${imageScale} auto`
           }}
         ></div>
       )}
+        {/* insitu image layer */}
+        <img
+          className={styles.designDemo__image}
+          src={`src/assets/room.png`}
+          alt="your wallpaper design in a living space"
+        />
+      </div>
     </div>
   );
 }
