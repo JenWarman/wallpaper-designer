@@ -1,6 +1,7 @@
 import useDesignSearchParams from "../../hooks/useDesignSearchParams";
 import { calculateBackgroundPositionLargeScale } from "../../utils/calculateBackgroundPosition";
 import conditionalClassNames from "../../utils/conditionalClassNames";
+import { dataTestIds } from "../../utils/dataTestIds";
 import styles from "./DesignDemo.module.scss";
 
 export function DesignDemo() {
@@ -25,13 +26,14 @@ export function DesignDemo() {
   );
 
   return (
-    <div className={styles.designDemo}>
+    <div className={styles.designDemo} data-testid={dataTestIds.designDemo}>
+        
       {/* container */}
       <div className={designDemoClassName}>
         {formData.motif && !formData.repeat ? (
         <div className={designDemoClassName}>
           <img
-            style={{ width: `${imageScale}`, height: `${imageScale}` }}
+            style={{ width: `${imageScale}`, height: `${imageScale}`, marginBottom: `5rem` }}
             src={`src/assets/${formData.motif}.png`}
             alt={formData.motif}
           />
