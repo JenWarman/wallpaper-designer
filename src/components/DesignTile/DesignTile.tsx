@@ -1,6 +1,7 @@
 import useDesignSearchParams from "../../hooks/useDesignSearchParams";
 import { calculateBackgroundPosition } from "../../utils/calculateBackgroundPosition";
 import conditionalClassNames from "../../utils/conditionalClassNames";
+import { dataTestIds } from "../../utils/dataTestIds";
 import styles from "./DesignTile.module.scss";
 
 export function DesignTile() {
@@ -26,7 +27,7 @@ export function DesignTile() {
   );
 
   return (
-    <div className={styles.designTile}>
+    <div className={styles.designTile} data-testid={dataTestIds.designTile}>
       {!formData.theme && (
          <div className={designTileClassName}>
         <h1 className={styles.designTile__header}>Your Design Here</h1>
