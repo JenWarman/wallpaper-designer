@@ -10,6 +10,7 @@ import { saveUser } from "./store/userSlice";
 import { DesignForm } from "./components/DesignForm/DesignForm";
 import { Routes, Route, Link } from "react-router-dom";
 import { DesignTile } from "./components/DesignTile/DesignTile";
+import { DesignDemo } from "./components/DesignDemo/DesignDemo";
 
 function App() {
   const dispatch = useDispatch();
