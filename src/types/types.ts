@@ -18,6 +18,7 @@ export type DropDownProps = {
     options: string[];
     value: string;
     ariaLabel: string;
+    disabled?: boolean;
 }
 
 export type CtaProps = {

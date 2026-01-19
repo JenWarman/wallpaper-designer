@@ -8,6 +8,7 @@ export function DropDown({
   value,
   options,
   ariaLabel,
+  disabled,
 }: DropDownProps) {
   return (
     <div
@@ -21,6 +22,7 @@ export function DropDown({
         onChange={(event) => onChange(event)}
         value={value}
         aria-label={ariaLabel}
+        disabled={disabled}
       >
         <option className={styles.dropDown_option} value="">
           {label}
