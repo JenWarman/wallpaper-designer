@@ -36,6 +36,16 @@ export function DesignForm() {
           onChange={handleChange}
           ariaLabel="Select motif"
           options={["orchid", "daisy", "rose"]}
+          disabled={!formData.theme}
+        />
+        
+        <DropDown
+          label="background-colour"
+          value={formData["background-colour"]}
+          onChange={handleChange}
+          ariaLabel="Select background colour"
+          options={["pink", "blue"]}
+          disabled={!formData.motif}
         />
         <DropDown
           label="scale"
@@ -43,13 +53,7 @@ export function DesignForm() {
           onChange={handleChange}
           ariaLabel="Select scale"
           options={["small", "medium", "large"]}
-        />
-        <DropDown
-          label="background-colour"
-          value={formData["background-colour"]}
-          onChange={handleChange}
-          ariaLabel="Select background colour"
-          options={["pink", "blue"]}
+          disabled={!formData["background-colour"]}
         />
         <DropDown
           label="repeat"
@@ -57,6 +61,7 @@ export function DesignForm() {
           onChange={handleChange}
           ariaLabel="Select repeat"
           options={["tile", "half drop"]}
+          disabled={!formData.scale}
         />
         <div className={styles.designForm__Ctas}>
           <Cta

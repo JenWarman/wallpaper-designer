@@ -5,5 +5,6 @@ export const dataTestIds = {
     cta: "cta",
     dropDown: "dropDown",
     designForm: "designForm",
-    saveCta: "saveCta"
+    saveCta: "saveCta",
+    designTile: "designTile"
 }
