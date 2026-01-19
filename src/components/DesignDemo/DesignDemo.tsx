@@ -1,5 +1,5 @@
 import useDesignSearchParams from "../../hooks/useDesignSearchParams";
-import { calculateBackgroundPositionLargeScale } from "../../utils/calculateBackgroundPosition";
+import { calculateBackgroundPosition} from "../../utils/calculateBackgroundPosition";
 import conditionalClassNames from "../../utils/conditionalClassNames";
 import { dataTestIds } from "../../utils/dataTestIds";
 import styles from "./DesignDemo.module.scss";
@@ -20,9 +20,10 @@ export function DesignDemo() {
         ? "30px"
         : "60px";
 
-  const bgPosition = calculateBackgroundPositionLargeScale(
+  const bgPosition = calculateBackgroundPosition(
     formData.motif,
     formData.scale,
+    "large"
   );
 
   return (

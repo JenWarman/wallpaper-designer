@@ -24,6 +24,7 @@ export function DesignTile() {
   const bgPosition = calculateBackgroundPosition(
     formData.motif,
     formData.scale,
+    "small"
   );
 
   return (
