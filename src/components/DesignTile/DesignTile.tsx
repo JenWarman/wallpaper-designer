@@ -1,29 +1,61 @@
 import useDesignSearchParams from "../../hooks/useDesignSearchParams";
+import { calculateBackgroundPosition } from "../../utils/calculateBackgroundPosition";
 import conditionalClassNames from "../../utils/conditionalClassNames";
 import styles from "./DesignTile.module.scss";
 
 export function DesignTile() {
   const { formData } = useDesignSearchParams();
 
-  console.log(formData);
-
   const designTileClassName = conditionalClassNames({
     [styles.designTile__pink]: formData["background-colour"] === "pink",
     [styles.designTile__blue]: formData["background-colour"] === "blue",
-    // [styles.designTile__daisy]: formData.motif === "daisy",
-    [styles.designTile__small]: formData.scale === "small",
-    [styles.designTile__medium]: formData.scale === "medium",
-    [styles.designTile__large]: formData.scale === "large",
-    [styles.designTile__tile]: formData.repeat === "tile" && formData.motif === "daisy",
-    [styles.designTile__halfDrop]: formData.repeat === "half drop" && formData.motif === "daisy",
   });
+
+  const imageScale =
+    formData.scale === "small"
+      ? "100px"
+      : formData.scale === "medium"
+        ? "150px"
+        : "200px";
+
+
+  const bgPosition = calculateBackgroundPosition(
+    formData.motif,
+    formData.scale,
+  );
+
   return (
     <div className={styles.designTile}>
-      <div className={designTileClassName}>
-        {!formData.theme && (
-          <h1 className={styles.designTile__header}>Your Design Here</h1>
-        )}
-      </div>
+      {!formData.theme && (
+        <h1 className={styles.designTile__header}>Your Design Here</h1>
+      )}
+
+      {formData.motif && !formData.repeat ? (
+        <div className={designTileClassName}>
+          <img
+            style={{ width: `${imageScale}`, height: `${imageScale}` }}
+            src={`src/assets/${formData.motif}.png`}
+            alt=""
+          />
+        </div>
+      ) : formData.repeat === "tile" ? (
+        <div
+          className={designTileClassName}
+          style={{
+            backgroundImage: `url(${`"/src/assets/${formData.motif}.png"`})`,
+            backgroundPosition: `0 0, ${bgPosition.positionOne} ${bgPosition.positionTwo} `,
+            backgroundSize: `${imageScale} auto`
+          }}
+        ></div>
+      ) : (
+        <div
+          className={designTileClassName}
+          style={{
+            backgroundImage: `url(${`"/src/assets/${formData.motif}_bg.png"`}), url(${`"/src/assets/${formData.motif}_bg.png"`})`,
+            backgroundPosition: `0 0, ${bgPosition.positionOne} ${bgPosition.positionTwo} `, backgroundSize: `${imageScale} auto`
+          }}
+        ></div>
+      )}
     </div>
   );
 }
