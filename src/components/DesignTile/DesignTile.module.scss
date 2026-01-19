@@ -1,29 +1,28 @@
 .designTile {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: stretch;
   align-items: center;
   width: 80%;
   height: 40vh;
+  background-color: rgba(143, 143, 142, 0.086);
   border-radius: 5px;
-  border: 1px solid black;
+  overflow: hidden;
 
-  &__blue,
-  &__pink {
+  &__container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
+    border-radius: inherit;
   }
 
   &__blue {
-    background-color: rgb(74, 142, 220);
+    background-color: rgb(124, 170, 221);
   }
 
   &__pink {
-    background-color: rgb(220, 74, 198);
+    background-color: rgb(233, 188, 226);
   }
 
   &__tile {
@@ -43,5 +42,7 @@
     font-size: 3rem;
     text-align: center;
     letter-spacing: 0.2rem;
+    padding: 4rem;
+    margin: 0;
   }
 }

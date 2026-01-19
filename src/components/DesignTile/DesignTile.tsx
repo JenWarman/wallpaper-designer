@@ -7,6 +7,7 @@ export function DesignTile() {
   const { formData } = useDesignSearchParams();
 
   const designTileClassName = conditionalClassNames({
+    [styles.designTile__container]: true,
     [styles.designTile__pink]: formData["background-colour"] === "pink",
     [styles.designTile__blue]: formData["background-colour"] === "blue",
   });
@@ -27,7 +28,9 @@ export function DesignTile() {
   return (
     <div className={styles.designTile}>
       {!formData.theme && (
+         <div className={designTileClassName}>
         <h1 className={styles.designTile__header}>Your Design Here</h1>
+         </div>
       )}
 
       {formData.motif && !formData.repeat ? (
