@@ -1,0 +1,13 @@
+.header {
+  &__container {
+    // background-color: plum;
+    height: 50px;
+    width: 100%;
+    display: block;
+    border-bottom: 1px rgba(0, 0, 0, 0.131) solid;
+  }
+  &__heading {
+    font-size: 1.2rem;
+    padding: 10px;
+  }
+}

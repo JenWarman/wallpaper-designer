@@ -1,0 +1,26 @@
+.nav {
+  &__container {
+    width: 100%;
+    background-color: blueviolet;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__list {
+    list-style: none;
+    text-align: center;
+  }
+
+  &__listItem {
+    list-style: none;
+  }
+
+  &__link {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: "Aboreto", system-ui;
+    font-weight: bolder;
+    letter-spacing: 0.1rem;
+    font-size: 1.2rem;
+  }
+}
