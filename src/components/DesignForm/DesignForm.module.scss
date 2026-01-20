@@ -1,6 +1,6 @@
 .designForm {
   &__container {
-    padding: 16px;
+    padding: 0 16px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,19 +8,21 @@
   }
 
   &__form {
-    width: 90%;
+    width: 80%;
     height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
+     margin: 0;
   }
 
   &__Ctas {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 16px;
+    margin: 0;
   }
 }

@@ -1,0 +1,34 @@
+.designContainer {
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 45vh;
+    padding: 16px;
+  }
+
+  &__right,
+  &__left {
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__demo,
+  &__tile {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__tile {
+    padding-left: 20px;
+  }
+
+  &__demo {
+    padding-right: 20px;
+  }
+}

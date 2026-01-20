@@ -11,6 +11,7 @@ import { DesignForm } from "./components/DesignForm/DesignForm";
 import { Routes, Route, Link } from "react-router-dom";
 import { DesignTile } from "./components/DesignTile/DesignTile";
 import { DesignDemo } from "./components/DesignDemo/DesignDemo";
+import { DesignContainer } from "./components/DesignContainer/DesignContainer";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<RegisterUser />} />
-        <Route path="/design" element={<><DesignTile/><DesignForm /></>} />
+        <Route path="/design" element={<><DesignContainer/><DesignForm/></>} />
         <Route path="/login" element={<LoginUser />} />
         <Route path="/order" element={<OrderForm />} />
       </Routes>
