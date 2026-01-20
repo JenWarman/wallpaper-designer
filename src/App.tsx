@@ -9,12 +9,8 @@ import { useDispatch } from "react-redux";
 import { saveUser } from "./store/userSlice";
 import { DesignForm } from "./components/DesignForm/DesignForm";
 import { Routes, Route, Link } from "react-router-dom";
-import { DesignTile } from "./components/DesignTile/DesignTile";
-import { DesignDemo } from "./components/DesignDemo/DesignDemo";
 import { DesignContainer } from "./components/DesignContainer/DesignContainer";
 import { Header } from "./components/Header/Header";
-import { Nav } from "./components/Nav/Nav";
-import { BurgerMenu } from "./components/BurgerMenu/BurgerMenu";
 
 function App() {
   const dispatch = useDispatch();
@@ -46,8 +42,6 @@ function App() {
   return (
     <>
     <Header/>
-    {/* <Nav/> */}
-    <BurgerMenu/>
       <Routes>
         <Route path="/" element={<RegisterUser />} />
         <Route path="/design" element={<><DesignContainer/><DesignForm/></>} />

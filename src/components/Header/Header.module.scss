@@ -1,9 +1,10 @@
 .header {
   &__container {
-    // background-color: plum;
-    height: 50px;
+    position: relative;
+    height:40px;
     width: 100%;
-    display: block;
+    display: flex;
+    align-items: center;
     border-bottom: 1px rgba(0, 0, 0, 0.131) solid;
   }
   &__heading {
