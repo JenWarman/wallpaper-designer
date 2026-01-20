@@ -50,3 +50,7 @@ export type InputProps = {
   onBlur?: (value: React.ChangeEvent<HTMLInputElement>) => void;
   dataTestId: string;
 };
+
+ export type BurgerMenuProps = {
+    isOpen: boolean
+}

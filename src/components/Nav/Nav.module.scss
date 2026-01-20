@@ -1,0 +1,36 @@
+.nav {
+  &__container {
+    position: absolute;
+    top: 3.6rem;
+    left: 12rem;
+    width: 50%;
+    height: max-content;
+    background-color: rgb(255, 247, 238);
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.148) ;
+    display: flex;
+    border-radius: 5px;
+    z-index: 100;
+  }
+  &__list {
+    list-style: none;
+    text-align: center;
+  }
+
+  &__listItem {
+    list-style: none;
+  }
+
+  &__link {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: "Aboreto", system-ui;
+    font-weight: bolder;
+    letter-spacing: 0.1rem;
+    font-size: 1.2rem;
+    transition: all 0.3s linear;
+    &:hover {
+      font-size: 1.4rem;
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.header {
+  &__container {
+    position: relative;
+    height:50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px rgba(0, 0, 0, 0.131) solid;
+  }
+  &__heading {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: "Aboreto", system-ui;
+    font-weight: bolder;
+    letter-spacing: 0.1rem;
+    font-size: 1rem;
+    transition: all 0.3s linear;
+    &:hover {
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+  }
+}

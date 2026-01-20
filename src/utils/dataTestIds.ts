@@ -10,5 +10,10 @@ export const dataTestIds = {
     designDemo: "designDemo",
     designContainer: "designContainer",
     right: "right",
-    left: "left"
+    left: "left",
+    burgerMenu: "burgerMenu",
+    nav: "nav",
+    header: "header",
+    toggleNav: "toggleNav",
+    
 }

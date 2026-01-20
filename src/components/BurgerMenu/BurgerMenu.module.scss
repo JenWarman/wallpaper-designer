@@ -1,0 +1,33 @@
+.burgerMenu {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: column nowrap;
+     z-index: 10;
+    
+
+    &__burger {
+        width: 2rem;
+        height: 0.05rem;
+        border-radius: 5px;
+        background-color: black;
+        padding: 0;
+        margin: 0;
+        transform-origin: 1px;
+        transition: all 0.3s linear;
+       
+    }
+
+    &__burger1 {
+        transform: rotate(45deg);
+    }
+
+    &__burger2 {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    &__burger3 {
+        transform: rotate(-45deg);
+    }
+}
