@@ -2,6 +2,8 @@ import { useState } from "react";
 import { BurgerMenu } from "../BurgerMenu/BurgerMenu";
 import styles from "./Header.module.scss";
 import { Nav } from "../Nav/Nav";
+import { dataTestIds } from "../../utils/dataTestIds";
+import { Link } from "react-router";
 
 export function Header() {
   const [showNav, setShowNav] = useState(false);
@@ -11,9 +13,9 @@ export function Header() {
   };
   return (
     <>
-      <div className={styles.header__container}>
-        <h1 className={styles.header__heading}>Wallpaper Designer</h1>
-        <div onClick={toggleOpenNav}>
+      <div className={styles.header__container} data-testid={dataTestIds.header}>
+        <Link to={"/"} className={styles.header__heading}>Wallpaper Designer</Link>
+        <div data-testid={dataTestIds.toggleNav} onClick={toggleOpenNav}>
           <BurgerMenu isOpen={showNav} />
         </div>
       </div>
