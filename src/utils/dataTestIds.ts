@@ -7,5 +7,8 @@ export const dataTestIds = {
     designForm: "designForm",
     saveCta: "saveCta",
     designTile: "designTile",
-    designDemo: "designDemo"
+    designDemo: "designDemo",
+    designContainer: "designContainer",
+    right: "right",
+    left: "left"
 }
