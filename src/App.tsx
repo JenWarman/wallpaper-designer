@@ -11,6 +11,7 @@ import { DesignForm } from "./components/DesignForm/DesignForm";
 import { Routes, Route, Link } from "react-router-dom";
 import { DesignContainer } from "./components/DesignContainer/DesignContainer";
 import { Header } from "./components/Header/Header";
+import { SavedDesigns } from "./components/SavedDesigns/SavedDesigns";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,15 +28,6 @@ function App() {
           })
         );
       }
-      const savedDesigns = await fetchDesignsByUserId();
-
-      if (savedDesigns?.data.length) {
-        const designs = [];
-        savedDesigns.data.filter((design) => {
-          designs.push(design.design_url);
-          setSavedDesignsUrl(designs);
-        });
-      }
     })();
   }, [dispatch]);
 
@@ -47,18 +39,9 @@ function App() {
         <Route path="/design" element={<><DesignContainer/><DesignForm/></>} />
         <Route path="/login" element={<LoginUser />} />
         <Route path="/order" element={<OrderForm />} />
+        <Route path="/saved-designs" element={<SavedDesigns />} />
       </Routes>
       {/* <ProgressBar /> */}
-      <div className="savedDesigns">
-        <p>See your saved designs </p>
-        <ul>
-          {savedDesignsUrl.map((url) => (
-            <li key={url}>
-              <Link to={`/design?${url}`}>HERE</Link>
-            </li>
-          ))}
-        </ul>
-      </div>
     </>
   );
 }
