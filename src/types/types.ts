@@ -54,3 +54,20 @@ export type InputProps = {
  export type BurgerMenuProps = {
     isOpen: boolean
 }
+
+ export type DesignData = {
+  theme: string;
+  motif: string;
+  scale: string;
+  colour: string;
+  repeat: string
+}
+
+export type SavedDesign = {
+  design_url: string;
+  design_data: DesignData
+}
+
+export type PatternDesignProps = {
+  design: DesignData;
+};

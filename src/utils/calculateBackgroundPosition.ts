@@ -23,6 +23,31 @@ export const calculateBackgroundPosition = (motif: string, scale: string, size: 
     positionTwo: ""
   };
  }
+//scale === "small" ? "10px" : scale === "medium" ? "25px" : "50px";
+ if (size === "card") {
+  const positions: any = {
+    daisy: {
+      small: { positionOne: "5px", positionTwo: "8px" },
+      medium: { positionOne: "12px", positionTwo: "18px" },//done
+      large: { positionOne: "22px", positionTwo: "38px" },//done
+    },
+    orchid: {
+       small: { positionOne: "5px", positionTwo: "8px" },
+      medium: { positionOne: "15px", positionTwo: "22px" },
+      large: { positionOne: "30px", positionTwo: "45px" },
+    },
+    rose: {
+      small: { positionOne: "2px", positionTwo: "1px" },
+      medium: { positionOne: "75px", positionTwo: "50px" },
+      large: { positionOne: "30px", positionTwo: "20px" },
+    },
+  };
+
+  return positions[motif]?.[scale] ?? {
+    positionOne: "",
+    positionTwo: ""
+  };
+ }
   const positions: any = {
     daisy: {
       small: { positionOne: "50px", positionTwo: "75px" },
