@@ -1,5 +1,6 @@
 import useDesignSearchParams from "../../hooks/useDesignSearchParams";
 import { calculateBackgroundPosition} from "../../utils/calculateBackgroundPosition";
+import { calculateImageScale } from "../../utils/calculateImageScale";
 import conditionalClassNames from "../../utils/conditionalClassNames";
 import { dataTestIds } from "../../utils/dataTestIds";
 import styles from "./DesignDemo.module.scss";
@@ -9,21 +10,16 @@ export function DesignDemo() {
 
   const designDemoClassName = conditionalClassNames({
     [styles.designDemo__container]: true,
-    [styles.designDemo__pink]: formData["background-colour"] === "pink",
-    [styles.designDemo__blue]: formData["background-colour"] === "blue",
+    [styles.designDemo__pink]: formData.colour === "pink",
+    [styles.designDemo__blue]: formData.colour === "blue",
   });
 
-  const imageScale =
-    formData.scale === "small"
-      ? "10px"
-      : formData.scale === "medium"
-        ? "30px"
-        : "60px";
+  const imageScale = calculateImageScale("demo", formData.scale)
 
   const bgPosition = calculateBackgroundPosition(
     formData.motif,
     formData.scale,
-    "large"
+    "demo"
   );
 
   return (

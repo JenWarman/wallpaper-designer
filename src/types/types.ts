@@ -9,7 +9,7 @@ export type FormState ={ message?: string}
 export type OrderFormState ={ message?: string, quantity: number, price: number}
 
 export type FormDataType = {
-    theme: string, motif: string, scale: string, "background-colour": string, repeat: string
+    theme: string, motif: string, scale: string, colour: string, repeat: string
 }
 
 export type DropDownProps = {
@@ -70,4 +70,5 @@ export type SavedDesign = {
 
 export type PatternDesignProps = {
   design: DesignData;
+  component: string;
 };

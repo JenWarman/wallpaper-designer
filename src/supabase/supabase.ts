@@ -150,7 +150,7 @@ export async function createDesignByUserId(
     theme: string;
     motif: string;
     scale: string;
-    "background-colour": string;
+    colour: string;
     repeat: string;
   },
 ) {
@@ -168,7 +168,7 @@ export async function createDesignByUserId(
           theme: design.theme,
           motif: design.motif,
           scale: design.scale,
-          colour: design["background-colour"],
+          colour: design.colour,
           repeat: design.repeat,
         },
       })

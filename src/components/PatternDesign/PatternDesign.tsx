@@ -3,7 +3,7 @@ import { calculateBackgroundPosition } from "../../utils/calculateBackgroundPosi
 import conditionalClassNames from "../../utils/conditionalClassNames";
 import styles from "./PatternDesign.module.scss";
 
-export function PatternDesign({ design }: PatternDesignProps) {
+export function PatternDesign({ design, component }: PatternDesignProps) {
   const { motif, scale, colour, repeat } = design;
 
   const patternClassName = conditionalClassNames({
@@ -12,10 +12,11 @@ export function PatternDesign({ design }: PatternDesignProps) {
     [styles.pattern__blue]: colour === "blue",
   });
 
+ 
   const imageScale =
     scale === "small" ? "10px" : scale === "medium" ? "25px" : "50px";
 
-  const bgPosition = calculateBackgroundPosition(motif, scale, "card");
+  const bgPosition = calculateBackgroundPosition(motif, scale, component);
 
   return (
     <div className={patternClassName}>

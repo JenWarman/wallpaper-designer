@@ -22,8 +22,6 @@ export function SavedDesigns() {
     fetchDesigns()
   }, []);
 
-
-
   return (
     <div className={styles.savedDesigns}>
       <div className={styles.savedDesigns__container}>
@@ -37,7 +35,7 @@ export function SavedDesigns() {
         </ul> */}
         <div className={styles.savedDesigns__cardContainer}>
           {designs.map(({design_url, design_data}) => (
-            <PatternDesign key={design_url} design={design_data}/>
+            <PatternDesign key={design_url} design={design_data} component="saved"/>
           ))}
         </div>
       </div>

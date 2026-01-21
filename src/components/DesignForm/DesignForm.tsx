@@ -52,8 +52,8 @@ export function DesignForm() {
         />
         
         <DropDown
-          label="background-colour"
-          value={formData["background-colour"]}
+          label="colour"
+          value={formData.colour}
           onChange={handleChange}
           ariaLabel="Select background colour"
           options={["pink", "blue"]}
@@ -65,7 +65,7 @@ export function DesignForm() {
           onChange={handleChange}
           ariaLabel="Select scale"
           options={["small", "medium", "large"]}
-          disabled={!formData["background-colour"]}
+          disabled={!formData.colour}
         />
         <DropDown
           label="repeat"
