@@ -1,20 +1,17 @@
-.savedDesigns {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+.modal {
+  position: relative;
 
   &__container {
+    position: absolute;
+    height: 60vh;
+    width: 90%;
     display: flex;
     justify-content: center;
-    flex-direction: column;
     align-items: center;
+    flex-direction: column;
     background-color: rgb(255, 247, 238);
     border-radius: 5px;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.148);
-    padding: 10px;
-    margin: 10px;
-    width: 90%;
   }
 
   &__heading {
@@ -22,13 +19,9 @@
     letter-spacing: 0.3rem;
     font-weight: bolder;
   }
-
-  &__cardContainer {
+  
+  &__ctas {
     display: flex;
-    gap: 20px;
-    width: 100%;
-    height: max-content;
-    flex-wrap: wrap;
+    gap: 18px;
   }
- 
 }
