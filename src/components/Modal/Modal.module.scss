@@ -1,0 +1,50 @@
+.modal {
+  position: relative;
+
+  &__container {
+    position: absolute;
+    top: 5rem;
+    height: 70vh;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(255, 247, 238);
+    border-radius: 5px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.148);
+  }
+
+  &__pattern {
+    width: 80%;
+    height: 40vh;
+    border-radius: inherit;
+  }
+
+  &__heading {
+    font-size: 2rem;
+    letter-spacing: 0.2rem;
+    font-weight: bolder;
+    padding-top: 2.5rem;
+  }
+  
+  &__ctas {
+    display: flex;
+    gap: 18px;
+  }
+
+  &__close {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    border: none;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    transition: all 0.3s linear;
+    &:hover {
+      width: 20px;
+      height:20px;
+    }
+  }
+}

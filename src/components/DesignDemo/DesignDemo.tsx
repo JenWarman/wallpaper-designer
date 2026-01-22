@@ -1,62 +1,34 @@
 import useDesignSearchParams from "../../hooks/useDesignSearchParams";
-import { calculateBackgroundPosition} from "../../utils/calculateBackgroundPosition";
-import conditionalClassNames from "../../utils/conditionalClassNames";
+import { calculateImageScale } from "../../utils/calculateImageScale";
 import { dataTestIds } from "../../utils/dataTestIds";
+import { PatternDesign } from "../PatternDesign/PatternDesign";
 import styles from "./DesignDemo.module.scss";
 
 export function DesignDemo() {
   const { formData } = useDesignSearchParams();
 
-  const designDemoClassName = conditionalClassNames({
-    [styles.designDemo__container]: true,
-    [styles.designDemo__pink]: formData["background-colour"] === "pink",
-    [styles.designDemo__blue]: formData["background-colour"] === "blue",
-  });
-
-  const imageScale =
-    formData.scale === "small"
-      ? "10px"
-      : formData.scale === "medium"
-        ? "30px"
-        : "60px";
-
-  const bgPosition = calculateBackgroundPosition(
-    formData.motif,
-    formData.scale,
-    "large"
-  );
+  const imageScale = calculateImageScale("demo", formData.scale)
 
   return (
     <div className={styles.designDemo} data-testid={dataTestIds.designDemo}>
-        
-      {/* container */}
-      <div className={designDemoClassName}>
-        {formData.motif && !formData.repeat ? (
-        <div className={designDemoClassName}>
+
+      <div className={styles.designDemo__container}>
+        {formData.motif && !formData.repeat && (
+        <div className={styles.designDemo__container}>
           <img
             style={{ width: `${imageScale}`, height: `${imageScale}`, marginBottom: `5rem` }}
             src={`src/assets/${formData.motif}.png`}
             alt={formData.motif}
           />
         </div>
-      ) : formData.repeat === "tile" ? (
-        <div
-          className={designDemoClassName}
-          style={{
-            backgroundImage: `url(${`"/src/assets/${formData.motif}.png"`})`,
-            backgroundPosition: `0 0, ${bgPosition.positionOne} ${bgPosition.positionTwo} `,
-            backgroundSize: `${imageScale} auto`
-          }}
-        ></div>
-      ) : (
-        <div
-          className={designDemoClassName}
-          style={{
-            backgroundImage: `url(${`"/src/assets/${formData.motif}_bg.png"`}), url(${`"/src/assets/${formData.motif}_bg.png"`})`,
-            backgroundPosition: `0 0, ${bgPosition.positionOne} ${bgPosition.positionTwo} `, backgroundSize: `${imageScale} auto`
-          }}
-        ></div>
-      )}
+      ) }
+      
+      {formData.repeat && ( 
+          <div className={styles.designDemo__container}>
+          <PatternDesign design={formData} component="demo"/>
+          </div>
+        )}
+
         {/* insitu image layer */}
         <img
           className={styles.designDemo__image}

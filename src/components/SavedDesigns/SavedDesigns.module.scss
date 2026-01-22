@@ -1,0 +1,40 @@
+.savedDesigns {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(255, 247, 238);
+    border-radius: 5px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.148);
+    padding: 10px;
+    margin: 10px;
+    width: 90%;
+  }
+
+  &__heading {
+    font-size: 2rem;
+    letter-spacing: 0.3rem;
+    font-weight: bolder;
+  }
+
+  &__cardContainer {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    height: max-content;
+    flex-wrap: wrap;
+  }
+
+  &__card {
+    height: 160px;
+    width: 160px;
+    border-radius: inherit;
+  }
+ 
+}

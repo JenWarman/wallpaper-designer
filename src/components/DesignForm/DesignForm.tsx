@@ -14,7 +14,7 @@ export function DesignForm() {
   };
 
   const handleSaveDesign = async () => {
-    await createDesignByUserId(paramsString);
+    await createDesignByUserId(paramsString, formData);
   };
 
   return (
@@ -38,10 +38,10 @@ export function DesignForm() {
           options={["orchid", "daisy", "rose"]}
           disabled={!formData.theme}
         />
-        
+
         <DropDown
-          label="background-colour"
-          value={formData["background-colour"]}
+          label="colour"
+          value={formData.colour}
           onChange={handleChange}
           ariaLabel="Select background colour"
           options={["pink", "blue"]}
@@ -53,7 +53,7 @@ export function DesignForm() {
           onChange={handleChange}
           ariaLabel="Select scale"
           options={["small", "medium", "large"]}
-          disabled={!formData["background-colour"]}
+          disabled={!formData.colour}
         />
         <DropDown
           label="repeat"
@@ -65,13 +65,13 @@ export function DesignForm() {
         />
         <div className={styles.designForm__Ctas}>
           <Cta
-          ctaFunction={handleSaveDesign}
-          dataTestId={dataTestIds.cta}
-          label="Save"
-          ariaLabel="save your design"
-          type="button"
-          disabled={!paramsString}
-        />
+            ctaFunction={handleSaveDesign}
+            dataTestId={dataTestIds.cta}
+            label="Save"
+            ariaLabel="save your design"
+            type="button"
+            disabled={!paramsString}
+          />
           <Cta
             ctaFunction={clearParams}
             dataTestId={dataTestIds.cta}
@@ -81,7 +81,6 @@ export function DesignForm() {
           />
         </div>
       </form>
-      
     </div>
   );
 }

@@ -20,7 +20,7 @@ describe("DesignDemo", () => {
         theme: "floral",
         motif: "rose",
         scale: "small",
-        "background-colour": "blue",
+        colour: "blue",
         repeat: "tile",
       },
       paramsString: "theme=floral&motif=rose&scale=small&background-colour=blue&repeat=tile",

@@ -21,6 +21,14 @@ const useDesignSearchParamsMock = useDesignSearchParams as MockedFunction<
 
 import useDesignSearchParams from "../../hooks/useDesignSearchParams";
 
+const design = {
+  theme: "floral",
+  motif: "",
+  scale: "",
+  colour: "",
+  repeat: "",
+};
+
 describe("DesignForm", () => {
   beforeEach(() => {
     useDesignSearchParamsMock.mockReturnValue({
@@ -28,7 +36,7 @@ describe("DesignForm", () => {
         theme: "",
         motif: "",
         scale: "",
-        "background-colour": "",
+        colour: "",
         repeat: "",
       },
       paramsString: "",
@@ -68,7 +76,7 @@ describe("DesignForm", () => {
         theme: "",
         motif: "",
         scale: "",
-        "background-colour": "",
+        colour: "",
         repeat: "",
       },
       paramsString: "",
@@ -89,7 +97,7 @@ const saveCta = screen.getByText("Save")
         theme: "floral",
         motif: "",
         scale: "",
-        "background-colour": "",
+        colour: "",
         repeat: "",
       },
       paramsString: "theme=floral",
@@ -112,7 +120,7 @@ const saveCta = screen.getByText("Save")
         theme: "floral",
         motif: "",
         scale: "",
-        "background-colour": "",
+        colour: "",
         repeat: "",
       },
       paramsString: "theme=floral",
@@ -126,7 +134,7 @@ const saveCta = screen.getByText("Save")
 
     fireEvent.click(saveCta);
 
-    expect(createDesignByUserId).toHaveBeenCalledWith("theme=floral");
+    expect(createDesignByUserId).toHaveBeenCalledWith("theme=floral", design);
   });
   test("clear cta calls clearParams", () => {
     render(<DesignForm />);

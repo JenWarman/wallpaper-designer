@@ -34,19 +34,20 @@ export async function signUpAndCreateAccount(newUser: NewUser) {
 }
 
 export async function getUserSession() {
-  const {data, error} = await supabase.auth.getSession()
+  const { data, error } = await supabase.auth.getSession();
 
   if (error) {
     return {
-      success: false, error
-    }
+      success: false,
+      error,
+    };
   }
   if (data.session?.user) {
     return {
       success: true,
       user_id: data.session.user.id,
-      username: data.session.user.user_metadata.username
-    }
+      username: data.session.user.user_metadata.username,
+    };
   }
 }
 
@@ -78,7 +79,7 @@ export async function fetchUserById() {
 export async function updateOrderByUserId(
   quantity: number,
   price: number,
-  design: string
+  design: string,
 ) {
   const {
     data: { user },
@@ -143,7 +144,16 @@ export async function loginAndStartSession(email: string, password: string) {
   };
 }
 
-export async function createDesignByUserId(design_url: string) {
+export async function createDesignByUserId(
+  design_url: string,
+  design: {
+    theme: string;
+    motif: string;
+    scale: string;
+    colour: string;
+    repeat: string;
+  },
+) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -154,6 +164,13 @@ export async function createDesignByUserId(design_url: string) {
       .insert({
         user_id: user.id,
         design_url,
+        design_data: {
+          theme: design.theme,
+          motif: design.motif,
+          scale: design.scale,
+          colour: design.colour,
+          repeat: design.repeat,
+        },
       })
       .select()
       .single();
@@ -180,7 +197,7 @@ export async function fetchDesignsByUserId() {
     const { data, error } = await supabase
       .from("designs")
       .select("*")
-      .eq("user_id", user.id);
+      .eq("user_id", user.id)
     if (error) {
       return { success: false, error };
     }

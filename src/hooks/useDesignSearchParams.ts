@@ -8,7 +8,7 @@ export default function useDesignSearchParams() {
     theme: searchParams.get("theme") ?? "",
     motif: searchParams.get("motif") ?? "",
     scale: searchParams.get("scale") ?? "",
-    "background-colour": searchParams.get("background-colour") ?? "",
+    colour: searchParams.get("colour") ?? "",
     repeat: searchParams.get("repeat") ?? "",
   };
 
