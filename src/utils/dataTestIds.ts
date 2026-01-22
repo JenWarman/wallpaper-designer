@@ -15,5 +15,8 @@ export const dataTestIds = {
     nav: "nav",
     header: "header",
     toggleNav: "toggleNav",
-    
+    savedDesigns: "savedDesigns",
+    modal: "modal",
+    modalClose: "modalClose",
+    patternDesign: "patternDesign"
 }

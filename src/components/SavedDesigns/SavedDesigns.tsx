@@ -4,6 +4,7 @@ import styles from "./SavedDesigns.module.scss";
 import { PatternDesign } from "../PatternDesign/PatternDesign";
 import { type DesignData, type SavedDesign } from "../../types/types";
 import { Modal } from "../Modal/Modal";
+import { dataTestIds } from "../../utils/dataTestIds";
 
 export function SavedDesigns() {
   const [designs, setDesigns] = useState<SavedDesign[]>([]);
@@ -33,7 +34,7 @@ export function SavedDesigns() {
   }
 
   return (
-    <div className={styles.savedDesigns}>
+    <div className={styles.savedDesigns} data-testid={dataTestIds.savedDesigns}>
       <div className={styles.savedDesigns__container}>
         <h1 className={styles.savedDesigns__heading}>Your Designs</h1>
         <div className={styles.savedDesigns__cardContainer}>

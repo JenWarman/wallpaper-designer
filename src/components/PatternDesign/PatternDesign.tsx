@@ -2,6 +2,7 @@ import type { PatternDesignProps } from "../../types/types";
 import { calculateBackgroundPosition } from "../../utils/calculateBackgroundPosition";
 import { calculateImageScale } from "../../utils/calculateImageScale";
 import conditionalClassNames from "../../utils/conditionalClassNames";
+import { dataTestIds } from "../../utils/dataTestIds";
 import styles from "./PatternDesign.module.scss";
 
 export function PatternDesign({ design, component }: PatternDesignProps) {
@@ -18,7 +19,7 @@ export function PatternDesign({ design, component }: PatternDesignProps) {
   const bgPosition = calculateBackgroundPosition(motif, scale, component);
 
   return (
-    <div className={patternClassName}>
+    <div className={patternClassName} data-testid={dataTestIds.patternDesign}>
         {repeat === "tile" ? (
                 <div
                   className={patternClassName}

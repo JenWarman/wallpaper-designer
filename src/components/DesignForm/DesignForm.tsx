@@ -4,11 +4,8 @@ import { Cta } from "../Cta/Cta";
 import { DropDown } from "../DropDown/DropDown";
 import styles from "./DesignForm.module.scss";
 import useDesignSearchParams from "../../hooks/useDesignSearchParams";
-import { useDispatch } from "react-redux";
-import { saveDesign} from "../../store/designSlice";
 
 export function DesignForm() {
-  // const dispatch = useDispatch()
   const { formData, paramsString, updateParam, clearParams } =
     useDesignSearchParams();
 
@@ -16,17 +13,8 @@ export function DesignForm() {
     updateParam(event.target.name, event.target.value);
   };
 
-  // console.log(formData)
-
   const handleSaveDesign = async () => {
     await createDesignByUserId(paramsString, formData);
-    // dispatch(saveDesign({
-    //   theme: formData.theme,
-    //   motif: formData.motif,
-    //   scale: formData.scale,
-    //   colour: formData["background-colour"],
-    //   repeat: formData.repeat
-    // }))
   };
 
   return (
@@ -50,7 +38,7 @@ export function DesignForm() {
           options={["orchid", "daisy", "rose"]}
           disabled={!formData.theme}
         />
-        
+
         <DropDown
           label="colour"
           value={formData.colour}
@@ -77,13 +65,13 @@ export function DesignForm() {
         />
         <div className={styles.designForm__Ctas}>
           <Cta
-          ctaFunction={handleSaveDesign}
-          dataTestId={dataTestIds.cta}
-          label="Save"
-          ariaLabel="save your design"
-          type="button"
-          disabled={!paramsString}
-        />
+            ctaFunction={handleSaveDesign}
+            dataTestId={dataTestIds.cta}
+            label="Save"
+            ariaLabel="save your design"
+            type="button"
+            disabled={!paramsString}
+          />
           <Cta
             ctaFunction={clearParams}
             dataTestId={dataTestIds.cta}
@@ -93,7 +81,6 @@ export function DesignForm() {
           />
         </div>
       </form>
-      
     </div>
   );
 }
