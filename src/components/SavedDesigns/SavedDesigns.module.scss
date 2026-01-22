@@ -30,5 +30,11 @@
     height: max-content;
     flex-wrap: wrap;
   }
+
+  &__card {
+    height: 160px;
+    width: 160px;
+    border-radius: inherit;
+  }
  
 }

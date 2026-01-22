@@ -16,7 +16,7 @@ type ModalProps = {
 };
 
 export function Modal({ url, design }: ModalProps) {
- const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleOrderDesign = () => {
     console.log("order me!");
@@ -25,7 +25,10 @@ export function Modal({ url, design }: ModalProps) {
   return (
     <div className={styles.modal__container}>
       <h1 className={styles.modal__heading}>Your Designs</h1>
-      <PatternDesign  design={design} component="saved"/>
+      <div className={styles.modal__pattern}>
+        <PatternDesign design={design} component="saved" />
+      </div>
+
       <div className={styles.modal__ctas}>
         <Cta
           label="Edit"

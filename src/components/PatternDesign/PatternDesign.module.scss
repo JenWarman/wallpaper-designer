@@ -1,11 +1,12 @@
 .pattern {
   &__card {
-    height: 160px;
-    width: 160px;
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
+    margin: 0;
   }
 
   &__blue {

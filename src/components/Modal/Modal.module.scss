@@ -3,7 +3,8 @@
 
   &__container {
     position: absolute;
-    height: 60vh;
+    top: 5rem;
+    height: 70vh;
     width: 90%;
     display: flex;
     justify-content: center;
@@ -14,9 +15,15 @@
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.148);
   }
 
+  &__pattern {
+    width: 80%;
+    height: 40vh;
+    border-radius: inherit;
+  }
+
   &__heading {
     font-size: 2rem;
-    letter-spacing: 0.3rem;
+    letter-spacing: 0.2rem;
     font-weight: bolder;
   }
   
