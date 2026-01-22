@@ -5,6 +5,7 @@ import { PatternDesign } from "../PatternDesign/PatternDesign";
 import { type DesignData, type SavedDesign } from "../../types/types";
 import { Modal } from "../Modal/Modal";
 import { dataTestIds } from "../../utils/dataTestIds";
+import { Link } from "react-router";
 
 export function SavedDesigns() {
   const [designs, setDesigns] = useState<SavedDesign[]>([]);
@@ -36,7 +37,14 @@ export function SavedDesigns() {
   return (
     <div className={styles.savedDesigns} data-testid={dataTestIds.savedDesigns}>
       <div className={styles.savedDesigns__container}>
+        
         <h1 className={styles.savedDesigns__heading}>Your Designs</h1>
+        {designs.length === 0 && (
+          <>
+          <p>You don't have any saved designs yet.</p>
+          <p>Get started <Link to={"/design"}>here.</Link></p>
+          </>
+          )}
         <div className={styles.savedDesigns__cardContainer}>
           {designs.map(({ design_url, design_data }) => (
             <div
