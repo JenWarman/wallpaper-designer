@@ -13,6 +13,7 @@ import { DesignContainer } from "./components/DesignContainer/DesignContainer";
 import { Header } from "./components/Header/Header";
 import { SavedDesigns } from "./components/SavedDesigns/SavedDesigns";
 import { getUsername } from "./store/selectors/userSelector";
+import { PlacedOrders } from "./components/PlacedOrders/PlacedOrders";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function App() {
         <Route path="/login" element={<LoginUser />} />
         <Route path="/order" element={<OrderForm />} />
         <Route path="/saved-designs" element={<SavedDesigns />} />
+        <Route path="/your-orders" element={<PlacedOrders/>}/>
       </Routes>
       {/* <ProgressBar /> */}
     </>
