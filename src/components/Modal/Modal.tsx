@@ -18,10 +18,6 @@ type ModalProps = {
 export function Modal({ url, design }: ModalProps) {
   const navigate = useNavigate();
 
-  const handleOrderDesign = () => {
-    console.log("order me!");
-    //navigate to order page with design config
-  };
   return (
     <div className={styles.modal__container}>
       <h1 className={styles.modal__heading}>Your Designs</h1>
@@ -42,7 +38,7 @@ export function Modal({ url, design }: ModalProps) {
           ariaLabel="order your design"
           type="button"
           dataTestId={dataTestIds.cta}
-          ctaFunction={handleOrderDesign}
+          ctaFunction={() => navigate(`/order?${url}`)}
         />
       </div>
     </div>
