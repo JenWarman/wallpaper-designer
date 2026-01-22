@@ -2,17 +2,15 @@ import { useActionState, useEffect, useState } from "react";
 import styles from "./OrderForm.module.scss";
 import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
-import type { OrderFormState } from "../../types/types";
+import type { DesignData, OrderFormState } from "../../types/types";
 import { handleCalculatePrice } from "../../utils/forms/formActions";
 import { dataTestIds } from "../../utils/dataTestIds";
 import {
-  updateOrderByUserId,
+  fetchDesignsByUserId,
 } from "../../supabase/supabase";
-import { Cta } from "../Cta/Cta";
-import { useDispatch, useSelector } from "react-redux";
-import { orderPlaced } from "../../store/orderSlice";
-import { getOrderPlaced } from "../../store/selectors/userSelector";
 import { validateMeasurement } from "../../utils/forms/formValidation";
+import { PatternDesign } from "../PatternDesign/PatternDesign";
+import { OrderModal } from "../OrderModal/OrderModal";
 
 export function OrderForm() {
   const [formData, setFormData] = useState({
@@ -21,19 +19,22 @@ export function OrderForm() {
     measurement: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [ordered, setOrdered] = useState(false);
+  const [readyToOrder, setReadyToOrder] = useState(false);
+  const [design, setDesign] = useState<DesignData>({
+    theme: "",
+    motif: "",
+    scale: "",
+    colour: "",
+    repeat: "",
+  });
+  const [orderData, setOrderData] = useState({quantity: 0, price: 0})
 
-  const dispatch = useDispatch();
+  const designUrl = window.location.href.split("/order?")[1];
 
   const [state, action, isPending] = useActionState<OrderFormState, FormData>(
     handleCalculatePrice,
-    { quantity: 0, price: 0 }
+    { quantity: 0, price: 0 },
   );
-
-  const handlePlaceOrder = async () => {
-    await updateOrderByUserId(state.quantity, state.price, "design-1");
-    setOrdered(true);
-  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -67,19 +68,40 @@ export function OrderForm() {
     formData.measurement.trim() !== "";
 
   useEffect(() => {
-    if (state.price > 0 && state.quantity > 0) {
-      dispatch(orderPlaced());
-    }
-  }, [state.price, state.quantity, dispatch]);
+    const fetchDesigns = async () => {
+      const result = await fetchDesignsByUserId();
 
-  const readyToOrder = useSelector(getOrderPlaced);
+      if (!result) return;
+
+      result.data?.map((design) => {
+        if (design.design_url === window.location.href.split("/order?")[1]) {
+          setDesign(design.design_data);
+        }
+      });
+    };
+    fetchDesigns();
+  }, []);
+
+  useEffect(() => {
+    const readyToOrder = async () => {
+      if (state.price > 0 && state.quantity > 0) {
+        setReadyToOrder(true);
+        setOrderData({quantity: state.quantity, price: state.price})
+      }
+    };
+
+    readyToOrder();
+  }, [state.price, state.quantity]);
 
   return (
     <div className={styles.orderForm__container}>
-      <h3 className={styles.orderForm__heading}>Your Design: "Design-1"</h3>
+      <div className={styles.orderForm__pattern}>
+        <PatternDesign design={design} component="saved" />
+      </div>
+      <h1 className={styles.orderForm__heading}>Order Your Wallpaper</h1>
       <Form
         action={action}
-        ctaLabel="Calculate Price"
+        ctaLabel="Get Price"
         dataTestId={dataTestIds.form}
         ctaAriaLabel="calculate price of wallpaper"
         ctaDisabled={!readyToCalculate || isPending}
@@ -128,29 +150,11 @@ export function OrderForm() {
           onBlur={handleBlur}
         />
         {errors && <span className="error">{errors.height}</span>}
-        <div className={styles.orderForm__link}>
-          <a href="">Measuring Guide</a>
-        </div>
       </Form>
       <div className={styles.orderForm__price}>
         {isPending && <p>Calculating...</p>}
-        {state.message}
       </div>
-      <div className={styles.orderForm__cta}>
-        <Cta
-          ctaFunction={handlePlaceOrder}
-          label="Order"
-          ariaLabel="Place order"
-          type="button"
-          dataTestId={dataTestIds.cta}
-          disabled={!readyToOrder}
-        />
-        {ordered && (
-          <p className={styles.orderForm__message}>
-            Your Order has been placed.
-          </p>
-        )}
-      </div>
+      {readyToOrder && (<OrderModal order={orderData} designUrl={designUrl} design={design}/>)}
     </div>
   );
 }

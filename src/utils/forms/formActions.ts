@@ -73,5 +73,5 @@ export const handleCalculatePrice = async (
 
   const price = calculatePrice(quantity);
 
-  return { message: `Total price: £${price}`, quantity, price };
+  return { message: `Total price:  £${price}`, quantity, price };
 };

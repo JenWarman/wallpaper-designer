@@ -28,10 +28,13 @@
   align-items: center;
   &__label,
   &__input {
-    padding: 10px 10px 10px 0;
+    padding: 0 10px;
     letter-spacing: 0.1rem;
   }
   &__label {
     text-transform: uppercase;
+  }
+  &__input {
+    margin-left: 8px;
   }
 }
