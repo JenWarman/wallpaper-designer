@@ -1,25 +1,33 @@
 export interface NewUser {
-    username: string;
-    email: string;
-    password: string;
+  username: string;
+  email: string;
+  password: string;
 }
 
-export type FormState ={ message?: string}
+export type FormState = { message?: string };
 
-export type OrderFormState ={ message?: string, quantity: number, price: number}
+export type OrderFormState = {
+  message?: string;
+  quantity: number;
+  price: number;
+};
 
 export type FormDataType = {
-    theme: string, motif: string, scale: string, colour: string, repeat: string
-}
+  theme: string;
+  motif: string;
+  scale: string;
+  colour: string;
+  repeat: string;
+};
 
 export type DropDownProps = {
-    label: string;
-    onChange: (option: React.ChangeEvent<HTMLSelectElement>) => void;
-    options: string[];
-    value: string;
-    ariaLabel: string;
-    disabled?: boolean;
-}
+  label: string;
+  onChange: (option: React.ChangeEvent<HTMLSelectElement>) => void;
+  options: string[];
+  value: string;
+  ariaLabel: string;
+  disabled?: boolean;
+};
 
 export type CtaProps = {
   label: string;
@@ -27,10 +35,10 @@ export type CtaProps = {
   dataTestId: string;
   disabled?: boolean;
   ariaLabel: string;
-  type: 'submit' | 'reset' | 'button' | undefined
+  type: "submit" | "reset" | "button" | undefined;
 };
 
- export type FormProps = {
+export type FormProps = {
   action: React.FormHTMLAttributes<HTMLFormElement>["action"];
   children: React.ReactNode;
   ctaLabel: string;
@@ -51,22 +59,27 @@ export type InputProps = {
   dataTestId: string;
 };
 
- export type BurgerMenuProps = {
-    isOpen: boolean
-}
+export type BurgerMenuProps = {
+  isOpen: boolean;
+};
 
- export type DesignData = {
+export type DesignData = {
   theme: string;
   motif: string;
   scale: string;
   colour: string;
-  repeat: string
-}
+  repeat: string;
+};
 
 export type SavedDesign = {
+  created_at: string;
   design_url: string;
-  design_data: DesignData
-}
+  design_data: DesignData;
+  id: number;
+  status: boolean;
+  user_id: string;
+};
+
 
 export type PatternDesignProps = {
   design: DesignData;

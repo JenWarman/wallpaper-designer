@@ -13,14 +13,16 @@ type ModalProps = {
     colour: string;
     repeat: string;
   };
+  onClose: () => void
 };
 
-export function Modal({ url, design }: ModalProps) {
+export function Modal({ url, design, onClose }: ModalProps) {
   const navigate = useNavigate();
 
   return (
     <div className={styles.modal__container}>
-      <h1 className={styles.modal__heading}>Your Designs</h1>
+      <img src="src/assets/close.png" alt="" onClick={onClose} aria-label="close" className={styles.modal__close}/>
+      <h1 className={styles.modal__heading}>Your Design</h1>
       <div className={styles.modal__pattern}>
         <PatternDesign design={design} component="saved" />
       </div>
