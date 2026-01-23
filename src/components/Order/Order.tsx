@@ -3,6 +3,7 @@ import type { DesignData } from "../../types/types";
 import styles from "./Order.module.scss";
 import { updateOrderByUserId } from "../../supabase/supabase";
 import { PatternDesign } from "../PatternDesign/PatternDesign";
+import { dataTestIds } from "../../utils/dataTestIds";
 
 type OrderProps = {
   order: {
@@ -23,7 +24,7 @@ export function Order({ order, designUrl }: OrderProps) {
   };
 
   return (
-    <div className={styles.order__container}>
+    <div className={styles.order__container} data-testid={dataTestIds.order}>
       <div className={styles.order__pattern}>
         <PatternDesign design={design} component="saved" />
       </div>

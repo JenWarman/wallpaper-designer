@@ -18,5 +18,7 @@ export const dataTestIds = {
     savedDesigns: "savedDesigns",
     modal: "modal",
     modalClose: "modalClose",
-    patternDesign: "patternDesign"
+    patternDesign: "patternDesign",
+    order: "order",
+    orderForm: "orderForm",
 }

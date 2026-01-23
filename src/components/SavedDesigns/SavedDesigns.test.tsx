@@ -38,6 +38,7 @@ describe("SavedDesigns", () => {
   });
   test("it renders the component", () => {
     render(<SavedDesigns />);
+
     expect(screen.getByTestId("savedDesigns")).toBeInTheDocument();
   });
   test("it fetchs and shows saved designs", async () => {

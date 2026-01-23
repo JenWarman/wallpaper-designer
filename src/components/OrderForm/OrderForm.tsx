@@ -82,7 +82,7 @@ export function OrderForm() {
   }, [state.price, state.quantity]);
 
   return (
-    <div className={styles.orderForm__container}>
+    <div className={styles.orderForm__container} data-testid={dataTestIds.orderForm}>
       {!readyToOrder && (
         <>
           <div className={styles.orderForm__pattern}>
