@@ -1,0 +1,31 @@
+.orderTracking {
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 90%;
+  }
+  &__pattern {
+    height: 160px;
+    width: 90%;
+    border-radius: 5px;
+    background-color: royalblue;
+  }
+  &__status {
+    display: flex;
+    width: 100%;
+  }
+
+  &__side {
+    width: 20%;
+    height: 60vh;
+    background-color: aqua;
+  }
+
+  &__detail {
+    width: 60%;
+    height: 60vh;
+    background-color: grey;
+  }
+}
