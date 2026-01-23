@@ -7,6 +7,7 @@ import {
 } from "../../supabase/supabase";
 import { type SavedDesign, type SavedOrder } from "../../types/types";
 import { useNavigate } from "react-router";
+import { dataTestIds } from "../../utils/dataTestIds";
 
 export function PlacedOrders() {
   const [designs, setDesigns] = useState<SavedDesign[]>([]);
@@ -26,7 +27,7 @@ export function PlacedOrders() {
   }, []);
 
   return (
-    <div className={styles.placedOrders__container}>
+    <div className={styles.placedOrders__container} data-testid={dataTestIds.placedOrders}>
       <h1 className={styles.placedOrders__heading}>Your Orders</h1>
       <div className={styles.placedOrders__cardContainer}>
         {orders.map((order) => {
