@@ -21,4 +21,5 @@ export const dataTestIds = {
     patternDesign: "patternDesign",
     order: "order",
     orderForm: "orderForm",
+    placedOrders: "placedOrders"
 }
