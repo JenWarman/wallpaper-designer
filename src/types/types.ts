@@ -85,3 +85,13 @@ export type PatternDesignProps = {
   design: DesignData;
   component: string;
 };
+
+export type SavedOrder = {
+  created_at: string;
+  date: string;
+  design: string;
+  id: number;
+  price: number;
+  quantity: number;
+  user_id: string;
+};

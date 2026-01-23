@@ -4,7 +4,6 @@ import { RegisterUser } from "./components/RegisterUser/RegisterUser";
 import {  getUserSession } from "./supabase/supabase";
 import { LoginUser } from "./components/LoginUser/LoginUser";
 import { OrderForm } from "./components/OrderForm/OrderForm";
-// import { ProgressBar } from "./components/ProgressBar/ProgressBar";
 import { useDispatch, useSelector } from "react-redux";
 import { saveUser } from "./store/userSlice";
 import { DesignForm } from "./components/DesignForm/DesignForm";
@@ -14,6 +13,7 @@ import { Header } from "./components/Header/Header";
 import { SavedDesigns } from "./components/SavedDesigns/SavedDesigns";
 import { getUsername } from "./store/selectors/userSelector";
 import { PlacedOrders } from "./components/PlacedOrders/PlacedOrders";
+import { OrderTracking } from "./components/OrderTracking/OrderTracking";
 
 function App() {
   const dispatch = useDispatch();
@@ -45,8 +45,8 @@ function App() {
         <Route path="/order" element={<OrderForm />} />
         <Route path="/saved-designs" element={<SavedDesigns />} />
         <Route path="/your-orders" element={<PlacedOrders/>}/>
+        <Route path="/order-tracking" element={<OrderTracking/>}/>
       </Routes>
-      {/* <ProgressBar /> */}
     </>
   );
 }
