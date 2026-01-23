@@ -37,14 +37,22 @@ describe("SavedDesigns", () => {
     cleanup();
   });
   test("it renders the component", () => {
-    render(<SavedDesigns />);
+     render(
+      <MemoryRouter>
+        <SavedDesigns />
+      </MemoryRouter>,
+    );
 
     expect(screen.getByTestId("savedDesigns")).toBeInTheDocument();
   });
   test("it fetchs and shows saved designs", async () => {
     (fetchDesignsByUserId as any).mockResolvedValue({ data: mockDesigns });
 
-    render(<SavedDesigns />);
+    render(
+      <MemoryRouter>
+        <SavedDesigns />
+      </MemoryRouter>,
+    );
 
     expect(await screen.findByText("PatternDesign")).toBeInTheDocument();
   });
