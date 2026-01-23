@@ -28,8 +28,8 @@ export function Order({ order, designUrl }: OrderProps) {
       <div className={styles.order__pattern}>
         <PatternDesign design={design} component="saved" />
       </div>
-      <h1>Total Price: £{price}</h1>
-      <p>Quantity: {quantity} rolls</p>
+      <h1 className={styles.order__heading}>Total Price: <span className={styles.order__bold}>£{price}</span></h1>
+      <p className={styles.order__text}>Quantity: {quantity} rolls</p>
 
       <div className={styles.order__ctas}>
         <button
