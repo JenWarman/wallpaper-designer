@@ -5,14 +5,10 @@ import { Input } from "../Input/Input";
 import type { OrderFormState } from "../../types/types";
 import { handleCalculatePrice } from "../../utils/forms/formActions";
 import { dataTestIds } from "../../utils/dataTestIds";
-import {
-  updateOrderByUserId,
-} from "../../supabase/supabase";
-import { Cta } from "../Cta/Cta";
-import { useDispatch, useSelector } from "react-redux";
-import { orderPlaced } from "../../store/orderSlice";
-import { getOrderPlaced } from "../../store/selectors/userSelector";
+import { fetchDesignsByUserId } from "../../supabase/supabase";
 import { validateMeasurement } from "../../utils/forms/formValidation";
+import { PatternDesign } from "../PatternDesign/PatternDesign";
+import { Order } from "../Order/Order";
 
 export function OrderForm() {
   const [formData, setFormData] = useState({
@@ -21,19 +17,19 @@ export function OrderForm() {
     measurement: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [ordered, setOrdered] = useState(false);
+  const [readyToOrder, setReadyToOrder] = useState(false);
+  const [orderData, setOrderData] = useState({
+    quantity: 0,
+    price: 0,
+    design: { theme: "", motif: "", scale: "", colour: "", repeat: "" },
+  });
 
-  const dispatch = useDispatch();
+  const designUrl = window.location.href.split("/order?")[1];
 
   const [state, action, isPending] = useActionState<OrderFormState, FormData>(
     handleCalculatePrice,
-    { quantity: 0, price: 0 }
+    { quantity: 0, price: 0 },
   );
-
-  const handlePlaceOrder = async () => {
-    await updateOrderByUserId(state.quantity, state.price, "design-1");
-    setOrdered(true);
-  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -67,90 +63,91 @@ export function OrderForm() {
     formData.measurement.trim() !== "";
 
   useEffect(() => {
-    if (state.price > 0 && state.quantity > 0) {
-      dispatch(orderPlaced());
-    }
-  }, [state.price, state.quantity, dispatch]);
-
-  const readyToOrder = useSelector(getOrderPlaced);
+    (async () => {
+      const result = await fetchDesignsByUserId();
+      if (!result) return;
+      result.data?.map((design) => {
+        if (design.design_url === window.location.href.split("/order?")[1]) {
+          setOrderData({
+            quantity: state.quantity,
+            price: state.price,
+            design: design.design_data,
+          });
+        }
+      });
+      if (state.price > 0 && state.quantity > 0) {
+        setReadyToOrder(true);
+      }
+    })();
+  }, [state.price, state.quantity]);
 
   return (
-    <div className={styles.orderForm__container}>
-      <h3 className={styles.orderForm__heading}>Your Design: "Design-1"</h3>
-      <Form
-        action={action}
-        ctaLabel="Calculate Price"
-        dataTestId={dataTestIds.form}
-        ctaAriaLabel="calculate price of wallpaper"
-        ctaDisabled={!readyToCalculate || isPending}
-      >
-        <div className={styles.orderForm__radio}>
-          <Input
-            type="radio"
-            id="cms"
-            ariaLabel="select cms as measurment"
-            label="cms"
-            name="measurement"
-            dataTestId={dataTestIds.input}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          <Input
-            type="radio"
-            id="inches"
-            ariaLabel="select inches as measurment"
-            label="inches"
-            name="measurement"
-            dataTestId={dataTestIds.input}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-        <Input
-          type="number"
-          name="width"
-          id="width"
-          ariaLabel="width of wall"
-          label="Width of Wall"
-          dataTestId={dataTestIds.input}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-        {errors && <span className="error">{errors.width}</span>}
-        <Input
-          type="number"
-          id="height"
-          ariaLabel="height of wall"
-          label="height of Wall"
-          name="height"
-          dataTestId={dataTestIds.input}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-        {errors && <span className="error">{errors.height}</span>}
-        <div className={styles.orderForm__link}>
-          <a href="">Measuring Guide</a>
-        </div>
-      </Form>
-      <div className={styles.orderForm__price}>
-        {isPending && <p>Calculating...</p>}
-        {state.message}
-      </div>
-      <div className={styles.orderForm__cta}>
-        <Cta
-          ctaFunction={handlePlaceOrder}
-          label="Order"
-          ariaLabel="Place order"
-          type="button"
-          dataTestId={dataTestIds.cta}
-          disabled={!readyToOrder}
-        />
-        {ordered && (
-          <p className={styles.orderForm__message}>
-            Your Order has been placed.
-          </p>
-        )}
-      </div>
+    <div className={styles.orderForm__container} data-testid={dataTestIds.orderForm}>
+      {!readyToOrder && (
+        <>
+          <div className={styles.orderForm__pattern}>
+            <PatternDesign design={orderData.design} component="saved" />
+          </div>
+          <h1 className={styles.orderForm__heading}>Order Your Wallpaper</h1>
+          <Form
+            action={action}
+            ctaLabel="Get Price"
+            dataTestId={dataTestIds.form}
+            ctaAriaLabel="calculate price of wallpaper"
+            ctaDisabled={!readyToCalculate || isPending}
+          >
+            <div className={styles.orderForm__radio}>
+              <Input
+                type="radio"
+                id="cms"
+                ariaLabel="select cms as measurment"
+                label="cms"
+                name="measurement"
+                dataTestId={dataTestIds.input}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Input
+                type="radio"
+                id="inches"
+                ariaLabel="select inches as measurment"
+                label="inches"
+                name="measurement"
+                dataTestId={dataTestIds.input}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </div>
+            <Input
+              type="number"
+              name="width"
+              id="width"
+              ariaLabel="width of wall"
+              label="Width of Wall"
+              dataTestId={dataTestIds.input}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            {errors && <span className="error">{errors.width}</span>}
+            <Input
+              type="number"
+              id="height"
+              ariaLabel="height of wall"
+              label="height of Wall"
+              name="height"
+              dataTestId={dataTestIds.input}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            {errors && <span className="error">{errors.height}</span>}
+          </Form>
+          <div className={styles.orderForm__price}>
+            {isPending && <p>Calculating...</p>}
+          </div>
+        </>
+      )}
+
+      {readyToOrder && <Order order={orderData} designUrl={designUrl} />}
     </div>
   );
 }

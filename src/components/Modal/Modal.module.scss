@@ -10,13 +10,11 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: rgb(255, 247, 238);
-    border-radius: 5px;
-    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.148);
+    background-color: white;
   }
 
   &__pattern {
-    width: 80%;
+    width: 85%;
     height: 40vh;
     border-radius: inherit;
   }
