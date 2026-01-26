@@ -39,10 +39,19 @@
     width: 80%;
   }
 
-  &__text {
+  &__text,
+  &__textFuture, &__date {
     font-family: "Aboreto", system-ui;
     font-size: 0.8rem;
     margin: 0;
+  }
+
+  &__date {
+    font-size: 0.6rem;
+  }
+  
+  &__textFuture {
+    color: rgba(0, 0, 0, 0.278);
   }
 
   &__shapes {
@@ -53,16 +62,27 @@
     margin: 0;
     gap: 6px;
   }
-  &__circle {
+
+  &__circle,
+  &__circleFuture {
     width: 12px;
     height: 12px;
     border-radius: 50rem;
     border: black solid 1.2px;
     margin: 0;
   }
-  &__line {
+
+  &__circleFuture {
+    border: rgba(0, 0, 0, 0.278) solid 1.2px;
+  }
+  &__line,
+  &__lineFuture {
     width: 1px;
     height: 50px;
     border: 1px black dashed;
+  }
+
+  &__lineFuture {
+    border: 1px rgba(0, 0, 0, 0.278) dashed;
   }
 }
