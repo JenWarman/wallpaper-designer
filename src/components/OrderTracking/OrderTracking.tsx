@@ -6,6 +6,7 @@ import {
 import styles from "./OrderTracking.module.scss";
 import type { DesignData } from "../../types/types";
 import { PatternDesign } from "../PatternDesign/PatternDesign";
+import { statusUpdates } from "../../utils/statusUpdates";
 
 export function OrderTracking() {
   const [status, setStatus] = useState("");
@@ -25,34 +26,41 @@ export function OrderTracking() {
       const status = await fetchProgressStatusByDesign(designUrl);
       const designs = await fetchDesignsByUserId();
       if (!status || !designs) return;
-      console.log(designs.data);
+
       designs.data?.map((design) => {
         if (design.design_url === designUrl) {
           setDesign(design.design_data);
         }
       });
-      setStatus(status?.status[0].status);
+      setStatus(status?.status[0].status.trim().toLowerCase());
       setDate(status?.status[0].created_at);
     })();
   }, [designUrl]);
 
-  console.log(design);
+
   return (
     <div className={styles.orderTracking__container}>
       <div className={styles.orderTracking__pattern}>
         <PatternDesign design={design} component="saved" />
       </div>
-      <div className={styles.orderTracking__status}>
-        <div className={styles.orderTracking__side}></div>
-        <div className={styles.orderTracking__detail}>
-          <p>{status}</p>
-          <p>{new Date(date).toLocaleDateString()}</p>
-        </div>
+      <div className={styles.orderTracking__detail}>
+        {Object.entries(statusUpdates).map(([key, value]) => (
+          <div className={styles.orderTracking__stage} key={key}>
+            <div className={styles.orderTracking__shapes}>
+              <div className={styles.orderTracking__circle}></div>
+              <div className={styles.orderTracking__line}></div>
+            </div>
+            <div className={styles.orderTracking__info}>
+              <p className={styles.orderTracking__text}>
+                {key === status ? value.update : "To Be Confirmed..."}
+              </p>
+              <p className={styles.orderTracking__text}>
+                {key === status ? new Date(date).toLocaleDateString(): ""}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
-
-//fetch progress status by design_url
-//fetch order and match url
-//design and match url for PatternDesign

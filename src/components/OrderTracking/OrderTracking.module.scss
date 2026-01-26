@@ -10,22 +10,59 @@
     height: 160px;
     width: 90%;
     border-radius: 5px;
-    background-color: royalblue;
-  }
-  &__status {
-    display: flex;
-    width: 100%;
-  }
-
-  &__side {
-    width: 20%;
-    height: 60vh;
-    background-color: aqua;
   }
 
   &__detail {
-    width: 60%;
-    height: 60vh;
-    background-color: grey;
+    width: 100%;
+    height: min-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__stage {
+    width: 90%;
+    height: min-content;
+    padding: 0;
+    margin: 6px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    margin: 0;
+    width: 80%;
+  }
+
+  &__text {
+    font-family: "Aboreto", system-ui;
+    font-size: 0.8rem;
+    margin: 0;
+  }
+
+  &__shapes {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    gap: 6px;
+  }
+  &__circle {
+    width: 12px;
+    height: 12px;
+    border-radius: 50rem;
+    border: black solid 1.2px;
+    margin: 0;
+  }
+  &__line {
+    width: 1px;
+    height: 50px;
+    border: 1px black dashed;
   }
 }
