@@ -4,8 +4,10 @@ import { Cta } from "../Cta/Cta";
 import { DropDown } from "../DropDown/DropDown";
 import styles from "./DesignForm.module.scss";
 import useDesignSearchParams from "../../hooks/useDesignSearchParams";
+import { useNavigate } from "react-router";
 
 export function DesignForm() {
+  const navigate = useNavigate()
   const { formData, paramsString, updateParam, clearParams } =
     useDesignSearchParams();
 
@@ -15,6 +17,7 @@ export function DesignForm() {
 
   const handleSaveDesign = async () => {
     await createDesignByUserId(paramsString, formData);
+    navigate("/saved-designs")
   };
 
   return (

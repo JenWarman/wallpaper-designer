@@ -7,6 +7,7 @@ import styles from "./OrderTracking.module.scss";
 import type { DesignData } from "../../types/types";
 import { PatternDesign } from "../PatternDesign/PatternDesign";
 import { statusUpdates } from "../../utils/statusUpdates";
+import { dataTestIds } from "../../utils/dataTestIds";
 
 export function OrderTracking() {
   const [statuses, setStatuses] = useState<
@@ -38,7 +39,7 @@ export function OrderTracking() {
   }, [designUrl]);
 
   return (
-    <div className={styles.orderTracking__container}>
+    <div className={styles.orderTracking__container}    data-testid={dataTestIds.orderTracking}>
       <div className={styles.orderTracking__pattern}>
         <PatternDesign design={design} component="saved" />
       </div>

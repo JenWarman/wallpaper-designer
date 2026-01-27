@@ -6,13 +6,13 @@ import {
   fetchOrderByUserId,
 } from "../../supabase/supabase";
 import { type SavedDesign, type SavedOrder } from "../../types/types";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { dataTestIds } from "../../utils/dataTestIds";
 
 export function PlacedOrders() {
   const [designs, setDesigns] = useState<SavedDesign[]>([]);
   const [orders, setOrders] = useState<SavedOrder[]>([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -27,9 +27,18 @@ export function PlacedOrders() {
   }, []);
 
   return (
-    <div className={styles.placedOrders__container} data-testid={dataTestIds.placedOrders}>
+    <div
+      className={styles.placedOrders__container}
+      data-testid={dataTestIds.placedOrders}
+    >
       <h1 className={styles.placedOrders__heading}>Your Orders</h1>
       <div className={styles.placedOrders__cardContainer}>
+        {orders.length === 0 && (
+          <>
+            <p>You don't have any orders yet.</p>
+            <p> Get started <Link to={"/design"}>here.</Link></p>
+          </>
+        )}
         {orders.map((order) => {
           const design = designs.find(
             (design) => design.design_url === order.design,

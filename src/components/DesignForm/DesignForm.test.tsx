@@ -20,6 +20,7 @@ const useDesignSearchParamsMock = useDesignSearchParams as MockedFunction<
 >;
 
 import useDesignSearchParams from "../../hooks/useDesignSearchParams";
+import { MemoryRouter } from "react-router";
 
 const design = {
   theme: "floral",
@@ -47,20 +48,28 @@ describe("DesignForm", () => {
   afterEach(() => {
     vi.clearAllMocks();
     vi.resetAllMocks();
-    cleanup()
+    cleanup();
   });
 
   test("the component is rendered", () => {
-    render(<DesignForm />);
+    render(
+      <MemoryRouter>
+        <DesignForm />
+      </MemoryRouter>,
+    );
     expect(screen.getByTestId(dataTestIds.designForm)).toBeInTheDocument();
   });
   test("updateParam is called when dropdown value changes", () => {
-    render(<DesignForm />);
+    render(
+      <MemoryRouter>
+        <DesignForm />
+      </MemoryRouter>,
+    );
 
     const themeSelect = screen
       .getAllByRole("combobox")
       .find(
-        (element) => element.getAttribute("aria-label") === "Select theme"
+        (element) => element.getAttribute("aria-label") === "Select theme",
       )!;
 
     fireEvent.change(themeSelect, {
@@ -68,7 +77,6 @@ describe("DesignForm", () => {
     });
 
     expect(updateParamMock).toHaveBeenCalledWith("theme", "floral");
-
   });
   test("the save Cta is disabled if there are no search params", () => {
     useDesignSearchParamsMock.mockReturnValueOnce({
@@ -84,9 +92,13 @@ describe("DesignForm", () => {
       clearParams: clearParamMock,
     });
 
-    render(<DesignForm/>)
+    render(
+      <MemoryRouter>
+        <DesignForm />
+      </MemoryRouter>,
+    );
 
-const saveCta = screen.getByText("Save")
+    const saveCta = screen.getByText("Save");
     screen.debug();
 
     expect(saveCta).toBeDisabled();
@@ -105,17 +117,21 @@ const saveCta = screen.getByText("Save")
       clearParams: clearParamMock,
     });
 
-    render(<DesignForm />);
+    render(
+      <MemoryRouter>
+        <DesignForm />
+      </MemoryRouter>,
+    );
 
-    const saveCtaUpdated = screen.getByText("Save")
-    console.log(saveCtaUpdated)
-      screen.debug();
+    const saveCtaUpdated = screen.getByText("Save");
+    console.log(saveCtaUpdated);
+    screen.debug();
 
     expect(saveCtaUpdated).not.toBeDisabled();
   });
 
   test("save cta calls createDesignByUserId", () => {
-  useDesignSearchParamsMock.mockReturnValueOnce({
+    useDesignSearchParamsMock.mockReturnValueOnce({
       formData: {
         theme: "floral",
         motif: "",
@@ -128,17 +144,25 @@ const saveCta = screen.getByText("Save")
       clearParams: clearParamMock,
     });
 
-    render(<DesignForm />);
+    render(
+      <MemoryRouter>
+        <DesignForm />
+      </MemoryRouter>,
+    );
 
-    const saveCta = screen.getByText("Save")
+    const saveCta = screen.getByText("Save");
 
     fireEvent.click(saveCta);
 
     expect(createDesignByUserId).toHaveBeenCalledWith("theme=floral", design);
   });
   test("clear cta calls clearParams", () => {
-    render(<DesignForm />);
-    const cancelCta = screen.getByText("Cancel")
+    render(
+      <MemoryRouter>
+        <DesignForm />
+      </MemoryRouter>,
+    );
+    const cancelCta = screen.getByText("Cancel");
 
     fireEvent.click(cancelCta);
 

@@ -99,11 +99,7 @@ export async function updateOrderByUserId(
     if (error) {
       return { success: false, error };
     }
-    const statusData = await updateProgressStatus({
-      design: design,
-      status: "ordered",
-      user_id: user.id,
-    });
+    const statusData = await updateProgressStatus(design, "ordered");
     return {
       success: true,
       orders: data,
@@ -178,11 +174,10 @@ export async function createDesignByUserId(
     if (designError) {
       return { success: false, designError };
     }
-    const statusData = await updateProgressStatus({
-      design: designData.design_url,
-      status: "saved",
-      user_id: user.id,
-    });
+    const statusData = await updateProgressStatus(
+      designData.design_url,
+      "saved",
+    );
 
     return { success: true, design: designData, status: statusData };
   }
@@ -205,10 +200,7 @@ export async function fetchDesignsByUserId() {
   }
 }
 
-export async function updateProgressStatus(
-  design: string,
-  status: string,
-) {
+export async function updateProgressStatus(design: string, status: string) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -238,8 +230,7 @@ export async function fetchProgressStatusByDesign(design: string) {
     const { data, error } = await supabase
       .from("progressStatus")
       .select("*")
-      .eq("design", design)
-      .order("created_at", { ascending: true });
+      .eq("design", design);
     if (error) {
       return { success: false, error };
     }
