@@ -46,9 +46,9 @@ export function SavedDesigns() {
           </>
           )}
         <div className={styles.savedDesigns__cardContainer}>
-          {designs.map(({ design_url, design_data }) => (
+          {designs.map(({ design_url, design_data, created_at }) => (
             <div
-              key={design_url}
+              key={created_at}
               className={styles.savedDesigns__card}
               onClick={() => handleToggleModal(design_url, design_data)}
             >

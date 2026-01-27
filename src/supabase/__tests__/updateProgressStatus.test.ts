@@ -19,6 +19,10 @@ beforeEach(() => {
 
 describe("updateProgressStatus", () => {
   test("it successfully updates the progress status", async () => {
+    vi.mocked(supabase.auth.getUser).mockResolvedValue({
+       data: {user: {id: user_id}},
+      error: null
+    })
     const singleMock = vi.fn().mockResolvedValue({
       data: {
         design: "design-1",
@@ -34,15 +38,15 @@ describe("updateProgressStatus", () => {
       insert: insertMock,
     } as unknown as ReturnType<typeof supabase.from>);
 
-    const result = await updateProgressStatus({design: "design-1", status:"ordered", user_id: user_id});
+    const result = await updateProgressStatus("design-1", "ordered");
 
-    expect(result.success).toBe(true);
-    expect(insertMock).toHaveBeenCalledWith({
-      design: "design-1",
+    expect(result?.success).toBe(true);
+    expect(insertMock).toHaveBeenCalledWith(
+     { design: "design-1",
       user_id,
-      status: "ordered",
-    });
-    expect(result?.status).toBeDefined();
+      status: "ordered",}
+    );
+    expect(result?.status).toBe("ordered")
   });
   test("it returns failure when user_id is invalid", async () => {
     const singleMock = vi.fn().mockResolvedValue({
@@ -56,11 +60,9 @@ describe("updateProgressStatus", () => {
       insert: insertMock,
     } as unknown as ReturnType<typeof supabase.from>);
 
-    const result = await updateProgressStatus({design: "design-1", status:"ordered", user_id: user_id});
+    const result = await updateProgressStatus("design-1", "ordered");
     expect(result?.success).toBe(false);
     expect(insertMock).toHaveBeenCalled();
     expect(supabase.from).toHaveBeenCalledWith("progressStatus");
-  })
+  });
 });
-
-

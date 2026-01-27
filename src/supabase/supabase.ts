@@ -99,11 +99,7 @@ export async function updateOrderByUserId(
     if (error) {
       return { success: false, error };
     }
-    const statusData = await updateProgressStatus({
-      design: design,
-      status: "ordered",
-      user_id: user.id,
-    });
+    const statusData = await updateProgressStatus(design, "ordered");
     return {
       success: true,
       orders: data,
@@ -178,11 +174,10 @@ export async function createDesignByUserId(
     if (designError) {
       return { success: false, designError };
     }
-    const statusData = await updateProgressStatus({
-      design: designData.design_url,
-      status: "saved",
-      user_id: user.id,
-    });
+    const statusData = await updateProgressStatus(
+      designData.design_url,
+      "saved",
+    );
 
     return { success: true, design: designData, status: statusData };
   }
@@ -197,7 +192,7 @@ export async function fetchDesignsByUserId() {
     const { data, error } = await supabase
       .from("designs")
       .select("*")
-      .eq("user_id", user.id)
+      .eq("user_id", user.id);
     if (error) {
       return { success: false, error };
     }
@@ -205,28 +200,26 @@ export async function fetchDesignsByUserId() {
   }
 }
 
-export async function updateProgressStatus({
-  design,
-  status,
-  user_id,
-}: {
-  design: string;
-  status: string;
-  user_id: string;
-}) {
-  const { data: statusData, error: statusError } = await supabase
-    .from("progressStatus")
-    .insert({
-      design,
-      user_id,
-      status,
-    })
-    .select()
-    .single();
-  if (statusError) {
-    return { success: false, statusError };
+export async function updateProgressStatus(design: string, status: string) {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+    const { data: statusData, error: statusError } = await supabase
+      .from("progressStatus")
+      .insert({
+        design,
+        user_id: user.id,
+        status,
+      })
+      .select()
+      .single();
+    if (statusError) {
+      return { success: false, statusError };
+    }
+    return { success: true, status: statusData.status };
   }
-  return { success: true, status: statusData.status };
 }
 
 export async function fetchProgressStatusByDesign(design: string) {
