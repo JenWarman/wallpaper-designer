@@ -12,6 +12,7 @@ export function SavedDesigns() {
   const [toggleModal, setToggleModal] = useState(false);
   const [modalUrl, setModalUrl] = useState("");
   const [modalData, setModalData] = useState<DesignData>({theme: "", motif: "", scale: "", colour: "", repeat: ""});
+  const [designId, setDesignId] = useState(0)
 
   useEffect(() => {
     const fetchDesigns = async () => {
@@ -22,7 +23,7 @@ export function SavedDesigns() {
       setDesigns(result.data ?? []);
     };
     fetchDesigns();
-  }, []);
+  }, [toggleModal]);
 
   const handleToggleModal = (design_url: string, design_data: DesignData) => {
     setToggleModal(prev => !prev);

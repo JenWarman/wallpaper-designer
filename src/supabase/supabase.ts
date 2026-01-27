@@ -237,3 +237,20 @@ export async function fetchProgressStatusByDesign(design: string) {
     return { success: true, status: data };
   }
 }
+
+export async function deleteDesignByUserId(design: string) {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+    const { data, error} = await supabase
+      .from("designs")
+      .delete()
+      .eq("design_url", design)
+    if (error) {
+      return { success: false, error };
+    }
+    return { success: true, data };
+  }
+}

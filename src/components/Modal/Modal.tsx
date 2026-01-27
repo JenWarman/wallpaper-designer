@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router";
 import { dataTestIds } from "../../utils/dataTestIds";
-import { Cta } from "../Cta/Cta";
 import { PatternDesign } from "../PatternDesign/PatternDesign";
 import styles from "./Modal.module.scss";
+import { deleteDesignByUserId } from "../../supabase/supabase";
+import { useState } from "react";
+import { Cta } from "../Cta/Cta";
 
 type ModalProps = {
   url: string;
@@ -17,7 +19,18 @@ type ModalProps = {
 };
 
 export function Modal({ url, design, onClose }: ModalProps) {
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const navigate = useNavigate();
+
+  const handleConfirmDelete = () => {
+    setConfirmDelete(true);
+  };
+
+  const handleDeleteDesign = async () => {
+    await deleteDesignByUserId(url);
+    setConfirmDelete(false)
+    onClose();
+  };
 
   return (
     <div className={styles.modal__container} data-testid={dataTestIds.modal}>
@@ -27,29 +40,64 @@ export function Modal({ url, design, onClose }: ModalProps) {
         onClick={onClose}
         aria-label="close"
         className={styles.modal__close}
-         data-testid={dataTestIds.modalClose}
+        data-testid={dataTestIds.modalClose}
       />
-      <h1 className={styles.modal__heading}>Your Design</h1>
       <div className={styles.modal__pattern}>
         <PatternDesign design={design} component="saved" />
       </div>
 
-      <div className={styles.modal__ctas}>
-        <Cta
-          label="Edit"
-          ariaLabel="edit your design"
-          type="button"
-          dataTestId={dataTestIds.cta}
-          ctaFunction={() => navigate(`/design?${url}`)}
-        />
-        <Cta
-          label="Order"
-          ariaLabel="order your design"
-          type="button"
-          dataTestId={dataTestIds.cta}
-          ctaFunction={() => navigate(`/order?${url}`)}
-        />
+      <div className={styles.modal__order}>
+        <button
+          onClick={() => navigate(`/order?${url}`)}
+          aria-label="order your design"
+          className={styles.modal__orderCta}
+          disabled={confirmDelete}
+        >
+          Order
+        </button>
       </div>
+
+      <div className={styles.modal__ctas}>
+        <button
+          className={styles.modal__edit}
+          aria-label="edit your design"
+          onClick={() => navigate(`/design?${url}`)}
+          disabled={confirmDelete}
+        >
+          <img className={styles.modal__icon} src="src/assets/pencil.png" />
+          Edit
+        </button>
+        <button
+          className={styles.modal__edit}
+          aria-label="delete your design"
+          onClick={handleConfirmDelete}
+          disabled={confirmDelete}
+        >
+          <img className={styles.modal__icon} src="src/assets/trash.png" />
+          Delete
+        </button>
+      </div>
+      {confirmDelete && (
+        <div className={styles.modal__confirmation}>
+          <p className={styles.modal__confirmationText}>Are you sure you want to delete this design?</p>
+          <div className={styles.modal__confirmationCtas}>
+          <Cta
+            ctaFunction={handleDeleteDesign}
+            label="Delete"
+            ariaLabel="confirm delete"
+            dataTestId={dataTestIds.cta}
+            type="button"
+          />
+          <Cta
+            ctaFunction={() => setConfirmDelete(false)}
+            label="Cancel"
+            ariaLabel="confirm delete"
+            dataTestId={dataTestIds.cta}
+            type="button"
+          />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
