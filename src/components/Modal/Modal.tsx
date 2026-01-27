@@ -91,7 +91,7 @@ export function Modal({ url, design, onClose }: ModalProps) {
           <Cta
             ctaFunction={() => setConfirmDelete(false)}
             label="Cancel"
-            ariaLabel="confirm delete"
+            ariaLabel="cancel deletion"
             dataTestId={dataTestIds.cta}
             type="button"
           />

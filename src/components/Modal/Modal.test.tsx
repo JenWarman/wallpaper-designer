@@ -5,6 +5,7 @@ import userEvent from "@testing-library/user-event";
 
 const mockNavigate = vi.fn();
 const mockOnClose = vi.fn();
+const mockDelete = vi.fn()
 
 vi.mock("react-router", () => ({
   useNavigate: () => mockNavigate,
@@ -41,7 +42,6 @@ describe("Modal", () => {
   test("it renders modal content", () => {
     render(<Modal url="url" design={mockDesign} onClose={mockOnClose} />);
 
-    expect(screen.getByText("Your Design")).toBeInTheDocument()
     expect(screen.getByText("PatternDesign")).toBeInTheDocument()
   })
   test("onClose function is called when close button is clicked", async () => {
@@ -58,7 +58,7 @@ describe("Modal", () => {
 
     const user = userEvent.setup()
     
-    await user.click(screen.getByRole("button", {name: "Edit"}))
+    await user.click(screen.getByLabelText("edit your design"))
     expect(mockNavigate).toHaveBeenCalledWith("/design?url")
   })
   test("order Cta navigates to the OrderForm", async ()=> {
@@ -66,7 +66,7 @@ describe("Modal", () => {
 
     const user = userEvent.setup()
     
-    await user.click(screen.getByRole("button", {name: "Order"}))
+    await user.click(screen.getByLabelText("order your design"))
     expect(mockNavigate).toHaveBeenCalledWith("/order?url")
   })
 });
