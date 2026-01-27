@@ -33,5 +33,17 @@ describe("Header", () => {
     fireEvent.click(screen.getByTestId("toggleNav"));
     expect(screen.getByTestId("nav")).toBeInTheDocument();
   });
-});
+  test("the nav closes when the location changes", () => {
+    render(
+      <MemoryRouter>
+        <Header />
+      </MemoryRouter>,
+    );
 
+    fireEvent.click(screen.getByTestId("toggleNav"));
+    expect(screen.getByTestId("nav")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText("Your Designs"));
+    expect(screen.queryByTestId("nav")).not.toBeInTheDocument();
+  });
+});
