@@ -222,7 +222,7 @@ export async function updateProgressStatus(design: string, status: string) {
   }
 }
 
-export async function fetchProgressStatusByDesign(design: string) {
+export async function fetchProgressStatusByDesign() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -230,7 +230,7 @@ export async function fetchProgressStatusByDesign(design: string) {
     const { data, error } = await supabase
       .from("progressStatus")
       .select("*")
-      .eq("design", design);
+      .eq("user_id", user.id);
     if (error) {
       return { success: false, error };
     }

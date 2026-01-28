@@ -15,6 +15,7 @@ import { getUsername } from "./store/selectors/userSelector";
 import { PlacedOrders } from "./components/PlacedOrders/PlacedOrders";
 import { OrderTracking } from "./components/OrderTracking/OrderTracking";
 import { Admin } from "./components/Admin/Admin";
+import { Archive } from "./components/Archive/Archive";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ function App() {
         <Route path="/your-orders" element={<PlacedOrders/>}/>
         <Route path="/order-tracking" element={<OrderTracking/>}/>
         <Route path="/admin" element={<Admin/>}/>
+        <Route path="/archive" element={<Archive/>}/>
       </Routes>
     </>
   );

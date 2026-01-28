@@ -80,6 +80,9 @@ export type SavedDesign = {
   user_id: string;
 };
 
+export type SavedStatus = {
+  design: string;
+};
 
 export type PatternDesignProps = {
   design: DesignData;
