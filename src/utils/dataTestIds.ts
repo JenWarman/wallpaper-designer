@@ -22,5 +22,6 @@ export const dataTestIds = {
     order: "order",
     orderForm: "orderForm",
     placedOrders: "placedOrders",
-    orderTracking: "orderTracking"
+    orderTracking: "orderTracking",
+    login: "login",
 }

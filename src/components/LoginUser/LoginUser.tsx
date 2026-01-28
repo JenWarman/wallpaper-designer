@@ -5,10 +5,7 @@ import styles from "./LoginUser.module.scss";
 import { useActionState, useState } from "react";
 import type { FormState } from "../../types/types";
 import { dataTestIds } from "../../utils/dataTestIds";
-import {
-  validateEmail,
-  validatePassword,
-} from "../../utils/forms/formValidation";
+import { validateLogin } from "../../utils/validateLogin";
 
 export function LoginUser() {
   const [formData, setFormData] = useState({
@@ -30,17 +27,7 @@ export function LoginUser() {
   };
 
   const handleBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let errorMessage = "";
-    switch (event.target.name) {
-      case "email":
-        errorMessage = validateEmail(event.target.value);
-        break;
-      case "password":
-        errorMessage = validatePassword(event.target.value);
-        break;
-      default:
-        errorMessage = "Please enter a valid input";
-    }
+    const errorMessage = validateLogin(event)
     setErrors((prev) => ({
       ...prev,
       [event?.target.name]: errorMessage,
@@ -50,7 +37,7 @@ export function LoginUser() {
   const readyToLogin = formData.email !== "" && formData.password !== "";
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid={dataTestIds.login}>
       <h3 className={styles.heading}>Login</h3>
       <Form
         action={action}
