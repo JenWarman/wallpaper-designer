@@ -5,13 +5,8 @@ import { Input } from "../Input/Input";
 import type { FormState } from "../../types/types";
 import { handleRegisterUser } from "../../utils/forms/formActions";
 import { dataTestIds } from "../../utils/dataTestIds";
-import {
-  confirmPassword,
-  validateEmail,
-  validateMinLength,
-  validatePassword,
-} from "../../utils/forms/formValidation";
 import { Link } from "react-router-dom";
+import { validateRegistration } from "../../utils/validateRegistration";
 
 export function RegisterUser() {
   const [formData, setFormData] = useState({
@@ -35,31 +30,7 @@ export function RegisterUser() {
   };
 
   const handleBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let errorMessage = "";
-
-    switch (event.target.name) {
-      case "email":
-        errorMessage = validateEmail(event.target.value);
-        break;
-      case "username":
-        errorMessage = validateMinLength(
-          event.target.value,
-          3,
-          event.target.name
-        );
-        break;
-      case "password":
-        errorMessage = validatePassword(event.target.value);
-        break;
-      case "confirm-password":
-        errorMessage = confirmPassword(
-          formData.password,
-          formData["confirm-password"]
-        );
-        break;
-      default:
-        errorMessage = "Please enter a valid input";
-    }
+    const errorMessage = validateRegistration(event, formData.password, formData["confirm-password"])
     setErrors((prev) => ({
       ...prev,
       [event?.target.name]: errorMessage,
@@ -72,7 +43,7 @@ export function RegisterUser() {
     formData.password !== "";
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid={dataTestIds.registration}>
       <h3 className={styles.heading}>Sign Up</h3>
       <Form
         action={action}
