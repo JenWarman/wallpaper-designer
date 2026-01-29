@@ -67,27 +67,6 @@ export function Modal({ url, design, onClose }: ModalProps) {
           Archive
         </button>
       </div>
-      {/* {confirmDelete && (
-        <div className={styles.modal__confirmation}>
-          <p className={styles.modal__confirmationText}>Are you sure you want to delete this design?</p>
-          <div className={styles.modal__confirmationCtas}>
-          <Cta
-            ctaFunction={handleDeleteDesign}
-            label="Delete"
-            ariaLabel="confirm delete"
-            dataTestId={dataTestIds.cta}
-            type="button"
-          />
-          <Cta
-            ctaFunction={() => setConfirmDelete(false)}
-            label="Cancel"
-            ariaLabel="cancel deletion"
-            dataTestId={dataTestIds.cta}
-            type="button"
-          />
-          </div>
-        </div>
-      )} */}
     </div>
   );
 }

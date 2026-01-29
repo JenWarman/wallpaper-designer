@@ -39,7 +39,7 @@ const handleRestoreDesign =  async() => {
 }
 
   return (
-    <div className={styles.modal__container} data-testid={dataTestIds.modal}>
+    <div className={styles.modal__container} data-testid={dataTestIds.modalArchive}>
       <img
         src="src/assets/close.png"
         alt=""
@@ -73,7 +73,7 @@ const handleRestoreDesign =  async() => {
         </button>
         <button
           className={styles.modal__edit}
-          aria-label="archive your design"
+          aria-label="restore your design"
           onClick={handleRestoreDesign}
         >
           <img className={styles.modal__icon} src="src/assets/reset.png" />

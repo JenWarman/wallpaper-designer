@@ -1,47 +1,16 @@
-import { useEffect, useState } from "react";
-import { fetchDesignsByUserId, fetchProgressStatusByUserId } from "../../supabase/supabase";
+import { useState } from "react";
 import styles from "./SavedDesigns.module.scss";
 import { PatternDesign } from "../PatternDesign/PatternDesign";
-import { type DesignData, type SavedDesign } from "../../types/types";
+import { type DesignData } from "../../types/types";
 import { Modal } from "../Modal/Modal";
 import { dataTestIds } from "../../utils/dataTestIds";
 import { Link } from "react-router";
+import useStatusToSearchDesigns from "../../hooks/useStatusToSearchDesigns";
 
 export function SavedDesigns() {
-  const [designs, setDesigns] = useState<SavedDesign[]>([]);
   const [toggleModal, setToggleModal] = useState(false);
   const [modalUrl, setModalUrl] = useState("");
   const [modalData, setModalData] = useState<DesignData>({theme: "", motif: "", scale: "", colour: "", repeat: ""});
-
-  useEffect(() => {
-    (async () => {
-          const designData = await fetchDesignsByUserId();
-          const statusData = await fetchProgressStatusByUserId();
-    
-          const designs = designData?.data ?? [];
-          const statuses = statusData?.status ?? [];
-    
-          const designMap = new Map(
-            designs.map((design) => [design.design_url, design]),
-          );
-    
-          const savedDesigns = statuses
-            .filter((status) => status.status === "saved")
-            .map((s) => {
-              const design = designMap.get(s.design);
-    
-              if (!design) return null;
-    
-              return {
-                design_url: s.design,
-                design_data: design.design_data,
-                created_at: design.created_at,
-              };
-            })
-            .filter(Boolean);
-          setDesigns(savedDesigns);
-        })();
-  }, [toggleModal]);
 
   const handleToggleModal = (design_url: string, design_data: DesignData) => {
     setToggleModal(prev => !prev);
@@ -53,6 +22,7 @@ export function SavedDesigns() {
     setToggleModal(false)
   }
 
+  const {filteredDesigns: designs} = useStatusToSearchDesigns("saved", toggleModal);
   return (
     <div className={styles.savedDesigns} data-testid={dataTestIds.savedDesigns}>
       <div className={styles.savedDesigns__container}>
