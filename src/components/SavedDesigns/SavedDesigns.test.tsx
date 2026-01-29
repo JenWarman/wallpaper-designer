@@ -1,21 +1,29 @@
 import { afterEach, describe, expect, test, vi } from "vitest";
 import { SavedDesigns } from "./SavedDesigns";
 import { cleanup, render, screen } from "@testing-library/react";
-import { fetchDesignsByUserId } from "../../supabase/supabase";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router";
+import useStatusToSearchDesigns from "../../hooks/useStatusToSearchDesigns";
 
-vi.mock("../../supabase/supabase", () => ({
-  fetchDesignsByUserId: vi.fn(),
+
+vi.mock("../../hooks/useStatusToSearchDesigns", () => ({
+  default: vi.fn(),
 }));
 
 vi.mock("../PatternDesign/PatternDesign", () => ({
   PatternDesign: () => <div>PatternDesign</div>,
 }));
 
+vi.mock("../Modal/Modal", () => ({
+  Modal: ({ onClose }: any) => (
+    <div data-testid="modal" aria-label="close" onClick={onClose}>
+      Modal
+    </div>
+  ),
+}));
+
 const mockDesigns = [
   {
-    id: 1,
     design_url: "url",
     design_data: {
       theme: "floral",
@@ -24,9 +32,9 @@ const mockDesigns = [
       colour: "blue",
       repeat: "tile",
     },
-    created_at: "",
-    status: true,
+    id: 1,
     user_id: "user-1",
+    created_at: "",
   },
 ];
 
@@ -37,7 +45,10 @@ describe("SavedDesigns", () => {
     cleanup();
   });
   test("it renders the component", () => {
-     render(
+    vi.mocked(useStatusToSearchDesigns).mockReturnValue({
+      filteredDesigns: [],
+    });
+    render(
       <MemoryRouter>
         <SavedDesigns />
       </MemoryRouter>,
@@ -45,8 +56,10 @@ describe("SavedDesigns", () => {
 
     expect(screen.getByTestId("savedDesigns")).toBeInTheDocument();
   });
-  test("it fetchs and shows saved designs", async () => {
-    (fetchDesignsByUserId as any).mockResolvedValue({ data: mockDesigns });
+  test("it shows saved designs", async () => {
+    vi.mocked(useStatusToSearchDesigns).mockReturnValue({
+      filteredDesigns: mockDesigns,
+    });
 
     render(
       <MemoryRouter>
@@ -57,7 +70,9 @@ describe("SavedDesigns", () => {
     expect(await screen.findByText("PatternDesign")).toBeInTheDocument();
   });
   test("Modal opens when a card is clicked", async () => {
-    (fetchDesignsByUserId as any).mockResolvedValue({ data: mockDesigns });
+    vi.mocked(useStatusToSearchDesigns).mockReturnValue({
+      filteredDesigns: mockDesigns,
+    });
 
     render(
       <MemoryRouter>
@@ -72,7 +87,9 @@ describe("SavedDesigns", () => {
     expect(screen.getByTestId("modal")).toBeInTheDocument();
   });
   test("close button closes modal", async () => {
-    (fetchDesignsByUserId as any).mockResolvedValue({ data: mockDesigns });
+    vi.mocked(useStatusToSearchDesigns).mockReturnValue({
+      filteredDesigns: mockDesigns,
+    });
 
     render(
       <MemoryRouter>
@@ -83,7 +100,7 @@ describe("SavedDesigns", () => {
     const user = userEvent.setup();
 
     await user.click(await screen.findByText("PatternDesign"));
-    await user.click(screen.getByLabelText("close"))
-    expect(screen.queryByTestId("modal")).not.toBeInTheDocument()
-  })
+    await user.click(screen.getByLabelText("close"));
+    expect(screen.queryByTestId("modal")).not.toBeInTheDocument();
+  });
 });

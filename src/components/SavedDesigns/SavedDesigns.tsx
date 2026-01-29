@@ -23,6 +23,7 @@ export function SavedDesigns() {
   }
 
   const {filteredDesigns: designs} = useStatusToSearchDesigns("saved", toggleModal);
+  
   return (
     <div className={styles.savedDesigns} data-testid={dataTestIds.savedDesigns}>
       <div className={styles.savedDesigns__container}>

@@ -25,5 +25,6 @@ export const dataTestIds = {
     orderTracking: "orderTracking",
     login: "login",
     registration: "registration",
-    modalArchive: "modalArchive"
+    modalArchive: "modalArchive",
+    archive: "archive"
 }

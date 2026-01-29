@@ -4,6 +4,7 @@ import { PatternDesign } from "../PatternDesign/PatternDesign";
 import { type DesignData } from "../../types/types";
 import { ArchiveModal } from "../ArchiveModal/ArchiveModal";
 import useStatusToSearchDesigns from "../../hooks/useStatusToSearchDesigns";
+import { dataTestIds } from "../../utils/dataTestIds";
 
 export function Archive() {
   const [toggleModal, setToggleModal] = useState(false);
@@ -23,7 +24,7 @@ export function Archive() {
   }
 
   return (
-    <div className={styles.archive__container}>
+    <div className={styles.archive__container} data-testid={dataTestIds.archive}>
       <h1>Archived Designs</h1>
       <div className={styles.archive__cardContainer}>
         {archivedDesigns.map((design) => (

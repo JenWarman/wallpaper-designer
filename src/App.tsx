@@ -35,7 +35,6 @@ function App() {
   }, [dispatch]);
 
  const user = useSelector(getUsername)
- console.log(user)
 
   return (
     <>
