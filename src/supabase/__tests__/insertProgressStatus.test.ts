@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import { updateProgressStatus } from "../supabase";
+import { insertProgressStatus } from "../supabase";
 import supabase from "../supabaseClient";
 
 vi.mock("../supabaseClient", () => ({
@@ -38,7 +38,7 @@ describe("updateProgressStatus", () => {
       insert: insertMock,
     } as unknown as ReturnType<typeof supabase.from>);
 
-    const result = await updateProgressStatus("design-1", "ordered");
+    const result = await insertProgressStatus("design-1", "ordered");
 
     expect(result?.success).toBe(true);
     expect(insertMock).toHaveBeenCalledWith(
@@ -60,7 +60,7 @@ describe("updateProgressStatus", () => {
       insert: insertMock,
     } as unknown as ReturnType<typeof supabase.from>);
 
-    const result = await updateProgressStatus("design-1", "ordered");
+    const result = await insertProgressStatus("design-1", "ordered");
     expect(result?.success).toBe(false);
     expect(insertMock).toHaveBeenCalled();
     expect(supabase.from).toHaveBeenCalledWith("progressStatus");

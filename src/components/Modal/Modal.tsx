@@ -2,9 +2,8 @@ import { useNavigate } from "react-router";
 import { dataTestIds } from "../../utils/dataTestIds";
 import { PatternDesign } from "../PatternDesign/PatternDesign";
 import styles from "./Modal.module.scss";
-import { deleteDesignByUserId, updateProgressStatus } from "../../supabase/supabase";
-import { useState } from "react";
-import { Cta } from "../Cta/Cta";
+import {  updateProgressStatusByDesign } from "../../supabase/supabase";
+
 
 type ModalProps = {
   url: string;
@@ -21,18 +20,8 @@ type ModalProps = {
 export function Modal({ url, design, onClose }: ModalProps) {
   const navigate = useNavigate();
 
-  // const handleConfirmDelete = () => {
-  //   setConfirmDelete(true);
-  // };
-
-  // const handleDeleteDesign = async () => {
-  //   await deleteDesignByUserId(url);
-  //   setConfirmDelete(false)
-  //   onClose();
-  // };
-
   const handleArchiveDesign = async () => {
-    await updateProgressStatus(url, "archived")
+    await updateProgressStatusByDesign(url, "saved", "archived")
     navigate("/archive")
   }
 

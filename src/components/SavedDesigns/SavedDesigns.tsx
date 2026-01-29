@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchDesignsByUserId } from "../../supabase/supabase";
+import { fetchDesignsByUserId, fetchProgressStatusByUserId } from "../../supabase/supabase";
 import styles from "./SavedDesigns.module.scss";
 import { PatternDesign } from "../PatternDesign/PatternDesign";
 import { type DesignData, type SavedDesign } from "../../types/types";
@@ -14,14 +14,33 @@ export function SavedDesigns() {
   const [modalData, setModalData] = useState<DesignData>({theme: "", motif: "", scale: "", colour: "", repeat: ""});
 
   useEffect(() => {
-    const fetchDesigns = async () => {
-      const result = await fetchDesignsByUserId();
-
-      if (!result) return;
-  
-      setDesigns(result.data ?? []);
-    };
-    fetchDesigns();
+    (async () => {
+          const designData = await fetchDesignsByUserId();
+          const statusData = await fetchProgressStatusByUserId();
+    
+          const designs = designData?.data ?? [];
+          const statuses = statusData?.status ?? [];
+    
+          const designMap = new Map(
+            designs.map((design) => [design.design_url, design]),
+          );
+    
+          const savedDesigns = statuses
+            .filter((status) => status.status === "saved")
+            .map((s) => {
+              const design = designMap.get(s.design);
+    
+              if (!design) return null;
+    
+              return {
+                design_url: s.design,
+                design_data: design.design_data,
+                created_at: design.created_at,
+              };
+            })
+            .filter(Boolean);
+          setDesigns(savedDesigns);
+        })();
   }, [toggleModal]);
 
   const handleToggleModal = (design_url: string, design_data: DesignData) => {

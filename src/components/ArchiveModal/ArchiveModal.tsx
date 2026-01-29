@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { dataTestIds } from "../../utils/dataTestIds";
 import { PatternDesign } from "../PatternDesign/PatternDesign";
 import styles from "./ArchiveModal.module.scss";
-import { deleteDesignByUserId, updateProgressStatus } from "../../supabase/supabase";
+import { deleteDesignByUserId, updateProgressStatusByDesign } from "../../supabase/supabase";
 import { useState } from "react";
 import { Cta } from "../Cta/Cta";
 
@@ -34,7 +34,7 @@ export function ArchiveModal({ url, design, onClose }: ModalProps) {
 
 
 const handleRestoreDesign =  async() => {
-    await updateProgressStatus(url, "saved")
+    await updateProgressStatusByDesign(url, "archived", "saved")
     navigate("/saved-designs")
 }
 

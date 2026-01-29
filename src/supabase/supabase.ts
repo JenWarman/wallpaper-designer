@@ -222,7 +222,7 @@ export async function insertProgressStatus(design: string, status: string) {
   }
 }
 
-export async function updateProgressStatus(design: string, status: string) {
+export async function updateProgressStatusByDesign(design: string, prevStatus: string, newStatus: string, ) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -230,10 +230,10 @@ export async function updateProgressStatus(design: string, status: string) {
   if (user) {
     const { data, error} = await supabase
       .from("progressStatus")
-      .update({status: status})
+      .update({status: newStatus})
       .eq("design", design)
       .eq("user_id", user.id)
-      .eq("status", "saved")
+      .eq("status", prevStatus)
       .single()
     if (error) {
       return { success: false, error };
