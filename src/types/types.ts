@@ -76,10 +76,13 @@ export type SavedDesign = {
   design_url: string;
   design_data: DesignData;
   id: number;
-  status: boolean;
+  // status: boolean;
   user_id: string;
 };
 
+export type SavedStatus = {
+  design: string;
+};
 
 export type PatternDesignProps = {
   design: DesignData;

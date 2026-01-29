@@ -2,10 +2,14 @@ import { afterEach, describe, expect, test, vi } from "vitest";
 import { Modal } from "./Modal";
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { updateProgressStatusByDesign } from "../../supabase/supabase";
 
 const mockNavigate = vi.fn();
 const mockOnClose = vi.fn();
-const mockDelete = vi.fn()
+
+vi.mock("../../supabase/supabase", () => ({
+  updateProgressStatusByDesign: vi.fn(),
+}));
 
 vi.mock("react-router", () => ({
   useNavigate: () => mockNavigate,
@@ -30,7 +34,7 @@ const mockDesign = {
 };
 
 describe("Modal", () => {
-   afterEach(() => {
+  afterEach(() => {
     vi.clearAllMocks();
     vi.resetAllMocks();
     cleanup();
@@ -42,31 +46,48 @@ describe("Modal", () => {
   test("it renders modal content", () => {
     render(<Modal url="url" design={mockDesign} onClose={mockOnClose} />);
 
-    expect(screen.getByText("PatternDesign")).toBeInTheDocument()
-  })
+    expect(screen.getByText("PatternDesign")).toBeInTheDocument();
+  });
   test("onClose function is called when close button is clicked", async () => {
     render(<Modal url="url" design={mockDesign} onClose={mockOnClose} />);
 
-    const user = userEvent.setup()
-    
-    await user.click(screen.getByTestId("modalClose"))
+    const user = userEvent.setup();
 
-    expect(mockOnClose).toHaveBeenCalled()
-  })
-  test("edit Cta navigates to the DesignForm", async ()=> {
+    await user.click(screen.getByTestId("modalClose"));
+
+    expect(mockOnClose).toHaveBeenCalled();
+  });
+  test("edit Cta navigates to the DesignForm", async () => {
     render(<Modal url="url" design={mockDesign} onClose={mockOnClose} />);
 
-    const user = userEvent.setup()
-    
-    await user.click(screen.getByLabelText("edit your design"))
-    expect(mockNavigate).toHaveBeenCalledWith("/design?url")
-  })
-  test("order Cta navigates to the OrderForm", async ()=> {
+    const user = userEvent.setup();
+
+    await user.click(screen.getByLabelText("edit your design"));
+    expect(mockNavigate).toHaveBeenCalledWith("/design?url");
+  });
+  test("order Cta navigates to the OrderForm", async () => {
     render(<Modal url="url" design={mockDesign} onClose={mockOnClose} />);
 
-    const user = userEvent.setup()
-    
-    await user.click(screen.getByLabelText("order your design"))
-    expect(mockNavigate).toHaveBeenCalledWith("/order?url")
-  })
+    const user = userEvent.setup();
+
+    await user.click(screen.getByLabelText("order your design"));
+    expect(mockNavigate).toHaveBeenCalledWith("/order?url");
+  });
+  test("archive Cta calls updateProgressStatusByDesign", async () => {
+    render(<Modal url="url" design={mockDesign} onClose={mockOnClose} />);
+
+    const user = userEvent.setup();
+
+    await user.click(screen.getByLabelText("archive your design"));
+
+    expect(updateProgressStatusByDesign).toHaveBeenCalledWith(
+      "url",
+      "saved",
+      "archived",
+    );
+
+    await vi.waitFor(() => {
+      expect(mockNavigate).toHaveBeenCalledWith("/archive");
+    });
+  });
 });

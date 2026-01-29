@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./Admin.module.scss";
-import { updateProgressStatus } from "../../supabase/supabase";
+import { insertProgressStatus} from "../../supabase/supabase";
 import { Input } from "../Input/Input";
 import { dataTestIds } from "../../utils/dataTestIds";
 import { DropDown } from "../DropDown/DropDown";
@@ -13,7 +13,7 @@ export function Admin() {
   const [status, setStatus] = useState("ordered");
 
   const handleStatusUpdate = async () => {
-    await updateProgressStatus(designUrl, status);
+    await insertProgressStatus(designUrl, status);
     alert(`Order Status updated: ${status}`);
   };
 

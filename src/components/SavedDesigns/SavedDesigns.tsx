@@ -1,29 +1,16 @@
-import { useEffect, useState } from "react";
-import { fetchDesignsByUserId } from "../../supabase/supabase";
+import { useState } from "react";
 import styles from "./SavedDesigns.module.scss";
 import { PatternDesign } from "../PatternDesign/PatternDesign";
-import { type DesignData, type SavedDesign } from "../../types/types";
+import { type DesignData } from "../../types/types";
 import { Modal } from "../Modal/Modal";
 import { dataTestIds } from "../../utils/dataTestIds";
 import { Link } from "react-router";
+import useStatusToSearchDesigns from "../../hooks/useStatusToSearchDesigns";
 
 export function SavedDesigns() {
-  const [designs, setDesigns] = useState<SavedDesign[]>([]);
   const [toggleModal, setToggleModal] = useState(false);
   const [modalUrl, setModalUrl] = useState("");
   const [modalData, setModalData] = useState<DesignData>({theme: "", motif: "", scale: "", colour: "", repeat: ""});
-  const [designId, setDesignId] = useState(0)
-
-  useEffect(() => {
-    const fetchDesigns = async () => {
-      const result = await fetchDesignsByUserId();
-
-      if (!result) return;
-  
-      setDesigns(result.data ?? []);
-    };
-    fetchDesigns();
-  }, [toggleModal]);
 
   const handleToggleModal = (design_url: string, design_data: DesignData) => {
     setToggleModal(prev => !prev);
@@ -35,6 +22,8 @@ export function SavedDesigns() {
     setToggleModal(false)
   }
 
+  const {filteredDesigns: designs} = useStatusToSearchDesigns("saved", toggleModal);
+  
   return (
     <div className={styles.savedDesigns} data-testid={dataTestIds.savedDesigns}>
       <div className={styles.savedDesigns__container}>

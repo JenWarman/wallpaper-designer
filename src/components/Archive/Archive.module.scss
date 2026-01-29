@@ -1,0 +1,34 @@
+.archive {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+  }
+
+  &__heading {
+    font-size: 2rem;
+    letter-spacing: 0.3rem;
+    font-weight: bolder;
+  }
+
+  &__cardContainer {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    height: max-content;
+    flex-wrap: wrap;
+  }
+
+  &__card {
+    height: 160px;
+    width: 160px;
+    border-radius: inherit;
+  }
+}

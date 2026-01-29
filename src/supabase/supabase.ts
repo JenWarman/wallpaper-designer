@@ -99,7 +99,7 @@ export async function updateOrderByUserId(
     if (error) {
       return { success: false, error };
     }
-    const statusData = await updateProgressStatus(design, "ordered");
+    const statusData = await insertProgressStatus(design, "ordered");
     return {
       success: true,
       orders: data,
@@ -174,7 +174,7 @@ export async function createDesignByUserId(
     if (designError) {
       return { success: false, designError };
     }
-    const statusData = await updateProgressStatus(
+    const statusData = await insertProgressStatus(
       designData.design_url,
       "saved",
     );
@@ -200,7 +200,7 @@ export async function fetchDesignsByUserId() {
   }
 }
 
-export async function updateProgressStatus(design: string, status: string) {
+export async function insertProgressStatus(design: string, status: string) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -222,6 +222,26 @@ export async function updateProgressStatus(design: string, status: string) {
   }
 }
 
+export async function updateProgressStatusByDesign(design: string, prevStatus: string, newStatus: string, ) {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+    const { data, error} = await supabase
+      .from("progressStatus")
+      .update({status: newStatus})
+      .eq("design", design)
+      .eq("user_id", user.id)
+      .eq("status", prevStatus)
+      .single()
+    if (error) {
+      return { success: false, error };
+    }
+    return { success: true, data };
+  }
+}
+
 export async function fetchProgressStatusByDesign(design: string) {
   const {
     data: { user },
@@ -231,6 +251,22 @@ export async function fetchProgressStatusByDesign(design: string) {
       .from("progressStatus")
       .select("*")
       .eq("design", design);
+    if (error) {
+      return { success: false, error };
+    }
+    return { success: true, status: data };
+  }
+}
+
+export async function fetchProgressStatusByUserId() {
+const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (user) {
+    const { data, error } = await supabase
+      .from("progressStatus")
+      .select("*")
+      .eq("user_id", user.id);
     if (error) {
       return { success: false, error };
     }

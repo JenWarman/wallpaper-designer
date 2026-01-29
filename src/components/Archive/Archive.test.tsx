@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, test, vi } from "vitest";
-import { SavedDesigns } from "./SavedDesigns";
+import { Archive } from "./Archive";
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router";
@@ -14,10 +14,10 @@ vi.mock("../PatternDesign/PatternDesign", () => ({
   PatternDesign: () => <div>PatternDesign</div>,
 }));
 
-vi.mock("../Modal/Modal", () => ({
-  Modal: ({ onClose }: any) => (
-    <div data-testid="modal" aria-label="close" onClick={onClose}>
-      Modal
+vi.mock("../ArchiveModal/ArchiveModal", () => ({
+  ArchiveModal: ({ onClose }: any) => (
+    <div data-testid="modalArchive" aria-label="close" onClick={onClose}>
+      ArchiveModal
     </div>
   ),
 }));
@@ -50,11 +50,11 @@ describe("SavedDesigns", () => {
     });
     render(
       <MemoryRouter>
-        <SavedDesigns />
+        <Archive />
       </MemoryRouter>,
     );
 
-    expect(screen.getByTestId("savedDesigns")).toBeInTheDocument();
+    expect(screen.getByTestId("archive")).toBeInTheDocument();
   });
   test("it shows saved designs", async () => {
     vi.mocked(useStatusToSearchDesigns).mockReturnValue({
@@ -63,7 +63,7 @@ describe("SavedDesigns", () => {
 
     render(
       <MemoryRouter>
-        <SavedDesigns />
+        <Archive />
       </MemoryRouter>,
     );
 
@@ -76,7 +76,7 @@ describe("SavedDesigns", () => {
 
     render(
       <MemoryRouter>
-        <SavedDesigns />
+        <Archive />
       </MemoryRouter>,
     );
 
@@ -84,7 +84,7 @@ describe("SavedDesigns", () => {
 
     await user.click(await screen.findByText("PatternDesign"));
 
-    expect(screen.getByTestId("modal")).toBeInTheDocument();
+    expect(screen.getByTestId("modalArchive")).toBeInTheDocument();
   });
   test("close button closes modal", async () => {
     vi.mocked(useStatusToSearchDesigns).mockReturnValue({
@@ -93,7 +93,7 @@ describe("SavedDesigns", () => {
 
     render(
       <MemoryRouter>
-        <SavedDesigns />
+        <Archive />
       </MemoryRouter>,
     );
 
@@ -101,6 +101,6 @@ describe("SavedDesigns", () => {
 
     await user.click(await screen.findByText("PatternDesign"));
     await user.click(screen.getByLabelText("close"));
-    expect(screen.queryByTestId("modal")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("modalArchive")).not.toBeInTheDocument();
   });
 });

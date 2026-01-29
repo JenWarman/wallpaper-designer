@@ -2,9 +2,8 @@ import { useNavigate } from "react-router";
 import { dataTestIds } from "../../utils/dataTestIds";
 import { PatternDesign } from "../PatternDesign/PatternDesign";
 import styles from "./Modal.module.scss";
-import { deleteDesignByUserId } from "../../supabase/supabase";
-import { useState } from "react";
-import { Cta } from "../Cta/Cta";
+import {  updateProgressStatusByDesign } from "../../supabase/supabase";
+
 
 type ModalProps = {
   url: string;
@@ -19,18 +18,12 @@ type ModalProps = {
 };
 
 export function Modal({ url, design, onClose }: ModalProps) {
-  const [confirmDelete, setConfirmDelete] = useState(false);
   const navigate = useNavigate();
 
-  const handleConfirmDelete = () => {
-    setConfirmDelete(true);
-  };
-
-  const handleDeleteDesign = async () => {
-    await deleteDesignByUserId(url);
-    setConfirmDelete(false)
-    onClose();
-  };
+  const handleArchiveDesign = async () => {
+    await updateProgressStatusByDesign(url, "saved", "archived")
+    navigate("/archive")
+  }
 
   return (
     <div className={styles.modal__container} data-testid={dataTestIds.modal}>
@@ -51,7 +44,6 @@ export function Modal({ url, design, onClose }: ModalProps) {
           onClick={() => navigate(`/order?${url}`)}
           aria-label="order your design"
           className={styles.modal__orderCta}
-          disabled={confirmDelete}
         >
           Order
         </button>
@@ -62,42 +54,19 @@ export function Modal({ url, design, onClose }: ModalProps) {
           className={styles.modal__edit}
           aria-label="edit your design"
           onClick={() => navigate(`/design?${url}`)}
-          disabled={confirmDelete}
         >
           <img className={styles.modal__icon} src="src/assets/pencil.png" />
           Edit
         </button>
         <button
           className={styles.modal__edit}
-          aria-label="delete your design"
-          onClick={handleConfirmDelete}
-          disabled={confirmDelete}
+          aria-label="archive your design"
+          onClick={handleArchiveDesign}
         >
-          <img className={styles.modal__icon} src="src/assets/trash.png" />
-          Delete
+          <img className={styles.modal__icon} src="src/assets/archive.png" />
+          Archive
         </button>
       </div>
-      {confirmDelete && (
-        <div className={styles.modal__confirmation}>
-          <p className={styles.modal__confirmationText}>Are you sure you want to delete this design?</p>
-          <div className={styles.modal__confirmationCtas}>
-          <Cta
-            ctaFunction={handleDeleteDesign}
-            label="Delete"
-            ariaLabel="confirm delete"
-            dataTestId={dataTestIds.cta}
-            type="button"
-          />
-          <Cta
-            ctaFunction={() => setConfirmDelete(false)}
-            label="Cancel"
-            ariaLabel="cancel deletion"
-            dataTestId={dataTestIds.cta}
-            type="button"
-          />
-          </div>
-        </div>
-      )}
     </div>
   );
 }

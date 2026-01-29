@@ -1,10 +1,12 @@
-import { afterEach, describe, expect, test } from "vitest";
+import { afterEach, describe, expect, test, vi } from "vitest";
 import { Nav } from "./Nav";
 import { cleanup, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 
 describe("Nav", () => {
     afterEach(() => {
+    vi.clearAllMocks();
+    vi.resetAllMocks();
     cleanup();
   });
   test("it renders the component", () => {
@@ -24,6 +26,6 @@ describe("Nav", () => {
     expect(screen.getByRole("link", {name: "Your Designs"})).toBeInTheDocument()
     expect(screen.getByRole("link", {name: "Your Orders"})).toBeInTheDocument()
     expect(screen.getByRole("link", {name: "New Design"})).toBeInTheDocument()
-    expect(screen.getByRole("link", {name: "Account"})).toBeInTheDocument()
+    expect(screen.getByRole("link", {name: "Archive"})).toBeInTheDocument()
   })
 });
