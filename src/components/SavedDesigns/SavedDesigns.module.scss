@@ -27,40 +27,4 @@
     height: max-content;
     flex-wrap: nowrap;
   }
-
-  &__card {
-    // background-color: plum;
-    display: flex;
-    flex-direction: column;
-    border-radius: 5px;
-    // height: 30vh;
-    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.148);
-    padding: 1rem;
-  }
-
-  &__pattern {
-    height: 140px;
-    width: 140px;
-    border-radius: inherit;
-  }
-
-  &__text {
-    padding: 0;
-    margin: 0;
-    // text-align: justify;
-  }
-
-  &__name,
-  &__edit {
-    font-family: "Aboreto", system-ui;
-  }
-
-  &__name {
-    font-size: 0.8rem;
-    font-weight: bolder;
-  }
-
-  &__edit {
-    font-size: 0.6rem;
-  }
 }

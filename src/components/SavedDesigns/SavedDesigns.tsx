@@ -53,6 +53,7 @@ export function SavedDesigns() {
               design_data={design_data}
               design_url={design_url}
               created_at={created_at}
+              message="Last edited: "
             />
           ))}
         </div>

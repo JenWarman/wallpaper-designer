@@ -103,4 +103,5 @@ export type CardProps = {
   design_url: string;
   design_data: DesignData;
   created_at: string;
+  message: string;
 };

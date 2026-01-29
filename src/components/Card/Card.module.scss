@@ -1,9 +1,7 @@
 .card {
-    // background-color: plum;
     display: flex;
     flex-direction: column;
     border-radius: 5px;
-    // height: 30vh;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.148);
     padding: 1rem;
 
@@ -16,7 +14,6 @@
   &__text {
     padding: 0;
     margin: 0;
-    // text-align: justify;
   }
 
   &__name,

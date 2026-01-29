@@ -8,6 +8,7 @@ import {
 import { type SavedDesign, type SavedOrder } from "../../types/types";
 import { Link, useNavigate } from "react-router";
 import { dataTestIds } from "../../utils/dataTestIds";
+import { Card } from "../Card/Card";
 
 export function PlacedOrders() {
   const [designs, setDesigns] = useState<SavedDesign[]>([]);
@@ -32,31 +33,42 @@ export function PlacedOrders() {
       data-testid={dataTestIds.placedOrders}
     >
       <h1 className={styles.placedOrders__heading}>Your Orders</h1>
-      <div className={styles.placedOrders__cardContainer}>
-        {orders.length === 0 && (
+      {orders.length === 0 && (
           <>
             <p>You don't have any orders yet.</p>
             <p> Get started <Link to={"/design"}>here.</Link></p>
           </>
         )}
+      <div className={styles.placedOrders__cardContainer}>
+        
         {orders.map((order) => {
           const design = designs.find(
             (design) => design.design_url === order.design,
           );
           if (!design) return null;
           return (
-            <div className={styles.placedOrders__card} key={order.created_at}>
-              <div
-                className={styles.placedOrders__pattern}
-                key={design.created_at}
-                onClick={() => navigate(`/order-tracking?${design.design_url}`)}
-              >
-                <PatternDesign design={design.design_data} component="saved" />
-              </div>
-              <p className={styles.placedOrders__text}>
-                Ordered: {new Date(order.created_at).toLocaleDateString()}
-              </p>
-            </div>
+            <Card
+                        key={design.created_at}
+                        handleClick={() =>
+                          () => navigate(`/order-tracking?${design.design_url}`)
+                        }
+                        design_data={design.design_data}
+                        design_url={design.design_url}
+                        created_at={design.created_at}
+                        message="ordered: "
+                      />
+            // <div className={styles.placedOrders__card} key={order.created_at}>
+            //   <div
+            //     className={styles.placedOrders__pattern}
+            //     key={design.created_at}
+            //     onClick={() => navigate(`/order-tracking?${design.design_url}`)}
+            //   >
+            //     <PatternDesign design={design.design_data} component="saved" />
+            //   </div>
+            //   <p className={styles.placedOrders__text}>
+            //     Ordered: {new Date(order.created_at).toLocaleDateString()}
+            //   </p>
+            // </div>
           );
         })}
       </div>

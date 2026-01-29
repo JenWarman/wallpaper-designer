@@ -20,15 +20,11 @@
 
   &__cardContainer {
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 20px;
-    width: 100%;
+    width: 90%;
     height: max-content;
-    flex-wrap: wrap;
-  }
-
-  &__card {
-    height: 160px;
-    width: 160px;
-    border-radius: inherit;
+    flex-wrap: nowrap;
   }
 }
