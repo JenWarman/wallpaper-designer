@@ -1,0 +1,1 @@
+export const calculatePrice = (quantity: number) => quantity * 48;

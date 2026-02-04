@@ -14,4 +14,4 @@ export const calculateQuantity = (
   return Math.ceil(drops / dropsOnRoll);
 };
 
-export const calculatePrice = (quantity: number) => quantity * 48;
+
