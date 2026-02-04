@@ -24,3 +24,12 @@
         background-color: rgb(143, 143, 142);
     }
 }
+
+@media (min-width: 768px) {
+    .cta {
+        height: 3rem;
+        width: 100%;
+        font-size: 1.2rem;
+        align-items: center;
+    }
+}
