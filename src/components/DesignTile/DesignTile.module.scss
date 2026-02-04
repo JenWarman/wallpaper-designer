@@ -8,6 +8,23 @@
   border-radius: 5px;
   overflow: hidden;
 
+  &__preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: inherit;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__blue {
+    background-color: rgb(124, 170, 221);
+  }
+
+  &__pink {
+    background-color: rgb(233, 188, 226);
+  }
+
   &__container {
     display: flex;
     justify-content: center;

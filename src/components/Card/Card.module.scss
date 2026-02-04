@@ -1,9 +1,11 @@
 .card {
     display: flex;
     flex-direction: column;
+    width: min-content;
     border-radius: 5px;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.148);
     padding: 1rem;
+    background-color: white;
 
     &__pattern {
     height: 140px;

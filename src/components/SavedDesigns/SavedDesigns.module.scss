@@ -19,12 +19,10 @@
   }
 
   &__cardContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    width: 90%;
-    height: max-content;
-    flex-wrap: nowrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+    width: 100%;
+    justify-items: start;
   }
 }
