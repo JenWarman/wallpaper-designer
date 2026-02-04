@@ -3,7 +3,7 @@ import styles from "./OrderForm.module.scss";
 import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
 import type { OrderFormState } from "../../types/types";
-import { handleCalculatePrice } from "../../utils/forms/formActions";
+import { handleCalculatePrice } from "../../utils/forms/handleCalculatePrice"; 
 import { dataTestIds } from "../../utils/dataTestIds";
 import { fetchDesignsByUserId } from "../../supabase/supabase";
 import { validateMeasurement } from "../../utils/forms/formValidation";

@@ -19,7 +19,7 @@ const mockDesign = {
   theme: "floral",
   motif: "rose",
   scale: "large",
-  colour: "blue",
+  colour: "cornflower blue",
   repeat: "tile",
 };
 

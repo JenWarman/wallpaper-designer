@@ -1,4 +1,4 @@
-import { handleLoginAndStartSession } from "../../utils/forms/formActions";
+import { handleLoginAndStartSession } from "../../utils/forms/handleLoginAndStartSession.ts";
 import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
 import styles from "./LoginUser.module.scss";

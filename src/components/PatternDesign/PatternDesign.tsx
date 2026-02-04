@@ -10,8 +10,10 @@ export function PatternDesign({ design, component }: PatternDesignProps) {
 
   const patternClassName = conditionalClassNames({
     [styles.pattern__card]: true,
-    [styles.pattern__pink]: colour === "pink",
-    [styles.pattern__blue]: colour === "blue",
+    [styles.pattern__pink]: colour === "powder pink",
+    [styles.pattern__blue]: colour === "cornflower blue",
+    [styles.pattern__charcoal]: colour === "charcoal",
+    [styles.pattern__green]: colour === "forest green",
   });
 
   const imageScale = calculateImageScale(component, design.scale)

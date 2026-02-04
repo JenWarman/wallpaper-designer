@@ -3,7 +3,7 @@ import styles from "./RegisterUser.module.scss";
 import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
 import type { FormState } from "../../types/types";
-import { handleRegisterUser } from "../../utils/forms/formActions";
+import { handleRegisterUser } from "../../utils/forms/handleRegisterUser"; 
 import { dataTestIds } from "../../utils/dataTestIds";
 import { Link } from "react-router-dom";
 import { validateRegistration } from "../../utils/validateRegistration";

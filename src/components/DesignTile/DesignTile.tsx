@@ -16,8 +16,10 @@ export function DesignTile() {
 
   const designTileClassname = conditionalClassNames({
     [styles.designTile__preview]: true,
-    [styles.designTile__pink]: formData.colour === "pink",
-    [styles.designTile__blue]: formData.colour === "blue",
+    [styles.designTile__pink]: formData.colour === "powder pink",
+    [styles.designTile__blue]: formData.colour === "cornflower blue",
+    [styles.designTile__charcoal]: formData.colour === "charcoal",
+    [styles.designTile__green]: formData.colour === "forest green",
   });
 
   return (
@@ -46,3 +48,4 @@ export function DesignTile() {
     </div>
   );
 }
+
