@@ -26,3 +26,24 @@
     justify-items: start;
   }
 }
+
+@media (min-width: 768px) {
+  .archive {
+    width: 100%;
+    height: 100vh;
+    justify-content: start;
+    margin-top: 1rem;
+    &__cardContainer {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      width: 90%;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .archive {
+    &__cardContainer {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+  }
+}

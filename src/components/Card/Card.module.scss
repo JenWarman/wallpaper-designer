@@ -33,4 +33,32 @@
   }
   }
 
-  
+  @media (min-width: 768px) {
+  .card {
+    &__pattern {
+      width:250px;
+      height: 250px;
+    }
+    &__name {
+      font-size: 1.2rem;
+    }
+    &__edit {
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .card {
+    &__pattern {
+      width:250px;
+      height: 250px;
+    }
+    &__name {
+      font-size: 1.2rem;
+    }
+    &__edit {
+      font-size: 1rem;
+    }
+  }
+}

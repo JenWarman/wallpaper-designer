@@ -2,7 +2,8 @@
   &__container {
     position: absolute;
     top: 3.6rem;
-    left: 12rem;
+    right: 2rem;
+    // left: 12rem;
     width: 50%;
     height: max-content;
     background-color: white;
@@ -31,6 +32,13 @@
     &:hover {
       font-size: 1.4rem;
       text-decoration: underline;
+    }
+  }
+}
+@media (min-width: 768px) {
+  .nav {
+    &__container {
+      width: 40%;
     }
   }
 }

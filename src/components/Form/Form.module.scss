@@ -6,3 +6,16 @@
   justify-content: center;
   align-items: center;
 }
+
+@media (min-width: 768px) {
+  .form {
+    width: 60%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .form {
+    padding: 0 6px;
+    margin: 0;
+  }
+}

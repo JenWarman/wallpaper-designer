@@ -14,7 +14,7 @@
     box-sizing: border-box;
     padding: 8px;
     margin-top: 6px;
-     border: 1px rgba(0, 0, 0, 0.076) solid;
+    border: 1px rgba(0, 0, 0, 0.076) solid;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.148);
     border-radius: 5px;
   }
@@ -38,4 +38,25 @@
   &__input {
     margin-left: 8px;
   }
+}
+
+@media (min-width: 768px) {
+  .input {
+    &__input, &__label {
+      font-size: 1.2rem;
+    }
+  }
+  .radio {
+    justify-content: center;
+    margin-left: 2rem;
+    font-size: 1.2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+    .input {
+      &__input, &__label {
+        font-size: 1rem;
+      }
+    }
 }

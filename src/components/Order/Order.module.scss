@@ -21,11 +21,11 @@
   }
 
   &__text {
-      font-family: "Aboreto", system-ui;
+    font-family: "Aboreto", system-ui;
   }
 
   &__bold {
-     font-family: "Aboreto", system-ui;
+    font-family: "Aboreto", system-ui;
     font-weight: bolder;
     font-size: 1.8rem;
   }
@@ -56,6 +56,35 @@
     &:hover,
     &:focus {
       background-color: rgb(75, 74, 74);
+    }
+  }
+}
+@media (min-width: 768px) {
+  .order {
+    &__container {
+      width: 80%;
+    }
+    &__text {
+      font-size: 1.2rem;
+    }
+    &__ctas {
+      width: 80%;
+      align-items: center;
+    }
+    &__cta {
+      height: 3rem;
+      align-items: center;
+      font-size: 1.2rem;
+      width: 100%;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .order {
+    &__cta {
+      height: 2.2rem;
+      font-size: 1rem;
     }
   }
 }

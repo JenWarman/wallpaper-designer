@@ -120,3 +120,49 @@
     margin: 0;
   }
 }
+
+@media (min-width: 768px) {
+  .modal {
+    &__pattern {
+      width: 60%;
+    }
+    &__order {
+      width: 86%;
+    }
+
+    &__orderCta {
+      height: 3rem;
+      align-items: center;
+      font-size: 1rem;
+    }
+
+    &__ctas {
+      justify-content: space-evenly;
+    }
+    &__edit {
+      font-size: 1.2rem;
+    }
+
+    &__close {
+      right: 3rem;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+    .modal {
+       &__pattern {
+        width: 30%;
+        height: 50vh;
+       }
+       &__order {
+        width: 43%;
+       }
+       &__ctas {
+        width: 60%;
+       }
+       &__close {
+      right: 34rem;
+    }
+    }
+}
