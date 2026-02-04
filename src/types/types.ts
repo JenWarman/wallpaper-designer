@@ -76,7 +76,6 @@ export type SavedDesign = {
   design_url: string;
   design_data: DesignData;
   id: number;
-  // status: boolean;
   user_id: string;
 };
 
@@ -97,4 +96,12 @@ export type SavedOrder = {
   price: number;
   quantity: number;
   user_id: string;
+};
+
+export type CardProps = {
+  handleClick: () => void;
+  design_url: string;
+  design_data: DesignData;
+  created_at: string;
+  message: string;
 };
