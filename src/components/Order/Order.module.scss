@@ -79,3 +79,12 @@
     }
   }
 }
+
+@media (min-width: 1200px) {
+  .order {
+    &__cta {
+      height: 2.2rem;
+      font-size: 1rem;
+    }
+  }
+}

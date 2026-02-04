@@ -42,10 +42,7 @@
 
 @media (min-width: 768px) {
   .input {
-    &__input {
-      font-size: 1.2rem;
-    }
-    &__label {
+    &__input, &__label {
       font-size: 1.2rem;
     }
   }
@@ -54,4 +51,12 @@
     margin-left: 2rem;
     font-size: 1.2rem;
   }
+}
+
+@media (min-width: 1200px) {
+    .input {
+      &__input, &__label {
+        font-size: 1rem;
+      }
+    }
 }

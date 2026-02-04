@@ -20,3 +20,9 @@
       margin-top: 1rem;
     }
 }
+
+@media (min-width: 1200px) {
+    .container {
+        width: 60%;
+    }
+}

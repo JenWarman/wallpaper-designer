@@ -12,3 +12,10 @@
     width: 60%;
   }
 }
+
+@media (min-width: 1200px) {
+  .form {
+    padding: 0 6px;
+    margin: 0;
+  }
+}

@@ -33,3 +33,12 @@
         align-items: center;
     }
 }
+
+@media (min-width: 1200px) {
+    .cta {
+        height: 2rem;
+        width: 100%;
+        font-size: 1rem;
+        align-items: center;
+    }
+}

@@ -22,3 +22,11 @@
     }
   }
 }
+
+@media (min-width: 1200px) {
+  .dropDown {
+    &__select {
+      padding: 6px;
+    }
+  }
+}

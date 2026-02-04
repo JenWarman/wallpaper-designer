@@ -148,3 +148,21 @@
     }
   }
 }
+
+@media (min-width: 1200px) {
+    .modal {
+       &__pattern {
+        width: 30%;
+        height: 50vh;
+       }
+       &__order {
+        width: 43%;
+       }
+       &__ctas {
+        width: 60%;
+       }
+       &__close {
+      right: 34rem;
+    }
+    }
+}

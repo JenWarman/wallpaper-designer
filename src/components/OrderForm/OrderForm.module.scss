@@ -48,3 +48,19 @@
     }
   }
 }
+@media (min-width: 1200px) {
+   .orderForm {
+    &__container {
+      width: 60%;
+      height: 100vh;
+      justify-content: start;
+      margin-top: 1rem;
+    }
+    &__pattern {
+      width: 60%;
+    }
+    &__heading {
+      font-size: 1.6rem;
+    }
+  }
+}

@@ -115,3 +115,30 @@
     }
   }
 }
+
+@media (min-width: 1200px) {
+  .orderTracking {
+    &__container {
+      width: 50%;
+    }
+    &__pattern {
+      height: 20rem;
+    }
+    &__text,
+    &__textFuture {
+      font-size: 1rem;
+    }
+    &__date {
+      font-size: 0.8rem;
+    }
+    &__circle,
+    &__circleFuture {
+      width: 10px;
+      height: 10px;
+    }
+    &__line,
+    &__lineFuture {
+      height: 40px;
+    }
+  }
+}
