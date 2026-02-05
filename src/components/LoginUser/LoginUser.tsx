@@ -2,12 +2,14 @@ import { handleLoginAndStartSession } from "../../utils/forms/handleLoginAndStar
 import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
 import styles from "./LoginUser.module.scss";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import type { FormState } from "../../types/types";
 import { dataTestIds } from "../../utils/dataTestIds";
 import { validateLogin } from "../../utils/validateLogin";
+import { useNavigate } from "react-router";
 
 export function LoginUser() {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -18,6 +20,12 @@ export function LoginUser() {
     handleLoginAndStartSession,
     {}
   );
+
+  useEffect(() => {
+    if (state.message?.startsWith("Welcome")) {
+      navigate("/design")
+    }
+  }, [state.message, navigate])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({

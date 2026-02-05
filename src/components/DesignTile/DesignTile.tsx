@@ -20,6 +20,8 @@ export function DesignTile() {
     [styles.designTile__blue]: formData.colour === "cornflower blue",
     [styles.designTile__charcoal]: formData.colour === "charcoal",
     [styles.designTile__green]: formData.colour === "forest green",
+    [styles.designTile__grey]: formData.colour === "smoke",
+    [styles.designTile__indigo]: formData.colour === "indigo",
   });
 
   return (

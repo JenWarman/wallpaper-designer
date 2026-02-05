@@ -33,6 +33,14 @@
      background-color: rgb(4, 80, 44);
   }
 
+  &__grey {
+    background-color: rgb(53, 53, 63);
+  }
+
+  &__indigo {
+    background-color: rgb(3, 3, 99);
+  }
+
   &__container {
     display: flex;
     justify-content: center;
