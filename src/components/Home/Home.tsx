@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router";
 import styles from "./Home.module.scss";
+import { dataTestIds } from "../../utils/dataTestIds";
 
 export function Home() {
   const navigate = useNavigate();
   return (
-    <div className={styles.home__container}>
+    <div className={styles.home__container} data-testid={dataTestIds.home}>
         <h1 className={styles.home__heading}>Design Your Own</h1>
         <h2 className={styles.home__subHeading}>Wallpaper</h2>
         <div className={styles.home__ctaContainer}>

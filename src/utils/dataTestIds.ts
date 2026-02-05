@@ -26,5 +26,6 @@ export const dataTestIds = {
     login: "login",
     registration: "registration",
     modalArchive: "modalArchive",
-    archive: "archive"
+    archive: "archive",
+    home: "home"
 }
