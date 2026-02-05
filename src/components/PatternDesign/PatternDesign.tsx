@@ -14,6 +14,8 @@ export function PatternDesign({ design, component }: PatternDesignProps) {
     [styles.pattern__blue]: colour === "cornflower blue",
     [styles.pattern__charcoal]: colour === "charcoal",
     [styles.pattern__green]: colour === "forest green",
+    [styles.pattern__grey]: colour === "smoke",
+    [styles.pattern__indigo]: colour === "indigo",
   });
 
   const imageScale = calculateImageScale(component, design.scale)

@@ -19,6 +19,8 @@ export function DesignDemo() {
     [styles.designDemo__blue]: formData.colour === "cornflower blue",
     [styles.designDemo__charcoal]: formData.colour === "charcoal",
     [styles.designDemo__green]: formData.colour === "forest green",
+    [styles.designTile__grey]: formData.colour === "smoke",
+    [styles.designTile__indigo]: formData.colour === "indigo",
   });
 
   return (

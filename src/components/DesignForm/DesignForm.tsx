@@ -47,7 +47,7 @@ export function DesignForm() {
           value={formData.colour}
           onChange={handleChange}
           ariaLabel="Select background colour"
-          options={["powder pink", "cornflower blue", "charcoal", "forest green"]}
+          options={["powder pink", "cornflower blue", "charcoal", "forest green", "smoke", "indigo"]}
           disabled={!formData.motif}
         />
         <DropDown

@@ -16,6 +16,7 @@ import { PlacedOrders } from "./components/PlacedOrders/PlacedOrders";
 import { OrderTracking } from "./components/OrderTracking/OrderTracking";
 import { Admin } from "./components/Admin/Admin";
 import { Archive } from "./components/Archive/Archive";
+import { Home } from "./components/Home/Home";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,7 +41,8 @@ function App() {
     <>
     <Header/>
       <Routes>
-        <Route path="/" element={<RegisterUser />} />
+        <Route path="/" element={<Home />} />
+         <Route path="/register" element={<RegisterUser />} />
         <Route path="/design" element={<><DesignContainer/><DesignForm/></>} />
         <Route path="/login" element={<LoginUser />} />
         <Route path="/order" element={<OrderForm />} />

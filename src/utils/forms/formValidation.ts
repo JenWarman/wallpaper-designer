@@ -26,7 +26,7 @@ export const confirmPassword = (value: string, confirmationValue: string) => {
 export const validatePassword = (value: string) => {
   if (!value) return "Password is required";
   const passwordPattern =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
   if (!passwordPattern.test(value))
     return "Password must include one uppercase letter, one lowercase letter, one number, one special character and be at least 8 characters long.";
   return "";

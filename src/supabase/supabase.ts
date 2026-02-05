@@ -51,14 +51,6 @@ export async function getUserSession() {
   }
 }
 
-export async function fetchUsers() {
-  const { data, error } = await supabase.from("usersAccount").select();
-  if (error) {
-    return { success: false, error };
-  }
-  return { success: true, data };
-}
-
 export async function fetchUserById() {
   const {
     data: { user },
