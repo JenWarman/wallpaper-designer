@@ -4,22 +4,15 @@ import {
   fetchProgressStatusByDesign,
 } from "../../supabase/supabase";
 import styles from "./OrderTracking.module.scss";
-import type { DesignData } from "../../types/types";
 import { PatternDesign } from "../PatternDesign/PatternDesign";
 import { statusUpdates } from "../../utils/statusUpdates";
 import { dataTestIds } from "../../utils/dataTestIds";
+import { parseDesignUrl } from "../../utils/parseDesignUrl";
 
 export function OrderTracking() {
   const [statuses, setStatuses] = useState<
     { status: string; created_at: string }[]
   >([]);
-  const [design, setDesign] = useState<DesignData>({
-    theme: "",
-    motif: "",
-    scale: "",
-    colour: "",
-    repeat: "",
-  });
 
   const designUrl = window.location.href.split("/order-tracking?")[1];
 
@@ -29,19 +22,15 @@ export function OrderTracking() {
       const designs = await fetchDesignsByUserId();
 
       if (!status || !designs) return;
-      designs.data?.map((design) => {
-        if (design.design_url === designUrl) {
-          setDesign(design.design_data);
-        }
-      });
       setStatuses(status?.status ?? []);
     })();
   }, [designUrl]);
 
+  const designObj = parseDesignUrl(designUrl)
   return (
     <div className={styles.orderTracking__container}    data-testid={dataTestIds.orderTracking}>
       <div className={styles.orderTracking__pattern}>
-        <PatternDesign design={design} component="saved" />
+        <PatternDesign design={designObj} component="saved" />
       </div>
       <div className={styles.orderTracking__detail}>
         {Object.entries(statusUpdates).map(([key, value]) => {

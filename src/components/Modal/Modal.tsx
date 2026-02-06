@@ -3,21 +3,15 @@ import { dataTestIds } from "../../utils/dataTestIds";
 import { PatternDesign } from "../PatternDesign/PatternDesign";
 import styles from "./Modal.module.scss";
 import {  updateProgressStatusByDesign } from "../../supabase/supabase";
+import { parseDesignUrl } from "../../utils/parseDesignUrl";
 
 
 type ModalProps = {
   url: string;
-  design: {
-    theme: string;
-    motif: string;
-    scale: string;
-    colour: string;
-    repeat: string;
-  };
   onClose: () => void;
 };
 
-export function Modal({ url, design, onClose }: ModalProps) {
+export function Modal({ url, onClose }: ModalProps) {
   const navigate = useNavigate();
 
   const handleArchiveDesign = async () => {
@@ -25,6 +19,7 @@ export function Modal({ url, design, onClose }: ModalProps) {
     navigate("/archive")
   }
 
+  const designObj = parseDesignUrl(url)
   return (
     <div className={styles.modal__container} data-testid={dataTestIds.modal}>
       <img
@@ -36,7 +31,7 @@ export function Modal({ url, design, onClose }: ModalProps) {
         data-testid={dataTestIds.modalClose}
       />
       <div className={styles.modal__pattern}>
-        <PatternDesign design={design} component="saved" />
+        <PatternDesign design={designObj} component="saved" />
       </div>
 
       <div className={styles.modal__order}>

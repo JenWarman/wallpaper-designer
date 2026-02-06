@@ -32,7 +32,6 @@ export default function useStatusToSearchDesigns(
 
           return {
             design_url: s.design,
-            design_data: design.design_data,
             created_at: design.created_at,
           };
         })

@@ -5,20 +5,14 @@ import styles from "./ArchiveModal.module.scss";
 import { deleteDesignByUserId, updateProgressStatusByDesign } from "../../supabase/supabase";
 import { useState } from "react";
 import { Cta } from "../Cta/Cta";
+import { parseDesignUrl } from "../../utils/parseDesignUrl";
 
 type ModalProps = {
   url: string;
-  design: {
-    theme: string;
-    motif: string;
-    scale: string;
-    colour: string;
-    repeat: string;
-  };
   onClose: () => void;
 };
 
-export function ArchiveModal({ url, design, onClose }: ModalProps) {
+export function ArchiveModal({ url, onClose }: ModalProps) {
     const [confirmDelete, setConfirmDelete] = useState(false)
   const navigate = useNavigate();
 
@@ -38,6 +32,7 @@ const handleRestoreDesign =  async() => {
     navigate("/saved-designs")
 }
 
+const designObj = parseDesignUrl(url)
   return (
     <div className={styles.modal__container} data-testid={dataTestIds.modalArchive}>
       <img
@@ -49,7 +44,7 @@ const handleRestoreDesign =  async() => {
         data-testid={dataTestIds.modalClose}
       />
       <div className={styles.modal__pattern}>
-        <PatternDesign design={design} component="saved" />
+        <PatternDesign design={designObj} component="saved" />
       </div>
 
       <div className={styles.modal__order}>

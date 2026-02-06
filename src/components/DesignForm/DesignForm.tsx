@@ -16,7 +16,7 @@ export function DesignForm() {
   };
 
   const handleSaveDesign = async () => {
-    await createDesignByUserId(paramsString, formData);
+    await createDesignByUserId(paramsString);
     navigate("/saved-designs")
   };
 

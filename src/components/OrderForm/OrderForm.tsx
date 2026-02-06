@@ -9,6 +9,7 @@ import { fetchDesignsByUserId } from "../../supabase/supabase";
 import { validateMeasurement } from "../../utils/forms/formValidation";
 import { PatternDesign } from "../PatternDesign/PatternDesign";
 import { Order } from "../Order/Order";
+import { parseDesignUrl } from "../../utils/parseDesignUrl";
 
 export function OrderForm() {
   const [formData, setFormData] = useState({
@@ -21,7 +22,6 @@ export function OrderForm() {
   const [orderData, setOrderData] = useState({
     quantity: 0,
     price: 0,
-    design: { theme: "", motif: "", scale: "", colour: "", repeat: "" },
   });
 
   const designUrl = window.location.href.split("/order?")[1];
@@ -71,7 +71,6 @@ export function OrderForm() {
           setOrderData({
             quantity: state.quantity,
             price: state.price,
-            design: design.design_data,
           });
         }
       });
@@ -81,12 +80,14 @@ export function OrderForm() {
     })();
   }, [state.price, state.quantity]);
 
+  const designObj = parseDesignUrl(designUrl)
+
   return (
     <div className={styles.orderForm__container} data-testid={dataTestIds.orderForm}>
       {!readyToOrder && (
         <>
           <div className={styles.orderForm__pattern}>
-            <PatternDesign design={orderData.design} component="saved" />
+            <PatternDesign design={designObj} component="saved" />
           </div>
           <h1 className={styles.orderForm__heading}>Order Your Wallpaper</h1>
           <Form

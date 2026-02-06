@@ -53,7 +53,6 @@ export function PlacedOrders() {
               handleClick={() =>
                 navigate(`/order-tracking?${design.design_url}`)
               }
-              design_data={design.design_data}
               design_url={design.design_url}
               created_at={design.created_at}
               message="ordered: "

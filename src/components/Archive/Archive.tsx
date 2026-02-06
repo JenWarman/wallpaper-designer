@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styles from "./Archive.module.scss";
-import { type DesignData } from "../../types/types";
 import { ArchiveModal } from "../ArchiveModal/ArchiveModal";
 import useStatusToSearchDesigns from "../../hooks/useStatusToSearchDesigns";
 import { dataTestIds } from "../../utils/dataTestIds";
@@ -9,23 +8,15 @@ import { Card } from "../Card/Card";
 export function Archive() {
   const [toggleModal, setToggleModal] = useState(false);
   const [modalUrl, setModalUrl] = useState("");
-  const [modalData, setModalData] = useState<DesignData>({
-    theme: "",
-    motif: "",
-    scale: "",
-    colour: "",
-    repeat: "",
-  });
 
   const { filteredDesigns: archivedDesigns } = useStatusToSearchDesigns(
     "archived",
     toggleModal,
   );
 
-  const handleToggleModal = (design_url: string, design_data: DesignData) => {
+  const handleToggleModal = (design_url: string) => {
     setToggleModal((prev) => !prev);
     setModalUrl(design_url);
-    setModalData(design_data);
   };
 
   const handleCloseModal = () => {
@@ -43,9 +34,8 @@ export function Archive() {
           <Card
             key={design.created_at}
             handleClick={() =>
-              handleToggleModal(design.design_url, design.design_data)
+              handleToggleModal(design.design_url)
             }
-            design_data={design.design_data}
             design_url={design.design_url}
             created_at={design.created_at}
             message="Archived: "
@@ -55,7 +45,7 @@ export function Archive() {
       {toggleModal && (
         <ArchiveModal
           url={modalUrl}
-          design={modalData}
+          design={modalUrl}
           onClose={handleCloseModal}
         />
       )}

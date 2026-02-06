@@ -134,13 +134,6 @@ export async function loginAndStartSession(email: string, password: string) {
 
 export async function createDesignByUserId(
   design_url: string,
-  design: {
-    theme: string;
-    motif: string;
-    scale: string;
-    colour: string;
-    repeat: string;
-  },
 ) {
   const {
     data: { user },
@@ -152,13 +145,6 @@ export async function createDesignByUserId(
       .insert({
         user_id: user.id,
         design_url,
-        design_data: {
-          theme: design.theme,
-          motif: design.motif,
-          scale: design.scale,
-          colour: design.colour,
-          repeat: design.repeat,
-        },
       })
       .select()
       .single();
@@ -170,7 +156,6 @@ export async function createDesignByUserId(
       designData.design_url,
       "saved",
     );
-
     return { success: true, design: designData, status: statusData };
   }
 }

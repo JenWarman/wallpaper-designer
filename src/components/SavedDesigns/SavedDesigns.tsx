@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styles from "./SavedDesigns.module.scss";
-import { type DesignData } from "../../types/types";
 import { Modal } from "../Modal/Modal";
 import { dataTestIds } from "../../utils/dataTestIds";
 import { Link } from "react-router";
@@ -10,18 +9,10 @@ import { Card } from "../Card/Card";
 export function SavedDesigns() {
   const [toggleModal, setToggleModal] = useState(false);
   const [modalUrl, setModalUrl] = useState("");
-  const [modalData, setModalData] = useState<DesignData>({
-    theme: "",
-    motif: "",
-    scale: "",
-    colour: "",
-    repeat: "",
-  });
 
-  const handleToggleModal = (design_url: string, design_data: DesignData) => {
+  const handleToggleModal = (design_url: string) => {
     setToggleModal((prev) => !prev);
     setModalUrl(design_url);
-    setModalData(design_data);
   };
 
   const handleCloseModal = () => {
@@ -46,11 +37,10 @@ export function SavedDesigns() {
           </>
         )}
         <div className={styles.savedDesigns__cardContainer}>
-          {designs.map(({ design_url, design_data, created_at }) => (
+          {designs.map(({ design_url, created_at }) => (
             <Card
               key={created_at}
-              handleClick={() => handleToggleModal(design_url, design_data)}
-              design_data={design_data}
+              handleClick={() => handleToggleModal(design_url)}
               design_url={design_url}
               created_at={created_at}
               message="Last edited: "
@@ -58,7 +48,7 @@ export function SavedDesigns() {
           ))}
         </div>
         {toggleModal && (
-          <Modal url={modalUrl} design={modalData} onClose={handleCloseModal} />
+          <Modal url={modalUrl} onClose={handleCloseModal} />
         )}
       </div>
     </div>
