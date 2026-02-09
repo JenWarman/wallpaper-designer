@@ -9,7 +9,7 @@ import { validateLogin } from "../../utils/validateLogin";
 import { useNavigate } from "react-router";
 
 export function LoginUser() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -18,14 +18,19 @@ export function LoginUser() {
 
   const [state, action, isPending] = useActionState<FormState, FormData>(
     handleLoginAndStartSession,
-    {}
+    {},
   );
+
+  const newUserDesign = window.sessionStorage.getItem("design_url");
 
   useEffect(() => {
     if (state.message?.startsWith("Welcome")) {
-      navigate("/design")
+      navigate("/design");
     }
-  }, [state.message, navigate])
+    if (state.message?.startsWith("Welcome") && newUserDesign) {
+      navigate(`/design?${newUserDesign}`);
+    }
+  }, [state.message, navigate, newUserDesign]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -35,7 +40,7 @@ export function LoginUser() {
   };
 
   const handleBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const errorMessage = validateLogin(event)
+    const errorMessage = validateLogin(event);
     setErrors((prev) => ({
       ...prev,
       [event?.target.name]: errorMessage,

@@ -6,6 +6,14 @@ import { createDesignByUserId } from "../../supabase/supabase";
 
 import type { MockedFunction } from "vitest";
 
+vi.mock("react-redux", async () => {
+  const actual = await vi.importActual<any>("react-redux");
+  return {
+    ...actual,
+    useSelector: vi.fn(),
+  };
+});
+
 vi.mock("../../supabase/supabase", () => ({
   createDesignByUserId: vi.fn(),
 }));
@@ -21,6 +29,7 @@ const useDesignSearchParamsMock = useDesignSearchParams as MockedFunction<
 
 import useDesignSearchParams from "../../hooks/useDesignSearchParams";
 import { MemoryRouter } from "react-router";
+import { useSelector } from "react-redux";
 
 const design = {
   theme: "floral",
@@ -32,6 +41,8 @@ const design = {
 
 describe("DesignForm", () => {
   beforeEach(() => {
+    (useSelector as vi.mock).mockReturnValue("test-user");
+
     useDesignSearchParamsMock.mockReturnValue({
       formData: {
         theme: "",
@@ -50,7 +61,6 @@ describe("DesignForm", () => {
     vi.resetAllMocks();
     cleanup();
   });
-
   test("the component is rendered", () => {
     render(
       <MemoryRouter>
@@ -78,6 +88,7 @@ describe("DesignForm", () => {
 
     expect(updateParamMock).toHaveBeenCalledWith("theme", "floral");
   });
+
   test("the save Cta is disabled if there are no search params", () => {
     useDesignSearchParamsMock.mockReturnValueOnce({
       formData: {
@@ -99,7 +110,6 @@ describe("DesignForm", () => {
     );
 
     const saveCta = screen.getByText("Save");
-    screen.debug();
 
     expect(saveCta).toBeDisabled();
   });
@@ -124,13 +134,12 @@ describe("DesignForm", () => {
     );
 
     const saveCtaUpdated = screen.getByText("Save");
-    console.log(saveCtaUpdated);
-    screen.debug();
 
     expect(saveCtaUpdated).not.toBeDisabled();
   });
+  test("save cta calls createDesignByUserId when user is logged in", async () => {
+    (useSelector as vi.mock).mockReturnValue("test-user");
 
-  test("save cta calls createDesignByUserId", () => {
     useDesignSearchParamsMock.mockReturnValueOnce({
       formData: {
         theme: "floral",
@@ -154,7 +163,39 @@ describe("DesignForm", () => {
 
     fireEvent.click(saveCta);
 
-    expect(createDesignByUserId).toHaveBeenCalledWith("theme=floral", design);
+    expect(createDesignByUserId).toHaveBeenCalledWith("theme=floral");
+  });
+  test("the save cta opens popup and stores design url when user is not logged in", () => {
+    (useSelector as vi.mock).mockReturnValue(null);
+
+    const setItemSpy = vi.spyOn(window.sessionStorage.__proto__, "setItem");
+
+    useDesignSearchParamsMock.mockReturnValueOnce({
+      formData: {
+        theme: "floral",
+        motif: "",
+        scale: "",
+        colour: "",
+        repeat: "",
+      },
+      paramsString: "theme=floral",
+      updateParam: updateParamMock,
+      clearParams: clearParamMock,
+    });
+
+    render(
+      <MemoryRouter>
+        <DesignForm />
+      </MemoryRouter>,
+    );
+
+    const saveCta = screen.getByText("Save");
+
+    fireEvent.click(saveCta);
+
+    expect(setItemSpy).toHaveBeenCalledWith("design_url", "theme=floral");
+    expect(createDesignByUserId).not.toHaveBeenCalled();
+    expect(screen.getByTestId("popup")).toBeInTheDocument();
   });
   test("clear cta calls clearParams", () => {
     render(

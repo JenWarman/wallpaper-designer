@@ -3,13 +3,13 @@ import styles from "./RegisterUser.module.scss";
 import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
 import type { FormState } from "../../types/types";
-import { handleRegisterUser } from "../../utils/forms/handleRegisterUser"; 
+import { handleRegisterUser } from "../../utils/forms/handleRegisterUser";
 import { dataTestIds } from "../../utils/dataTestIds";
 import { Link, useNavigate } from "react-router-dom";
 import { validateRegistration } from "../../utils/validateRegistration";
 
 export function RegisterUser() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -20,14 +20,19 @@ export function RegisterUser() {
 
   const [state, action, isPending] = useActionState<FormState, FormData>(
     handleRegisterUser,
-    {}
+    {},
   );
+  
+  const newUserDesign = window.sessionStorage.getItem("design_url");
 
   useEffect(() => {
-    if (state.message?.startsWith("Welcome")) {
-      navigate("/design")
+    if (state.message?.startsWith("Welcome") && !newUserDesign) {
+      navigate("/design");
     }
-  }, [state.message, navigate])
+    if (state.message?.startsWith("Welcome") && newUserDesign) {
+      navigate(`/design?${newUserDesign}`);
+    }
+  }, [state.message, navigate, newUserDesign]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -37,7 +42,11 @@ export function RegisterUser() {
   };
 
   const handleBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const errorMessage = validateRegistration(event, formData.password, formData["confirm-password"])
+    const errorMessage = validateRegistration(
+      event,
+      formData.password,
+      formData["confirm-password"],
+    );
     setErrors((prev) => ({
       ...prev,
       [event?.target.name]: errorMessage,
@@ -110,7 +119,9 @@ export function RegisterUser() {
       </Form>
       {isPending && <p>Registering...</p>}
       {state.message}
-      <p>Already have an account? <Link to="/login">Login here.</Link></p>
+      <p>
+        Already have an account? <Link to="/login">Login here.</Link>
+      </p>
     </div>
   );
 }
