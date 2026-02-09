@@ -1,12 +1,4 @@
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  expect,
-  test,
-  vi,
-  type MockedFunction,
-} from "vitest";
+import { afterEach, beforeEach, describe, expect, test, vi, type MockedFunction, } from "vitest";
 import { DesignContainer } from "./DesignContainer";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 
@@ -15,20 +7,14 @@ const clearParamMock = vi.fn();
 
 vi.mock("../../hooks/useDesignSearchParams");
 
-vi.mock("../../hooks/useMediaQuery", () => ({
-  useMediaQuery: vi.fn(),
-}));
-
 const useDesignSearchParamsMock = useDesignSearchParams as MockedFunction<
   typeof useDesignSearchParams
 >;
 
 import useDesignSearchParams from "../../hooks/useDesignSearchParams";
-import { useMediaQuery } from "../../hooks/useMediaQuery";
 
 describe("DesignContainer", () => {
   beforeEach(() => {
-    vi.mocked(useMediaQuery).mockReturnValue(false);
     useDesignSearchParamsMock.mockReturnValue({
       formData: {
         theme: "floral",
@@ -44,32 +30,46 @@ describe("DesignContainer", () => {
     });
   });
   afterEach(() => {
-    vi.clearAllMocks();
-    vi.resetAllMocks();
     cleanup();
   });
   test("it renders the component", () => {
     render(<DesignContainer />);
     expect(screen.getByTestId("designContainer")).toBeInTheDocument();
   });
-  test("DesignTile is rendered by default", () => {
+  test("DesignTile is active by default and DesignDemo is hidden", () => {
     render(<DesignContainer />);
-    expect(screen.getByTestId("designTile")).toBeInTheDocument();
-    expect(screen.queryByTestId("designDemo")).not.toBeInTheDocument();
+
+    const tile = screen.getByTestId("designTile").parentElement;
+    const demo = screen.queryByTestId("designDemo")?.parentElement;
+
+    expect(tile?.className).toContain("isActive");
+    expect(demo?.className).toContain("isHidden");
   });
-  test("clicking the right arrow shows the DesignDemo component", () => {
+  test("clicking the right arrow activates DesignDemo", () => {
     render(<DesignContainer />);
+
     const rightArrow = screen.getByTestId("right");
+
     fireEvent.click(rightArrow);
-    expect(screen.getByTestId("designDemo")).toBeInTheDocument();
-    expect(screen.queryByTestId("designTile")).not.toBeInTheDocument();
+
+    const tile = screen.getByTestId("designTile").parentElement;
+    const demo = screen.queryByTestId("designDemo")?.parentElement;
+
+    expect(demo?.className).toContain("isActive");
+    expect(tile?.className).toContain("isHidden")
   });
-  test("clicking the left arrow shows the DesignTile component", () => {
+  test("clicking the left arrow reactivates DesignTile", () => {
     render(<DesignContainer />);
-    fireEvent.click(screen.getByTestId("right"));
-    const leftArrow = screen.getByTestId("left");
+     const rightArrow = screen.getByTestId("right");
+     const leftArrow = screen.getByTestId("left")
+
+    fireEvent.click(rightArrow);
     fireEvent.click(leftArrow);
-    expect(screen.getByTestId("designTile")).toBeInTheDocument();
-    expect(screen.queryByTestId("designDemo")).not.toBeInTheDocument();
+
+    const tile = screen.getByTestId("designTile").parentElement;
+    const demo = screen.queryByTestId("designDemo")?.parentElement;
+
+    expect(tile?.className).toContain("isActive");
+    expect(demo?.className).toContain("isHidden")
   });
 });

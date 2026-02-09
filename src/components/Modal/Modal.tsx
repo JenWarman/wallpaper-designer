@@ -21,7 +21,7 @@ export function Modal({ url, onClose }: ModalProps) {
 
   const designObj = parseDesignUrl(url)
   return (
-    <div className={styles.modal__container} data-testid={dataTestIds.modal}>
+    <dialog className={styles.modal__container} data-testid={dataTestIds.modal}>
       <img
         src="src/assets/close.png"
         alt=""
@@ -62,6 +62,6 @@ export function Modal({ url, onClose }: ModalProps) {
           Archive
         </button>
       </div>
-    </div>
+    </dialog>
   );
 }

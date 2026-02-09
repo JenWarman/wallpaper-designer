@@ -34,7 +34,7 @@ const handleRestoreDesign =  async() => {
 
 const designObj = parseDesignUrl(url)
   return (
-    <div className={styles.modal__container} data-testid={dataTestIds.modalArchive}>
+    <dialog className={styles.modal__container} data-testid={dataTestIds.modalArchive}>
       <img
         src="src/assets/close.png"
         alt=""
@@ -96,6 +96,6 @@ const designObj = parseDesignUrl(url)
           </div>
         </div>
       )}
-    </div>
+    </dialog>
   );
 }
