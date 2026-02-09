@@ -5,19 +5,32 @@ import { DropDown } from "../DropDown/DropDown";
 import styles from "./DesignForm.module.scss";
 import useDesignSearchParams from "../../hooks/useDesignSearchParams";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+import { getUsername } from "../../store/selectors/userSelector";
+import { useState } from "react";
+import { Popup } from "../Popup/Popup";
 
 export function DesignForm() {
-  const navigate = useNavigate()
+  const [openPopup, setOpenPopup] = useState(false);
+  const navigate = useNavigate();
   const { formData, paramsString, updateParam, clearParams } =
     useDesignSearchParams();
+
+  const user = useSelector(getUsername);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     updateParam(event.target.name, event.target.value);
   };
 
   const handleSaveDesign = async () => {
-    await createDesignByUserId(paramsString);
-    navigate("/saved-designs")
+    if (!user) {
+      setOpenPopup((prev) => !prev);
+      window.sessionStorage.setItem("design_url", paramsString);
+    }
+    if (user) {
+      await createDesignByUserId(paramsString);
+      navigate("/saved-designs");
+    }
   };
 
   return (
@@ -47,7 +60,14 @@ export function DesignForm() {
           value={formData.colour}
           onChange={handleChange}
           ariaLabel="Select background colour"
-          options={["powder pink", "cornflower blue", "charcoal", "forest green", "smoke", "indigo"]}
+          options={[
+            "powder pink",
+            "cornflower blue",
+            "charcoal",
+            "forest green",
+            "smoke",
+            "indigo",
+          ]}
           disabled={!formData.motif}
         />
         <DropDown
@@ -84,6 +104,7 @@ export function DesignForm() {
           />
         </div>
       </form>
+      {openPopup && <Popup />}
     </div>
   );
 }

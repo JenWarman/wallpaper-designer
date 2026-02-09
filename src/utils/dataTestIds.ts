@@ -27,5 +27,6 @@ export const dataTestIds = {
     registration: "registration",
     modalArchive: "modalArchive",
     archive: "archive",
-    home: "home"
+    home: "home",
+    popup: "popup"
 }

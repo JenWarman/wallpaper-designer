@@ -39,13 +39,6 @@ describe("createDesignByUserId", () => {
         id: "design-1",
         design_url: "design-1",
         user_id,
-        design_data: {
-          theme: "floral",
-          motif: "rose",
-          scale: "medium",
-          colour: "blue",
-          repeat: "tile",
-        },
       },
       error: null,
     });
@@ -59,20 +52,13 @@ describe("createDesignByUserId", () => {
       >;
     });
 
-    const result = await createDesignByUserId("design-1", design);
+    const result = await createDesignByUserId("design-1");
 
     expect(result?.success).toBe(true);
     expect(result?.design.design_url).toBe("design-1");
     expect(insertMock).toHaveBeenCalledWith({
       user_id: "user-1",
       design_url: "design-1",
-      design_data:  {
-          theme: "floral",
-          motif: "rose",
-          scale: "medium",
-          colour: "blue",
-          repeat: "tile",
-        },
     });
   });
   test("it returns failure when user_id is invalid", async () => {
@@ -88,7 +74,7 @@ describe("createDesignByUserId", () => {
       insert: insertMock,
     } as unknown as ReturnType<typeof supabase.from>);
 
-    const result = await createDesignByUserId("design-1", design);
+    const result = await createDesignByUserId("design-1");
 
     expect(result?.success).toBe(false);
     expect(insertMock).toHaveBeenCalled();
