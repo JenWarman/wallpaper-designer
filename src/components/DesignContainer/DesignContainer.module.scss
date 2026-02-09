@@ -33,6 +33,14 @@
   }
 }
 
+.isHidden {
+  display: none;
+}
+
+.isActive {
+  display: flex;
+}
+
 
 @media (min-width: 768px) {
   .designContainer {
@@ -58,6 +66,10 @@
       height: 100%;
       padding: 0;
       margin-top: 0;
+      display: flex !important
+    }
+    &__left, &__right {
+      display: none;
     }
   }
 }
