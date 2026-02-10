@@ -1,25 +1,39 @@
-import { useNavigate } from "react-router";
 import { dataTestIds } from "../../utils/dataTestIds";
 import { PatternDesign } from "../PatternDesign/PatternDesign";
 import styles from "./Modal.module.scss";
-import {  updateProgressStatusByDesign } from "../../supabase/supabase";
 import { parseDesignUrl } from "../../utils/parseDesignUrl";
-
+import { Cta } from "../Cta/Cta";
 
 type ModalProps = {
   url: string;
   onClose: () => void;
+  mainCtaFunction: () => void;
+  mainCtaLabel: string;
+  secondaryCtaFunction: () => void;
+  secondaryCtaLabel: string;
+  tertiaryCtaFunction: ()=> void;
+  tertiaryCtaLabel: string;
+  confirmDelete?: boolean;
+  onConfirmDelete?: () => void;
+  onCancelDelete?: () => void;
 };
 
-export function Modal({ url, onClose }: ModalProps) {
-  const navigate = useNavigate();
+export function Modal({
+  url,
+  onClose,
+  mainCtaFunction,
+  mainCtaLabel,
+  secondaryCtaLabel,
+  secondaryCtaFunction,
+  tertiaryCtaLabel,
+  tertiaryCtaFunction,
+  confirmDelete,
+  onConfirmDelete,
+  onCancelDelete
+}: ModalProps) {
 
-  const handleArchiveDesign = async () => {
-    await updateProgressStatusByDesign(url, "saved", "archived")
-    navigate("/archive")
-  }
-
-  const designObj = parseDesignUrl(url)
+  const designObj = parseDesignUrl(url);
+  
   return (
     <dialog className={styles.modal__container} data-testid={dataTestIds.modal}>
       <img
@@ -36,32 +50,59 @@ export function Modal({ url, onClose }: ModalProps) {
 
       <div className={styles.modal__order}>
         <button
-          onClick={() => navigate(`/order?${url}`)}
-          aria-label="order your design"
+          onClick={mainCtaFunction}
+          aria-label={`${mainCtaLabel} you design`}
           className={styles.modal__orderCta}
         >
-          Order
+          {mainCtaLabel}
         </button>
       </div>
 
       <div className={styles.modal__ctas}>
         <button
           className={styles.modal__edit}
-          aria-label="edit your design"
-          onClick={() => navigate(`/design?${url}`)}
+          aria-label={`${secondaryCtaLabel} your design`}
+          onClick={secondaryCtaFunction}
         >
-          <img className={styles.modal__icon} src="src/assets/pencil.png" />
-          Edit
+          <img
+            className={styles.modal__icon}
+            src={`src/assets/${secondaryCtaLabel}.png`}
+          />
+          {secondaryCtaLabel}
         </button>
-        <button
+         <button
           className={styles.modal__edit}
-          aria-label="archive your design"
-          onClick={handleArchiveDesign}
+          aria-label={`${tertiaryCtaLabel} your design`}
+          onClick={tertiaryCtaFunction}
         >
-          <img className={styles.modal__icon} src="src/assets/archive.png" />
-          Archive
+          <img
+            className={styles.modal__icon}
+            src={`src/assets/${tertiaryCtaLabel}.png`}
+          />
+          {tertiaryCtaLabel}
         </button>
       </div>
+      {confirmDelete && (
+        <div className={styles.modal__confirmation}>
+          <p className={styles.modal__confirmationText}>Are you sure you want to delete this design?</p>
+          <div className={styles.modal__confirmationCtas}>
+          <Cta
+            ctaFunction={onConfirmDelete}
+            label="Delete"
+            ariaLabel="confirm delete"
+            dataTestId={dataTestIds.cta}
+            type="button"
+          />
+          <Cta
+            ctaFunction={onCancelDelete}
+            label="Cancel"
+            ariaLabel="cancel deletion"
+            dataTestId={dataTestIds.cta}
+            type="button"
+          />
+          </div>
+        </div>
+      )}
     </dialog>
   );
 }

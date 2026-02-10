@@ -1,13 +1,17 @@
 import { useState } from "react";
 import styles from "./Archive.module.scss";
-import { ArchiveModal } from "../ArchiveModal/ArchiveModal";
 import useStatusToSearchDesigns from "../../hooks/useStatusToSearchDesigns";
 import { dataTestIds } from "../../utils/dataTestIds";
 import { Card } from "../Card/Card";
+import { Modal } from "../Modal/Modal";
+import { useNavigate } from "react-router";
+import { deleteDesignByUserId, updateProgressStatusByDesign } from "../../supabase/supabase";
 
 export function Archive() {
   const [toggleModal, setToggleModal] = useState(false);
   const [modalUrl, setModalUrl] = useState("");
+   const [confirmDelete, setConfirmDelete] = useState(false)
+   const navigate = useNavigate()
 
   const { filteredDesigns: archivedDesigns } = useStatusToSearchDesigns(
     "archived",
@@ -23,6 +27,20 @@ export function Archive() {
     setToggleModal(false);
   };
 
+  const handleCancelDelete = () => {
+    setConfirmDelete(false)
+  }
+
+   const handleDeleteDesign = async () => {
+      await deleteDesignByUserId(modalUrl);
+      setConfirmDelete(false);
+      setToggleModal(false)
+    };
+
+  const handleRestoreDesign =  async() => {
+      await updateProgressStatusByDesign(modalUrl, "archived", "saved")
+      navigate("/saved-designs")
+  }
   return (
     <div
       className={styles.archive__container}
@@ -43,10 +61,18 @@ export function Archive() {
         ))}
       </div>
       {toggleModal && (
-        <ArchiveModal
+        <Modal
           url={modalUrl}
-          design={modalUrl}
           onClose={handleCloseModal}
+          mainCtaFunction={handleDeleteDesign}
+          mainCtaLabel="delete"
+          secondaryCtaFunction={() => navigate(`/design?${modalUrl}`)}
+          secondaryCtaLabel="edit"
+          tertiaryCtaFunction={handleRestoreDesign}
+          tertiaryCtaLabel="restore"
+          confirmDelete={confirmDelete}
+          onConfirmDelete={handleDeleteDesign}
+          onCancelDelete={handleCancelDelete}
         />
       )}
     </div>
