@@ -10,14 +10,16 @@ vi.mock("../../hooks/useStatusToSearchDesigns", () => ({
   default: vi.fn(),
 }));
 
-vi.mock("../PatternDesign/PatternDesign", () => ({
-  PatternDesign: () => <div>PatternDesign</div>,
-}));
+vi.mock("../Card/Card", () => ({
+  Card: ({handleClick}: any) => (
+    <button onClick={handleClick}>Card</button>
+  )
+}))
 
-vi.mock("../ArchiveModal/ArchiveModal", () => ({
-  ArchiveModal: ({ onClose }: any) => (
-    <div data-testid="modalArchive" aria-label="close" onClick={onClose}>
-      ArchiveModal
+vi.mock("../Modal/Modal", () => ({
+  Modal: ({ onClose }: any) => (
+    <div data-testid="modal">
+     <button aria-label="close modal" onClick={onClose}>Close</button>
     </div>
   ),
 }));
@@ -67,7 +69,7 @@ describe("SavedDesigns", () => {
       </MemoryRouter>,
     );
 
-    expect(await screen.findByText("PatternDesign")).toBeInTheDocument();
+    expect(await screen.getByText("Card")).toBeInTheDocument();
   });
   test("Modal opens when a card is clicked", async () => {
     vi.mocked(useStatusToSearchDesigns).mockReturnValue({
@@ -82,9 +84,9 @@ describe("SavedDesigns", () => {
 
     const user = userEvent.setup();
 
-    await user.click(await screen.findByText("PatternDesign"));
+    await user.click(await screen.getByText("Card"));
 
-    expect(screen.getByTestId("modalArchive")).toBeInTheDocument();
+    expect(screen.getByTestId("modal")).toBeInTheDocument();
   });
   test("close button closes modal", async () => {
     vi.mocked(useStatusToSearchDesigns).mockReturnValue({
@@ -99,8 +101,8 @@ describe("SavedDesigns", () => {
 
     const user = userEvent.setup();
 
-    await user.click(await screen.findByText("PatternDesign"));
-    await user.click(screen.getByLabelText("close"));
-    expect(screen.queryByTestId("modalArchive")).not.toBeInTheDocument();
+    await user.click(await screen.getByText("Card"));
+    await user.click(screen.getByLabelText("close modal"));
+    expect(screen.queryByTestId("modal")).not.toBeInTheDocument();
   });
 });
