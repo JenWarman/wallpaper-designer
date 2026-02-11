@@ -2,26 +2,32 @@ import { afterEach, describe, expect, test, vi } from "vitest";
 import { Modal } from "./Modal";
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { updateProgressStatusByDesign } from "../../supabase/supabase";
 
-const mockNavigate = vi.fn();
 const mockOnClose = vi.fn();
+const mockMainCta = vi.fn();
+const mockSecondaryCta = vi.fn();
+const mockTertiaryCta = vi.fn();
+const mockConfirmDelete = vi.fn();
+const mockCancelDelete = vi.fn();
 
-vi.mock("../../supabase/supabase", () => ({
-  updateProgressStatusByDesign: vi.fn(),
-}));
-
-vi.mock("react-router", () => ({
-  useNavigate: () => mockNavigate,
-}));
+const defaultProps = {
+  url: "url",
+  onClose: mockOnClose,
+  mainCtaFunction: mockMainCta,
+  mainCtaLabel: "order",
+  secondaryCtaFunction: mockSecondaryCta,
+  secondaryCtaLabel: "edit",
+  tertiaryCtaFunction: mockTertiaryCta,
+  tertiaryCtaLabel: "archive",
+};
 
 vi.mock("../PatternDesign/PatternDesign", () => ({
   PatternDesign: () => <div>PatternDesign</div>,
 }));
 
 vi.mock("../Cta/Cta", () => ({
-  Cta: ({ label, ctaFunction }: any) => (
-    <button onClick={ctaFunction}>{label}</button>
+  Cta: ({ label, ctaFunction, ariaLabel, dataTestId }: any) => (
+    <button onClick={ctaFunction} aria-label={ariaLabel} data-testid={dataTestId}>{label}</button>
   ),
 }));
 
@@ -40,16 +46,16 @@ describe("Modal", () => {
     cleanup();
   });
   test("it renders the component", () => {
-    render(<Modal url="url" design={mockDesign} onClose={mockOnClose} />);
+    render(<Modal {...defaultProps} />);
     expect(screen.getByTestId("modal")).toBeInTheDocument();
   });
-  test("it renders modal content", () => {
-    render(<Modal url="url" design={mockDesign} onClose={mockOnClose} />);
+  test("it renders PatternDesign", () => {
+    render(<Modal {...defaultProps} />);
 
     expect(screen.getByText("PatternDesign")).toBeInTheDocument();
   });
   test("onClose function is called when close button is clicked", async () => {
-    render(<Modal url="url" design={mockDesign} onClose={mockOnClose} />);
+    render(<Modal {...defaultProps} />);
 
     const user = userEvent.setup();
 
@@ -57,37 +63,45 @@ describe("Modal", () => {
 
     expect(mockOnClose).toHaveBeenCalled();
   });
-  test("edit Cta navigates to the DesignForm", async () => {
-    render(<Modal url="url" design={mockDesign} onClose={mockOnClose} />);
-
-    const user = userEvent.setup();
-
-    await user.click(screen.getByLabelText("edit your design"));
-    expect(mockNavigate).toHaveBeenCalledWith("/design?url");
-  });
-  test("order Cta navigates to the OrderForm", async () => {
-    render(<Modal url="url" design={mockDesign} onClose={mockOnClose} />);
+  test("it calls mainCtaFunction when main cta is clicked", async () => {
+    render(<Modal {...defaultProps} />);
 
     const user = userEvent.setup();
 
     await user.click(screen.getByLabelText("order your design"));
-    expect(mockNavigate).toHaveBeenCalledWith("/order?url");
+    expect(mockMainCta).toHaveBeenCalled();
   });
-  test("archive Cta calls updateProgressStatusByDesign", async () => {
-    render(<Modal url="url" design={mockDesign} onClose={mockOnClose} />);
+  test("it calls secondaryCtaFunction when secondary cta is clicked", async () => {
+    render(<Modal {...defaultProps} />);
+
+    const user = userEvent.setup();
+
+    await user.click(screen.getByLabelText("edit your design"));
+    expect(mockSecondaryCta).toHaveBeenCalled();
+  });
+  test("it calls tertiaryCtaFunction when tertiary cta is clicked", async () => {
+    render(<Modal {...defaultProps} />);
 
     const user = userEvent.setup();
 
     await user.click(screen.getByLabelText("archive your design"));
-
-    expect(updateProgressStatusByDesign).toHaveBeenCalledWith(
-      "url",
-      "saved",
-      "archived",
+    expect(mockTertiaryCta).toHaveBeenCalled();
+  });
+  test("it renders delete confirmation when confirmDelete is true", async() => {
+    render(
+      <Modal
+        {...defaultProps}
+        confirmDelete
+        onConfirmDelete={mockConfirmDelete}
+        onCancelDelete={mockCancelDelete}
+      />,
     );
+    const user = userEvent.setup();
 
-    await vi.waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith("/archive");
-    });
+    await user.click(screen.getByLabelText("confirm delete"));
+    expect(mockConfirmDelete).toHaveBeenCalled()
+
+    await user.click(screen.getByLabelText("cancel deletion"));
+    expect(mockCancelDelete).toHaveBeenCalled()
   });
 });

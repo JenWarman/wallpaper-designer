@@ -51,7 +51,7 @@ export function Modal({
       <div className={styles.modal__order}>
         <button
           onClick={mainCtaFunction}
-          aria-label={`${mainCtaLabel} you design`}
+          aria-label={`${mainCtaLabel} your design`}
           className={styles.modal__orderCta}
         >
           {mainCtaLabel}
