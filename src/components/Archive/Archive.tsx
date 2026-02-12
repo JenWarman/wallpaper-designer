@@ -5,17 +5,21 @@ import { dataTestIds } from "../../utils/dataTestIds";
 import { Card } from "../Card/Card";
 import { Modal } from "../Modal/Modal";
 import { useNavigate } from "react-router";
-import { deleteDesignByUserId, updateProgressStatusByDesign } from "../../supabase/supabase";
+import {
+  deleteDesignByUserId,
+  updateProgressStatusByDesign,
+} from "../../supabase/supabase";
 
 export function Archive() {
   const [toggleModal, setToggleModal] = useState(false);
   const [modalUrl, setModalUrl] = useState("");
-   const [confirmDelete, setConfirmDelete] = useState(false)
-   const navigate = useNavigate()
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
+  const navigate = useNavigate();
 
   const { filteredDesigns: archivedDesigns } = useStatusToSearchDesigns(
     "archived",
-    toggleModal,
+    refreshKey,
   );
 
   const handleToggleModal = (design_url: string) => {
@@ -28,19 +32,21 @@ export function Archive() {
   };
 
   const handleCancelDelete = () => {
-    setConfirmDelete(false)
-  }
+    setConfirmDelete(false);
+  };
 
-   const handleDeleteDesign = async () => {
-      await deleteDesignByUserId(modalUrl);
-      setConfirmDelete(false);
-      setToggleModal(false)
-    };
+  const handleDeleteDesign = async () => {
+    await deleteDesignByUserId(modalUrl);
+    setConfirmDelete(false);
+    setToggleModal(false);
+    setRefreshKey((key) => key + 1);
+  };
 
-  const handleRestoreDesign =  async() => {
-      await updateProgressStatusByDesign(modalUrl, "archived", "saved")
-      navigate("/saved-designs")
-  }
+  const handleRestoreDesign = async () => {
+    await updateProgressStatusByDesign(modalUrl, "archived", "saved");
+    setRefreshKey((key) => key + 1);
+    navigate("/saved-designs");
+  };
   return (
     <div
       className={styles.archive__container}
@@ -51,9 +57,7 @@ export function Archive() {
         {archivedDesigns.map((design) => (
           <Card
             key={design.created_at}
-            handleClick={() =>
-              handleToggleModal(design.design_url)
-            }
+            handleClick={() => handleToggleModal(design.design_url)}
             design_url={design.design_url}
             created_at={design.created_at}
             message="Archived: "

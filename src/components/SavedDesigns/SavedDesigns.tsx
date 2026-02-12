@@ -10,6 +10,7 @@ import { updateProgressStatusByDesign } from "../../supabase/supabase";
 export function SavedDesigns() {
   const [toggleModal, setToggleModal] = useState(false);
   const [modalUrl, setModalUrl] = useState("");
+  const [refreshKey, setRefreshKey] = useState(0);
   const navigate = useNavigate();
 
   const handleToggleModal = (design_url: string) => {
@@ -23,11 +24,12 @@ export function SavedDesigns() {
 
   const { filteredDesigns: designs } = useStatusToSearchDesigns(
     "saved",
-    toggleModal,
+    refreshKey,
   );
 
   const handleArchiveDesign = async () => {
     await updateProgressStatusByDesign(modalUrl, "saved", "archived");
+    setRefreshKey((key) => key + 1);
     navigate("/archive");
   };
 

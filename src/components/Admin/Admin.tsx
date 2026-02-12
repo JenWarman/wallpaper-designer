@@ -1,34 +1,40 @@
 import { useState } from "react";
 import styles from "./Admin.module.scss";
-import { insertProgressStatus} from "../../supabase/supabase";
-import { Input } from "../Input/Input";
+import { insertProgressStatus } from "../../supabase/supabase";
 import { dataTestIds } from "../../utils/dataTestIds";
 import { DropDown } from "../DropDown/DropDown";
 import { Cta } from "../Cta/Cta";
+import useStatusToSearchDesigns from "../../hooks/useStatusToSearchDesigns";
 
 export function Admin() {
-  const [designUrl, setDesignUrl] = useState(
-    "theme=floral&motif=daisy&colour=blue&scale=large&repeat=tile",
+  const [selectedDesignUrl, setSelectedDesignUrl] = useState("");
+  const [status, setStatus] = useState("production");
+  const [refreshKey, setRefreshKey] = useState(0)
+
+  const { filteredDesigns: orderedDesigns } = useStatusToSearchDesigns(
+    "ordered",
+    refreshKey,
   );
-  const [status, setStatus] = useState("ordered");
+
+  const orderOptions = orderedDesigns.map((design) => design.design_url);
 
   const handleStatusUpdate = async () => {
-    await insertProgressStatus(designUrl, status);
+    await insertProgressStatus(selectedDesignUrl, status);
     alert(`Order Status updated: ${status}`);
+    setRefreshKey((key) => key + 1)
+    setSelectedDesignUrl("")
   };
 
   return (
     <div className={styles.admin__container}>
       <h1 className={styles.admin__header}>Admin Status Update</h1>
-      <Input
-        id={designUrl}
-        ariaLabel="enter design url"
-        type="text"
-        name={designUrl}
-        label="Enter Design URL"
-        onChange={(event) => setDesignUrl(event.target.value)}
-        dataTestId={dataTestIds.input}
-      />
+      <DropDown
+          label="Order"
+          value={selectedDesignUrl}
+          onChange={(event) => setSelectedDesignUrl(event.target.value)}
+          ariaLabel="Select an order"
+          options={orderOptions}
+        />
       <div className={styles.admin__dropdown}>
         <DropDown
           label="Status"

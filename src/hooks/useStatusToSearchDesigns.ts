@@ -7,7 +7,7 @@ import { type SavedDesign } from "../types/types";
 
 export default function useStatusToSearchDesigns(
   progressStatus: string,
-  refreshTrigger: any,
+  refreshKey: number,
 ) {
   const [filteredDesigns, setFilteredDesigns] = useState<SavedDesign[]>([]);
 
@@ -38,6 +38,6 @@ export default function useStatusToSearchDesigns(
         .filter(Boolean) as SavedDesign[];
       setFilteredDesigns(filtered);
     })();
-  }, [progressStatus, refreshTrigger]);
+  }, [progressStatus, refreshKey]);
   return { filteredDesigns };
 }
