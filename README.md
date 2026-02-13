@@ -77,6 +77,6 @@ Once the server is running, open your browser and navigate to `http://localhost:
 ## Contact
 
 - **Project Developer:** Jen Warman
-- **Contact:** [LinkedIn](https://linkedin.com/in/jen-warman-38198a172/)
-- **Portfolio:** [Jen Warman](https://jen-warman-portfolio.netlify.app/)
+- **Contact:** [LinkedIn](https://linkedin.com/in/jen-warman-38198a172/){:target="_blank"}
+- **Portfolio:** [Jen Warman](https://jen-warman-portfolio.netlify.app/){:target="_blank"}
 
