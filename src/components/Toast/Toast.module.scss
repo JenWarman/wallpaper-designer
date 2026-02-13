@@ -1,0 +1,29 @@
+.toast {
+  position: relative;
+  &__container {
+    position: absolute;
+    top: 5rem;
+    left: 0rem;
+    background-color: white;
+    width: max-content;
+    height: max-content;
+    z-index: 100;
+    padding: 1rem;
+    border-radius: 5px;
+    border: 1px rgba(0, 0, 0, 0.076) solid;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.148);
+    animation: fadeIn ease 1.5s ;
+  }
+}
+
+@keyframes fadeIn {
+   from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}

@@ -28,5 +28,7 @@ export const dataTestIds = {
     modalArchive: "modalArchive",
     archive: "archive",
     home: "home",
-    popup: "popup"
+    popup: "popup",
+    admin: "admin",
+    toast: "toast",
 }

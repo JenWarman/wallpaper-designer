@@ -26,7 +26,7 @@ export function Admin() {
   };
 
   return (
-    <div className={styles.admin__container}>
+    <div className={styles.admin__container} data-testid={dataTestIds.admin}>
       <h1 className={styles.admin__header}>Admin Status Update</h1>
       <DropDown
           label="Order"

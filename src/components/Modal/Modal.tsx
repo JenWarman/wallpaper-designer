@@ -3,20 +3,7 @@ import { PatternDesign } from "../PatternDesign/PatternDesign";
 import styles from "./Modal.module.scss";
 import { parseDesignUrl } from "../../utils/parseDesignUrl";
 import { Cta } from "../Cta/Cta";
-
-type ModalProps = {
-  url: string;
-  onClose: () => void;
-  mainCtaFunction: () => void;
-  mainCtaLabel: string;
-  secondaryCtaFunction: () => void;
-  secondaryCtaLabel: string;
-  tertiaryCtaFunction: ()=> void;
-  tertiaryCtaLabel: string;
-  confirmDelete?: boolean;
-  onConfirmDelete?: () => void;
-  onCancelDelete?: () => void;
-};
+import type { ModalProps } from "../../types/types";
 
 export function Modal({
   url,
