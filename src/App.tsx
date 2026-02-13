@@ -11,12 +11,13 @@ import { Routes, Route} from "react-router-dom";
 import { DesignContainer } from "./components/DesignContainer/DesignContainer";
 import { Header } from "./components/Header/Header";
 import { SavedDesigns } from "./components/SavedDesigns/SavedDesigns";
-import { getUsername } from "./store/selectors/userSelector";
+import { getUserId} from "./store/selectors/userSelector";
 import { PlacedOrders } from "./components/PlacedOrders/PlacedOrders";
 import { OrderTracking } from "./components/OrderTracking/OrderTracking";
 import { Admin } from "./components/Admin/Admin";
 import { Archive } from "./components/Archive/Archive";
 import { Home } from "./components/Home/Home";
+import { useOrderStatusListener } from "./hooks/useOrderStatusListener";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +36,8 @@ function App() {
     })();
   }, [dispatch]);
 
- const user = useSelector(getUsername)
+ const userId = useSelector(getUserId)
+ useOrderStatusListener(userId)
 
   return (
     <>

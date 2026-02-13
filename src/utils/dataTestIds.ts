@@ -30,4 +30,5 @@ export const dataTestIds = {
     home: "home",
     popup: "popup",
     admin: "admin",
+    toast: "toast",
 }

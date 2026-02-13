@@ -111,3 +111,29 @@ export type OrderProps = {
   };
   designUrl: string;
 };
+
+export type ProgressStatusRow = {
+    id: string;
+    design: string;
+    status: string;
+    user_id: string;
+    created_at: string;
+}
+
+export type ToastProps = {
+  message: string;
+};
+
+export type ModalProps = {
+  url: string;
+  onClose: () => void;
+  mainCtaFunction: () => void;
+  mainCtaLabel: string;
+  secondaryCtaFunction: () => void;
+  secondaryCtaLabel: string;
+  tertiaryCtaFunction: ()=> void;
+  tertiaryCtaLabel: string;
+  confirmDelete?: boolean;
+  onConfirmDelete?: () => void;
+  onCancelDelete?: () => void;
+};
