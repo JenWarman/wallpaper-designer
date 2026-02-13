@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useToast } from "./useToast";
 import supabase from "../supabase/supabaseClient";
 import type { ProgressStatusRow } from "../types/types";
+import { createToastMessage } from "../utils/createToastMessage";
 
 export function useOrderStatusListener(userId: string) {
     const { showToast } = useToast()
@@ -21,7 +22,8 @@ export function useOrderStatusListener(userId: string) {
             const newStatus = payload.new as ProgressStatusRow | null;
 
             if (oldStatus !== newStatus) {
-                showToast(`Your order is now ${newStatus?.status}`)
+                const message = createToastMessage(newStatus?.status)
+                showToast(message)
             }
         }
     ).subscribe()
