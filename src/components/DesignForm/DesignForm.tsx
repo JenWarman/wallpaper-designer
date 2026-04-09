@@ -51,7 +51,7 @@ export function DesignForm() {
           value={formData.motif}
           onChange={handleChange}
           ariaLabel="Select motif"
-          options={["orchid", "daisy", "rose"]}
+          options={["orchid", "daisy", "rose", "sunflower"]}
           disabled={!formData.theme}
         />
 
