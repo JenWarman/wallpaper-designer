@@ -11,25 +11,28 @@ export function useOrderStatusListener(userId: string) {
         if (!userId) return;
 
         const channel = supabase.channel("order-status-changes")
-        .on("postgres_changes", {
-            event: "*",
-            schema: "public",
-            table: "progressStatus",
-            filter: `user_id=eq.${userId}`
-        },
-        (payload) => {
-            const oldStatus = payload.old as ProgressStatusRow | null;
-            const newStatus = payload.new as ProgressStatusRow | null;
+            .on("postgres_changes", {
+                event: "*",
+                schema: "public",
+                table: "progressStatus",
+                filter: `user_id=eq.${userId}`
+            },
+                (payload) => {
+                    const oldStatus = payload.old as ProgressStatusRow | null;
+                    const newStatus = payload.new as ProgressStatusRow | null;
 
-            if (oldStatus !== newStatus) {
-                const message = createToastMessage(newStatus?.status)
-                showToast(message)
-            }
+                    if (oldStatus !== newStatus) {
+                        const message = createToastMessage(newStatus?.status)
+                        if (message) {
+                            showToast(message)
+                        }
+
+                    }
+                }
+            ).subscribe()
+
+        return () => {
+            supabase.removeChannel(channel)
         }
-    ).subscribe()
-
-    return () => {
-        supabase.removeChannel(channel)
-    }
     }, [userId, showToast])
 }

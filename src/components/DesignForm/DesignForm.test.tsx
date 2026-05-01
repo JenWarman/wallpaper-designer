@@ -31,17 +31,9 @@ import useDesignSearchParams from "../../hooks/useDesignSearchParams";
 import { MemoryRouter } from "react-router";
 import { useSelector } from "react-redux";
 
-const design = {
-  theme: "floral",
-  motif: "",
-  scale: "",
-  colour: "",
-  repeat: "",
-};
-
 describe("DesignForm", () => {
   beforeEach(() => {
-    (useSelector as vi.mock).mockReturnValue("test-user");
+    (useSelector as unknown as MockedFunction<typeof useSelector>).mockReturnValue("test-user");
 
     useDesignSearchParamsMock.mockReturnValue({
       formData: {
@@ -138,7 +130,7 @@ describe("DesignForm", () => {
     expect(saveCtaUpdated).not.toBeDisabled();
   });
   test("save cta calls createDesignByUserId when user is logged in", async () => {
-    (useSelector as vi.mock).mockReturnValue("test-user");
+    (useSelector as unknown as MockedFunction<typeof useSelector>).mockReturnValue("test-user");
 
     useDesignSearchParamsMock.mockReturnValueOnce({
       formData: {
@@ -166,7 +158,7 @@ describe("DesignForm", () => {
     expect(createDesignByUserId).toHaveBeenCalledWith("theme=floral");
   });
   test("the save cta opens popup and stores design url when user is not logged in", () => {
-    (useSelector as vi.mock).mockReturnValue(null);
+    (useSelector as unknown as MockedFunction<typeof useSelector>).mockReturnValue(null);
 
     const setItemSpy = vi.spyOn(window.sessionStorage.__proto__, "setItem");
 

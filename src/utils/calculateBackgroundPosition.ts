@@ -1,6 +1,18 @@
-export const calculateBackgroundPosition = (motif: string, scale: string, component: string) => {
+type Scale = "small" | "medium" | "large";
+
+type Position = {
+  positionOne: string;
+  positionTwo: string;
+};
+
+type Motif = "daisy" | "orchid" | "rose" | "sunflower";
+
+type PositionsMap = Record<Motif, Record<Scale, Position>>;
+
+
+export const calculateBackgroundPosition = (motif: string, scale: string, component: string): Position => {
   if (component === "demo") {
-    const positions: any = {
+    const positions: PositionsMap = {
       daisy: {
         small: { positionOne: "5px", positionTwo: "8px" },
         medium: { positionOne: "15px", positionTwo: "22px" },
@@ -23,14 +35,14 @@ export const calculateBackgroundPosition = (motif: string, scale: string, compon
       },
     };
 
-    return positions[motif]?.[scale] ?? {
+    return positions[motif as keyof PositionsMap]?.[scale as Scale] ?? {
       positionOne: "",
       positionTwo: ""
     };
   }
 
   if (component === "saved") {
-    const positions: any = {
+    const positions: PositionsMap = {
       daisy: {
         small: { positionOne: "5px", positionTwo: "8px" },
         medium: { positionOne: "12px", positionTwo: "18px" },
@@ -53,13 +65,13 @@ export const calculateBackgroundPosition = (motif: string, scale: string, compon
       },
     };
 
-    return positions[motif]?.[scale] ?? {
+     return positions[motif as keyof PositionsMap]?.[scale as Scale] ?? {
       positionOne: "",
       positionTwo: ""
     };
   }
 
-  const positions: any = {
+  const positions: PositionsMap = {
     daisy: {
       small: { positionOne: "50px", positionTwo: "75px" },
       medium: { positionOne: "75px", positionTwo: "110px" },
@@ -82,10 +94,10 @@ export const calculateBackgroundPosition = (motif: string, scale: string, compon
     },
   };
 
-  return positions[motif]?.[scale] ?? {
-    positionOne: "",
-    positionTwo: ""
-  };
+   return positions[motif as keyof PositionsMap]?.[scale as Scale] ?? {
+      positionOne: "",
+      positionTwo: ""
+    };
 };
 
 

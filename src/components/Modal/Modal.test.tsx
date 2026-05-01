@@ -31,14 +31,6 @@ vi.mock("../Cta/Cta", () => ({
   ),
 }));
 
-const mockDesign = {
-  theme: "floral",
-  motif: "rose",
-  scale: "large",
-  colour: "blue",
-  repeat: "tile",
-};
-
 describe("Modal", () => {
   afterEach(() => {
     vi.clearAllMocks();
