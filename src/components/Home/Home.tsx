@@ -12,7 +12,7 @@ export function Home() {
           <button
             type="button"
             aria-label="get started"
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/design")}
             className={styles.home__cta}
           >
             Get started
