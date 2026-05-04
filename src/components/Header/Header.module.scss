@@ -18,11 +18,16 @@
     font-weight: bolder;
     letter-spacing: 0.1rem;
     font-size: 1rem;
-    transition: all 0.3s linear;
-    &:hover {
-      font-size: 1.1rem;
-      cursor: pointer;
-    }
+    // transition: all 0.3s linear;
+    // &:hover {
+    //   font-size: 1.1rem;
+    //   cursor: pointer;
+    // }
+    transition: color 0.3s ease;
+
+        &:hover {
+            color: rgb(116, 116, 116);
+        }
   }
 }
 
