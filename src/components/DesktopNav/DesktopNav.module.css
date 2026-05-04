@@ -1,0 +1,24 @@
+.nav__list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav__links {
+  padding-right: 3rem;
+  list-style: none;
+}
+.nav__link {
+  text-decoration: none;
+  color: black;
+  font-family: "Outfit", Arial, Helvetica, sans-serif;
+  letter-spacing: 0.1rem;
+  font-weight: 100;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  padding-right: 2rem;
+  transition: color 0.3s ease;
+}
+.nav__link:hover {
+  color: rgb(116, 116, 116);
+}/*# sourceMappingURL=DesktopNav.module.css.map */

@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { insertProgressStatus } from "../supabase";
 import supabase from "../supabaseClient";
+import type { User } from "@supabase/supabase-js";
 
 vi.mock("../supabaseClient", () => ({
   default: {
@@ -20,9 +21,11 @@ beforeEach(() => {
 describe("updateProgressStatus", () => {
   test("it successfully updates the progress status", async () => {
     vi.mocked(supabase.auth.getUser).mockResolvedValue({
-       data: {user: {id: user_id}},
-      error: null
-    })
+      data: {
+        user: { id: user_id } as User,
+      },
+      error: null,
+    });
     const singleMock = vi.fn().mockResolvedValue({
       data: {
         design: "design-1",
@@ -42,9 +45,11 @@ describe("updateProgressStatus", () => {
 
     expect(result?.success).toBe(true);
     expect(insertMock).toHaveBeenCalledWith(
-     { design: "design-1",
-      user_id,
-      status: "ordered",}
+      {
+        design: "design-1",
+        user_id,
+        status: "ordered",
+      }
     );
     expect(result?.status).toBe("ordered")
   });

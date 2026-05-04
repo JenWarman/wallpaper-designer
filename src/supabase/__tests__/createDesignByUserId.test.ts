@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { createDesignByUserId } from "../supabase";
 import supabase from "../supabaseClient";
+import type { User } from "@supabase/supabase-js";
 
 vi.mock("../supabaseClient", () => ({
   default: {
@@ -13,13 +14,6 @@ vi.mock("../supabaseClient", () => ({
 
 const user_id = "user-1";
 
-const design = {
-  theme: "floral",
-  motif: "rose",
-  scale: "medium",
-  colour: "blue",
-  repeat: "tile",
-};
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -28,11 +22,11 @@ beforeEach(() => {
 describe("createDesignByUserId", () => {
   test("it successfully posts design data to the design table using user_id and updates the progress status.", async () => {
     vi.mocked(supabase.auth.getUser).mockResolvedValue({
-      data: {
-        user: { id: user_id },
-      },
-      error: null,
-    });
+  data: {
+    user: { id: user_id } as User,
+  },
+  error: null,
+});
 
     const singleMock = vi.fn().mockResolvedValue({
       data: {

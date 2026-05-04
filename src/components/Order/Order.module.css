@@ -1,0 +1,79 @@
+.order__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.order__pattern {
+  width: 80%;
+  height: 40vh;
+  border-radius: inherit;
+}
+.order__heading {
+  font-size: 1.4rem;
+  letter-spacing: 0.1rem;
+  font-weight: bolder;
+  margin: 1.4rem 0 0 0;
+  text-align: center;
+}
+.order__text {
+  font-family: "Aboreto", system-ui;
+}
+.order__bold {
+  font-family: "Aboreto", system-ui;
+  font-weight: bolder;
+  font-size: 1.8rem;
+}
+.order__ctas {
+  display: flex;
+  gap: 16px;
+}
+.order__cta {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  height: 2.2rem;
+  margin: 0.8rem 0 0.8rem 0;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.2rem;
+  padding: 0.5rem 1.5rem;
+  width: 7.8rem;
+  text-align: center;
+  border-radius: 6px;
+  background-color: black;
+  color: white;
+  font-family: "Aboreto", system-ui;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.order__cta:hover, .order__cta:focus {
+  background-color: rgb(75, 74, 74);
+}
+
+@media (min-width: 768px) {
+  .order__container {
+    width: 80%;
+  }
+  .order__text {
+    font-size: 1.2rem;
+  }
+  .order__ctas {
+    width: 80%;
+    align-items: center;
+  }
+  .order__cta {
+    height: 3rem;
+    align-items: center;
+    font-size: 1.2rem;
+    width: 100%;
+  }
+}
+@media (min-width: 1200px) {
+  .order__cta {
+    height: 2.2rem;
+    font-size: 1rem;
+  }
+}/*# sourceMappingURL=Order.module.css.map */

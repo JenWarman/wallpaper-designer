@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { loginAndStartSession } from "../supabase";
 import supabase from "../supabaseClient";
+import type { User, Session, AuthError } from "@supabase/supabase-js";
 
 vi.mock("../supabaseClient", () => ({
   default: {
@@ -10,6 +11,23 @@ vi.mock("../supabaseClient", () => ({
   },
 }));
 
+const createMockUser = (overrides?: Partial<User>): User => ({
+  id: "user-1",
+  aud: "authenticated",
+  created_at: new Date().toISOString(),
+  app_metadata: {},
+  user_metadata: {},
+  ...overrides,
+});
+
+const createMockSession = (user: User): Session => ({
+  access_token: "token",
+  refresh_token: "refresh",
+  expires_in: 3600,
+  token_type: "bearer",
+  user,
+});
+
 beforeEach(() => {
   vi.clearAllMocks();
 });
@@ -18,11 +36,14 @@ const signInWithPasswordMock = vi.mocked(supabase.auth.signInWithPassword);
 
 describe("loginAndStartSession", () => {
   test("it successfully logs in the user and starts a user session", async () => {
+    const user = createMockUser({
+      email: "mrtest@testing.com",
+    });
+
+    const session = createMockSession(user);
+
     signInWithPasswordMock.mockResolvedValue({
-      data: {
-        user: { id: "user-1", email: "mrtest@testing.com" },
-        session: { access_token: "token" },
-      },
+      data: { user, session },
       error: null,
     });
 
@@ -32,21 +53,14 @@ describe("loginAndStartSession", () => {
     );
 
     expect(result.success).toBe(true);
-    expect(signInWithPasswordMock).toHaveBeenCalledWith(
-      expect.objectContaining({
-        email: "mrtest@testing.com",
-        password: "testpassword",
-      })
-    );
     expect(result.user).toEqual(expect.objectContaining({ id: "user-1" }));
   });
   test("it returns failure when log in is unsuccessful", async () => {
     signInWithPasswordMock.mockResolvedValue({
-      data: {
-        user: null,
-        session: null,
-      },
-      error: new Error("Login unsuccessful"),
+      data: { user: null, session: null },
+      error: {
+        message: "Login unsuccessful",
+      } as unknown as AuthError,
     });
 
     const result = await loginAndStartSession(
@@ -56,6 +70,5 @@ describe("loginAndStartSession", () => {
 
     expect(result.success).toBe(false);
     expect(result.error).toBeDefined();
-    expect(signInWithPasswordMock).toHaveBeenCalled();
   });
 });

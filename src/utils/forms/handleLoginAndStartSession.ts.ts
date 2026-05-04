@@ -2,7 +2,7 @@ import { loginAndStartSession } from "../../supabase/supabase";
 import type { FormState } from "../../types/types";
 
 export const handleLoginAndStartSession = async (
-  prevState: FormState,
+  _: FormState,
   formData: FormData,
 ): Promise<FormState> => {
   const email = formData.get("email");

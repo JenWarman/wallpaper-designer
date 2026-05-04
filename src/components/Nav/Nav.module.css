@@ -1,0 +1,39 @@
+.nav__container {
+  position: absolute;
+  top: 3.6rem;
+  right: 2rem;
+  width: 50%;
+  height: -moz-max-content;
+  height: max-content;
+  background-color: white;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.148);
+  display: flex;
+  border-radius: 5px;
+  z-index: 100;
+}
+.nav__list {
+  list-style: none;
+  text-align: center;
+}
+.nav__listItem {
+  list-style: none;
+}
+.nav__link {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: "Aboreto", system-ui;
+  font-weight: bolder;
+  letter-spacing: 0.1rem;
+  font-size: 1.2rem;
+  transition: all 0.3s linear;
+}
+.nav__link:hover {
+  font-size: 1.4rem;
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .nav__container {
+    width: 40%;
+  }
+}/*# sourceMappingURL=Nav.module.css.map */

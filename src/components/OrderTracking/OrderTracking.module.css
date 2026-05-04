@@ -1,0 +1,118 @@
+.orderTracking__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 90%;
+}
+.orderTracking__pattern {
+  height: 160px;
+  width: 90%;
+  border-radius: 5px;
+}
+.orderTracking__detail {
+  width: 100%;
+  height: -moz-min-content;
+  height: min-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.orderTracking__stage {
+  width: 90%;
+  height: -moz-min-content;
+  height: min-content;
+  padding: 0;
+  margin: 6px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.orderTracking__stage:last-child .orderTracking__line,
+.orderTracking__stage:last-child .orderTracking__lineFuture {
+  display: none;
+}
+.orderTracking__info {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  margin: 0;
+  width: 80%;
+}
+.orderTracking__text, .orderTracking__textFuture, .orderTracking__date {
+  font-family: "Aboreto", system-ui;
+  font-size: 0.8rem;
+  margin: 0;
+}
+.orderTracking__date {
+  font-size: 0.6rem;
+}
+.orderTracking__textFuture {
+  color: rgba(0, 0, 0, 0.278);
+}
+.orderTracking__shapes {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0;
+  gap: 6px;
+}
+.orderTracking__circle, .orderTracking__circleFuture {
+  width: 12px;
+  height: 12px;
+  border-radius: 50rem;
+  border: black solid 1.2px;
+  margin: 0;
+}
+.orderTracking__circleFuture {
+  border: rgba(0, 0, 0, 0.278) solid 1.2px;
+}
+.orderTracking__line, .orderTracking__lineFuture {
+  width: 1px;
+  height: 50px;
+  border: 1px black dashed;
+}
+.orderTracking__lineFuture {
+  border: 1px rgba(0, 0, 0, 0.278) dashed;
+}
+
+@media (min-width: 768px) {
+  .orderTracking__container {
+    width: 60%;
+    height: 100vh;
+    justify-content: start;
+    margin-top: 1rem;
+  }
+  .orderTracking__pattern {
+    height: 40vh;
+  }
+  .orderTracking__text, .orderTracking__textFuture {
+    font-size: 1.2rem;
+  }
+  .orderTracking__date {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 1200px) {
+  .orderTracking__container {
+    width: 50%;
+  }
+  .orderTracking__pattern {
+    height: 20rem;
+  }
+  .orderTracking__text, .orderTracking__textFuture {
+    font-size: 1rem;
+  }
+  .orderTracking__date {
+    font-size: 0.8rem;
+  }
+  .orderTracking__circle, .orderTracking__circleFuture {
+    width: 10px;
+    height: 10px;
+  }
+  .orderTracking__line, .orderTracking__lineFuture {
+    height: 40px;
+  }
+}/*# sourceMappingURL=OrderTracking.module.css.map */

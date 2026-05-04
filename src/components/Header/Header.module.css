@@ -1,0 +1,30 @@
+.header__container {
+  position: sticky;
+  top: 0;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px rgba(0, 0, 0, 0.131) solid;
+  background-color: white;
+  z-index: 1000;
+}
+.header__heading {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: "Aboreto", system-ui;
+  font-weight: bolder;
+  letter-spacing: 0.1rem;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+.header__heading:hover {
+  color: rgb(116, 116, 116);
+}
+
+@media (min-width: 768px) {
+  .header__heading {
+    font-size: 1.2rem;
+  }
+}/*# sourceMappingURL=Header.module.css.map */

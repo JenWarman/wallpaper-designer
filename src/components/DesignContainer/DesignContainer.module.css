@@ -1,0 +1,61 @@
+.designContainer__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 45vh;
+  padding: 16px;
+}
+.designContainer__right, .designContainer__left {
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+}
+.designContainer__demo, .designContainer__tile {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.designContainer__tile {
+  padding-left: 20px;
+}
+.designContainer__demo {
+  padding-right: 20px;
+}
+
+.isHidden {
+  display: none;
+}
+
+.isActive {
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  .designContainer__container {
+    width: 80%;
+    height: 50vh;
+  }
+}
+@media (min-width: 1200px) {
+  .designContainer__container {
+    width: 50%;
+    height: 50vh;
+    display: flex;
+    padding: 0;
+    margin-bottom: 0;
+  }
+  .designContainer__tile, .designContainer__demo {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin-top: 0;
+    display: flex !important;
+  }
+  .designContainer__left, .designContainer__right {
+    display: none;
+  }
+}/*# sourceMappingURL=DesignContainer.module.css.map */

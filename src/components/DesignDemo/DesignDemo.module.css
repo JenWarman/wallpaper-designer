@@ -1,0 +1,51 @@
+.designDemo {
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  width: 75%;
+  height: 45vh;
+  background-color: rgba(143, 143, 142, 0.086);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.designDemo__preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: inherit;
+  width: 100%;
+  height: 100%;
+}
+.designDemo__blue {
+  background-color: rgb(124, 170, 221);
+}
+.designDemo__pink {
+  background-color: rgb(233, 188, 226);
+}
+.designDemo__charcoal {
+  background-color: rgb(46, 46, 48);
+}
+.designDemo__green {
+  background-color: rgb(4, 80, 44);
+}
+.designDemo__grey {
+  background-color: rgb(193, 193, 195);
+}
+.designDemo__indigo {
+  background-color: rgb(3, 3, 99);
+}
+.designDemo__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  position: relative;
+}
+.designDemo__image {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  margin-top: 5rem;
+}/*# sourceMappingURL=DesignDemo.module.css.map */

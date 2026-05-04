@@ -1,0 +1,26 @@
+.admin__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 80%;
+}
+.admin__header {
+  font-size: 1.6rem;
+}
+.admin__dropdown {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+
+@media (min-width: 768px) {
+  .admin__container {
+    width: 60%;
+  }
+}
+@media (min-width: 1200px) {
+  .admin__container {
+    width: 40%;
+  }
+}/*# sourceMappingURL=Admin.module.css.map */

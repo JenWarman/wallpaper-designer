@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
+import type { Mock } from "vitest";
 import { Admin } from "./Admin";
 import useStatusToSearchDesigns from "../../hooks/useStatusToSearchDesigns";
 import { insertProgressStatus } from "../../supabase/supabase";
@@ -14,7 +15,7 @@ vi.mock("../../hooks/useStatusToSearchDesigns");
 vi.mock("../../supabase/supabase");
 
 const mockUseStatusToSearchDesigns =
-  useStatusToSearchDesigns as unknown as vi.mock;
+  useStatusToSearchDesigns as unknown as Mock;
 
 describe("Admin", () => {
   beforeEach(() => {

@@ -1,6 +1,7 @@
+import type { LoginFieldEvent } from "../types/types";
 import { validateEmail, validatePassword } from "./forms/formValidation";
 
-export function validateLogin(event: React.ChangeEvent<HTMLInputElement>) {
+export function validateLogin(event: LoginFieldEvent) {
     let errorMessage = "";
         switch (event.target.name) {
           case "email":

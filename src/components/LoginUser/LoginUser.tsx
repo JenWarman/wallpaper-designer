@@ -3,7 +3,7 @@ import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
 import styles from "./LoginUser.module.scss";
 import { useActionState, useEffect, useState } from "react";
-import type { FormState } from "../../types/types";
+import type { FormState, LoginFieldEvent } from "../../types/types";
 import { dataTestIds } from "../../utils/dataTestIds";
 import { validateLogin } from "../../utils/validateLogin";
 import { useNavigate } from "react-router";
@@ -40,7 +40,7 @@ export function LoginUser() {
   };
 
   const handleBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const errorMessage = validateLogin(event);
+    const errorMessage = validateLogin(event as unknown as LoginFieldEvent);
     setErrors((prev) => ({
       ...prev,
       [event?.target.name]: errorMessage,

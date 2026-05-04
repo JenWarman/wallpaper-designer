@@ -1,0 +1,54 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  width: -moz-min-content;
+  width: min-content;
+  border-radius: 5px;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.148);
+  padding: 1rem;
+  background-color: white;
+}
+.card__pattern {
+  height: 140px;
+  width: 140px;
+  border-radius: inherit;
+}
+.card__text {
+  padding: 0;
+  margin: 0;
+}
+.card__name, .card__edit {
+  font-family: "Aboreto", system-ui;
+}
+.card__name {
+  font-size: 0.8rem;
+  font-weight: bolder;
+}
+.card__edit {
+  font-size: 0.6rem;
+}
+
+@media (min-width: 768px) {
+  .card__pattern {
+    width: 250px;
+    height: 250px;
+  }
+  .card__name {
+    font-size: 1.2rem;
+  }
+  .card__edit {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 1200px) {
+  .card__pattern {
+    width: 250px;
+    height: 250px;
+  }
+  .card__name {
+    font-size: 1.2rem;
+  }
+  .card__edit {
+    font-size: 1rem;
+  }
+}/*# sourceMappingURL=Card.module.css.map */

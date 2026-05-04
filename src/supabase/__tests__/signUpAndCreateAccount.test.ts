@@ -1,6 +1,26 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import supabase from "../supabaseClient";
 import { signUpAndCreateAccount } from "../supabase";
+import type { User, Session } from "@supabase/supabase-js";
+import { AuthError } from "@supabase/supabase-js";
+
+const mockUser: User = {
+  id: "user-1",
+  aud: "authenticated",
+  created_at: new Date().toISOString(),
+  app_metadata: {},
+  user_metadata: {},
+};
+
+const mockSession: Session = {
+  access_token: "token",
+  refresh_token: "refresh",
+  expires_in: 3600,
+  token_type: "bearer",
+  user: mockUser,
+};
+
+const mockAuthError = new AuthError("Signup failed!", 400, "mock_error");
 
 vi.mock("../supabaseClient", () => ({
   default: {
@@ -26,7 +46,10 @@ describe("signUpAndCreateAccount", () => {
 
   test("it signs up a new using adding them to the auth table and inserts them into the usersAccount table.", async () => {
     signUpMock.mockResolvedValue({
-      data: { user: { id: "user-1" } },
+      data: {
+        user: mockUser,
+        session: mockSession,
+      },
       error: null,
     });
 
@@ -54,8 +77,11 @@ describe("signUpAndCreateAccount", () => {
   });
   test("it returns failure when signup is unsuccessful and account can not be created", async () => {
     signUpMock.mockResolvedValue({
-      data: null,
-      error: new Error("Signup failed!"),
+      data: {
+        user: null,
+        session: null,
+      },
+      error: mockAuthError,
     });
 
     const fromSpy = vi.spyOn(supabase, "from");

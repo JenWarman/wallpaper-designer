@@ -5,7 +5,7 @@ describe('validateLogin', () => {
     test("validationLogin returns an email errorMessage", () => {
         const mockEvent = {
             target: {
-                name: "email",
+                name: "email" as const,
                 value: "not a valid email"
             }
         }
@@ -15,7 +15,7 @@ describe('validateLogin', () => {
     test("validationLogin returns an password errorMessage", () => {
         const mockEvent = {
             target: {
-                name: "password",
+                name: "password" as const,
                 value: "123"
             }
         }

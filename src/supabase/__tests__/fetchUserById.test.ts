@@ -1,6 +1,7 @@
 import supabase from "../supabaseClient";
 import { fetchUserById } from "../supabase";
 import { describe, expect, test, vi } from "vitest";
+import type { User } from "@supabase/supabase-js";
 
 vi.mock("../supabaseClient", () => ({
   default: {
@@ -27,7 +28,7 @@ describe("fetchUserById", () => {
 
     vi.mocked(supabase.auth.getUser).mockResolvedValue({
       data: {
-        user: { id: user_id},
+        user: { id: user_id } as User,
       },
       error: null,
     });

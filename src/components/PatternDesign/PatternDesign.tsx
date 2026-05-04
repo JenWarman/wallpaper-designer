@@ -6,7 +6,7 @@ import { dataTestIds } from "../../utils/dataTestIds";
 import styles from "./PatternDesign.module.scss";
 
 export function PatternDesign({ design, component }: PatternDesignProps) {
-  const { theme, motif, scale, colour, repeat } = design;
+  const { motif, scale, colour, repeat } = design;
 
   const patternClassName = conditionalClassNames({
     [styles.pattern__card]: true,

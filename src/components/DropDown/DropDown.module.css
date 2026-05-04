@@ -1,0 +1,26 @@
+.dropDown__container {
+  width: 100%;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: column;
+}
+.dropDown__select {
+  padding: 10px;
+  margin: 0;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  width: 100%;
+  border: 1px rgba(0, 0, 0, 0.076) solid;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.148);
+  border-radius: 5px;
+}
+.dropDown__select:disabled {
+  background-color: rgb(143, 143, 142);
+}
+
+@media (min-width: 1200px) {
+  .dropDown__select {
+    padding: 6px;
+  }
+}/*# sourceMappingURL=DropDown.module.css.map */

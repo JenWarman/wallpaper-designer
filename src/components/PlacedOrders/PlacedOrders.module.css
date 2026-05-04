@@ -1,0 +1,46 @@
+.placedOrders {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: blue;
+  height: 100vh;
+}
+.placedOrders__container {
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+.placedOrders__heading {
+  font-size: 2rem;
+  letter-spacing: 0.3rem;
+  font-weight: bolder;
+}
+.placedOrders__cardContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+  width: 100%;
+  justify-items: start;
+}
+
+@media (min-width: 768px) {
+  .placedOrders {
+    width: 100%;
+    height: 100vh;
+    justify-content: start;
+    margin-top: 1rem;
+  }
+  .placedOrders__cardContainer {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    width: 90%;
+  }
+}
+@media (min-width: 1200px) {
+  .placedOrders__cardContainer {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}/*# sourceMappingURL=PlacedOrders.module.css.map */

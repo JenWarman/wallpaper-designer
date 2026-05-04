@@ -1,0 +1,63 @@
+.home__container {
+  margin-top: -1rem;
+  padding-top: 5rem;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(0, 0, 0);
+}
+.home__heading, .home__subHeading {
+  color: white;
+  padding: 0;
+  margin: 0;
+}
+.home__heading {
+  font-size: 1rem;
+}
+.home__subHeading {
+  font-size: 3rem;
+  letter-spacing: 0.5rem;
+}
+.home__cta {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  height: 2.2rem;
+  margin: 0.8rem 0 0.8rem 0;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.2rem;
+  padding: 0.5rem 1.5rem;
+  width: 12rem;
+  text-align: center;
+  border-radius: 6px;
+  background-color: white;
+  color: black;
+  font-family: "Aboreto", system-ui;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.home__cta:hover, .home__cta:focus {
+  background-color: rgb(75, 74, 74);
+}
+
+@media (min-width: 768px) {
+  .home__heading {
+    font-size: 2rem;
+  }
+  .home__subHeading {
+    font-size: 6rem;
+  }
+  .home__cta {
+    height: 3rem;
+    align-items: center;
+    font-size: 1.5rem;
+    width: -moz-max-content;
+    width: max-content;
+  }
+}/*# sourceMappingURL=Home.module.css.map */

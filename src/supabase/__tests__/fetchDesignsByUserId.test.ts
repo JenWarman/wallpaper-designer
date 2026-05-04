@@ -1,6 +1,7 @@
 import { describe, expect, test, vi } from "vitest";
 import { fetchDesignsByUserId } from "../supabase";
 import supabase from "../supabaseClient";
+import type { User } from "@supabase/supabase-js";
 
 vi.mock("../supabaseClient", () => ({
   default: {
@@ -23,11 +24,11 @@ describe("fetchDesignsByUserId", () => {
       },
     ];
   vi.mocked(supabase.auth.getUser).mockResolvedValue({
-      data: {
-        user: { id: user_id},
-      },
-      error: null,
-    });
+  data: {
+    user: { id: user_id } as User,
+  },
+  error: null,
+});
 
     const eqMock = vi
       .fn()

@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { updateOrderByUserId } from "../supabase";
 import supabase from "../supabaseClient";
+import type { User } from "@supabase/supabase-js";
 
 vi.mock("../supabaseClient", () => ({
   default: {
@@ -21,7 +22,7 @@ describe("updateOrderByUserId", () => {
   test("it successfully inserts order into order table using user_id", async () => {
     vi.mocked(supabase.auth.getUser).mockResolvedValue({
       data: {
-        user: { id: user_id },
+         user: { id: user_id } as User,
       },
       error: null,
     });

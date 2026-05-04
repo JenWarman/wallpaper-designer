@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { deleteDesignByUserId } from "../supabase";
 import supabase from "../supabaseClient";
+import type { User } from "@supabase/supabase-js";
 
 vi.mock("../supabaseClient", () => ({
   default: {
@@ -20,7 +21,9 @@ beforeEach(() => {
 describe("deleteDesignByUserId", () => {
   test("it removes design from designs table", async () => {
     vi.mocked(supabase.auth.getUser).mockResolvedValue({
-      data: { user: { id: user_id } },
+      data: {
+        user: { id: user_id } as User,
+      },
       error: null,
     });
     const eqMock = vi.fn().mockResolvedValue({
@@ -44,7 +47,9 @@ describe("deleteDesignByUserId", () => {
   });
   test("it returns failure when delete fails", async () => {
     vi.mocked(supabase.auth.getUser).mockResolvedValue({
-      data: { user: { id: user_id } },
+      data: {
+        user: { id: user_id } as User,
+      },
       error: null,
     });
     const eqMock = vi.fn().mockResolvedValue({

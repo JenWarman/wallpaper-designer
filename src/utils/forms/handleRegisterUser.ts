@@ -2,7 +2,7 @@ import { signUpAndCreateAccount } from "../../supabase/supabase";
 import type { FormState } from "../../types/types";
 
 export const handleRegisterUser = async (
-  prevState: FormState,
+  _: FormState,
   formData: FormData
 ): Promise<FormState> => {
   const username = formData.get("username");

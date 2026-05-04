@@ -3,12 +3,12 @@ import { calculatePrice } from "../calculatePrice";
 import { calculateQuantity } from "../calculateQuantity";
 
 export const handleCalculatePrice = async (
-  prevState: OrderFormState,
+  _: OrderFormState,
   formData: FormData
 ): Promise<OrderFormState> => {
   const width = formData.get("width") as string
   const height = formData.get("height") as string
- const measurement = formData.get("measurement") as string
+  const measurement = formData.get("measurement") as string
 
   if (!width || !height) {
     return {
@@ -17,15 +17,9 @@ export const handleCalculatePrice = async (
       price: 0,
     };
   }
+  const measurementType = measurement === "cms" ? "cms" : "inches";
 
-  let measurementType;
-  if (measurement === "cms") {
-    measurementType = "cms";
-  } else {
-    measurementType = "inches";
-  }
-
-  const quantity = calculateQuantity( parseInt(width), parseInt(height), measurement);
+  const quantity = calculateQuantity(parseInt(width), parseInt(height), measurementType);
 
   const price = calculatePrice(quantity);
 

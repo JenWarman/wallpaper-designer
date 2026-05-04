@@ -1,0 +1,35 @@
+.designForm__container {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 75%;
+}
+.designForm__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  margin: 0;
+}
+.designForm__Ctas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .designForm__container {
+    width: 60%;
+  }
+}
+@media (min-width: 1200px) {
+  .designForm__container {
+    width: 45%;
+  }
+}/*# sourceMappingURL=DesignForm.module.css.map */

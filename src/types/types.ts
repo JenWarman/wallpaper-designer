@@ -137,3 +137,10 @@ export type ModalProps = {
   onConfirmDelete?: () => void;
   onCancelDelete?: () => void;
 };
+
+export type LoginFieldEvent = {
+  target: {
+    name: "email" | "password";
+    value: string;
+  };
+};

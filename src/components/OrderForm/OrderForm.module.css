@@ -1,0 +1,58 @@
+.orderForm__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.orderForm__pattern {
+  width: 80%;
+  height: 40vh;
+  border-radius: inherit;
+}
+.orderForm__heading {
+  font-size: 1.2rem;
+  letter-spacing: 0.1rem;
+  font-weight: bolder;
+  margin: 1.4rem 0 0 0;
+  text-align: center;
+}
+.orderForm__radio {
+  display: inline-flex;
+  margin: 0;
+}
+.orderForm__link {
+  display: flex;
+  align-self: flex-end;
+  margin: 0 0 1rem 0;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .orderForm__container {
+    width: 100%;
+    height: 100vh;
+    justify-content: start;
+    margin-top: 1rem;
+  }
+  .orderForm__pattern {
+    width: 60%;
+  }
+  .orderForm__heading {
+    font-size: 1.6rem;
+  }
+}
+@media (min-width: 1200px) {
+  .orderForm__container {
+    width: 60%;
+    height: 100vh;
+    justify-content: start;
+    margin-top: 1rem;
+  }
+  .orderForm__pattern {
+    width: 60%;
+  }
+  .orderForm__heading {
+    font-size: 1.6rem;
+  }
+}/*# sourceMappingURL=OrderForm.module.css.map */

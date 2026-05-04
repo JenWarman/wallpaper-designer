@@ -1,6 +1,7 @@
 import { describe, expect, test, vi } from "vitest";
 import { fetchProgressStatusByUserId } from "../supabase";
 import supabase from "../supabaseClient";
+import type { User } from "@supabase/supabase-js";
 
 vi.mock("../supabaseClient", () => ({
   default: {
@@ -12,6 +13,14 @@ vi.mock("../supabaseClient", () => ({
 }));
 
 const user_id = "user-1";
+
+const mockUser: User = {
+  id: user_id,
+  aud: "authenticated",
+  created_at: new Date().toISOString(),
+  app_metadata: {},
+  user_metadata: {},
+};
 
 describe("fetchProgressStatusByUserId", () => {
   test("successfully returns progress status for logged-in user", async () => {
@@ -26,7 +35,7 @@ describe("fetchProgressStatusByUserId", () => {
 
     vi.mocked(supabase.auth.getUser).mockResolvedValue({
       data: {
-        user: { id: user_id },
+        user: { id: user_id } as User,
       },
       error: null,
     });
@@ -54,7 +63,7 @@ describe("fetchProgressStatusByUserId", () => {
 
     vi.mocked(supabase.auth.getUser).mockResolvedValue({
       data: {
-        user: { id: user_id },
+        user: mockUser,
       },
       error: null,
     });

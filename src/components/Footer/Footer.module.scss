@@ -6,6 +6,7 @@
     justify-content: space-around;
     background-color: white;
     border-top: 1px rgba(0, 0, 0, 0.131) solid;
+    margin: 0;
 
     &__heading {
         font-family: "Aboreto", system-ui;
@@ -44,7 +45,7 @@
 
 @media (max-width: 768px) {
     .footer {
-         height: 5vh;
+        height: 5vh;
         flex-direction: column;
         &__heading {
             padding-top: 0.5rem;
@@ -55,27 +56,6 @@
             padding-top: 0;
             margin-top: 0;
         }
-        // justify-content: space-between;
-        // padding: 0 1rem;
-
-        // &__links {
-        //     padding-right: 3em;
-        // }
     }
 }
 
-@media (max-width: 1024px) {
-    .footer {
-        height: 5vh;
-        //    flex-direction: column;
-        //      &__link {
-        //     padding-right: 0;
-        // }
-        // justify-content: space-between;
-        // padding: 0 1rem;
-
-        // &__links {
-        //     padding-right: 3em;
-        // }
-    }
-}
