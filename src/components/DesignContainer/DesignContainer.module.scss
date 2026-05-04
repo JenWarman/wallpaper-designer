@@ -55,10 +55,10 @@
   .designContainer {
     &__container {
       width: 50%;
-      height: 60vh;
+      height: 50vh;
       display: flex;
       padding: 0;
-      margin-top: -3rem;
+      // margin-top: -3rem;
       margin-bottom: 0;
     }
     &__tile, &__demo {

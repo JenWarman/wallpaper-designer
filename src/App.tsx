@@ -18,6 +18,7 @@ import { Admin } from "./components/Admin/Admin";
 import { Archive } from "./components/Archive/Archive";
 import { Home } from "./components/Home/Home";
 import { useOrderStatusListener } from "./hooks/useOrderStatusListener";
+import { Footer } from "./components/Footer/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,6 +55,7 @@ function App() {
         <Route path="/admin" element={<Admin/>}/>
         <Route path="/archive" element={<Archive/>}/>
       </Routes>
+      <Footer/>
     </>
   );
 }
