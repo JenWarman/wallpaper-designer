@@ -28,7 +28,7 @@ export function PatternDesign({ design, component }: PatternDesignProps) {
                 <div
                   className={patternClassName}
                   style={{
-                    backgroundImage: `url(${`"/src/assets/${motif}.png"`})`,
+                    backgroundImage: `url(${`"//${motif}.png"`})`,
                     backgroundPosition: `0 0, ${bgPosition.positionOne} ${bgPosition.positionTwo} `,
                     backgroundSize: `${imageScale} auto`,
                   }}
@@ -37,7 +37,7 @@ export function PatternDesign({ design, component }: PatternDesignProps) {
                 <div
                   className={patternClassName}
                   style={{
-                    backgroundImage: `url(${`"/src/assets/${motif}_bg.png"`}), url(${`"/src/assets/${motif}_bg.png"`})`,
+                    backgroundImage: `url(${`"//${motif}_bg.png"`}), url(${`"//${motif}_bg.png"`})`,
                     backgroundPosition: `0 0, ${bgPosition.positionOne} ${bgPosition.positionTwo} `,
                     backgroundSize: `${imageScale} auto`,
                   }}

@@ -21,7 +21,7 @@ export function DesignContainer() {
         <img
           onClick={() => setDirection("right")}
           className={styles.designContainer__right}
-          src="src/assets/right.png"
+          src="/right.png"
           alt=""
           data-testid={dataTestIds.right}
         />
@@ -35,7 +35,7 @@ export function DesignContainer() {
         <img
           onClick={() => setDirection("left")}
           className={styles.designContainer__left}
-          src="src/assets/left.png"
+          src="/left.png"
           alt=""
           data-testid={dataTestIds.left}
         />

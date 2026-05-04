@@ -31,7 +31,7 @@ export function DesignDemo() {
         <div className={designDemoClassname}>
           <img
             style={{ width: `${imageScale}`, height: `${imageScale}`, marginBottom: `5rem` }}
-            src={`src/assets/${formData.motif}.png`}
+            src={`/${formData.motif}.png`}
             alt={formData.motif}
           />
         </div>
@@ -46,7 +46,7 @@ export function DesignDemo() {
         {/* insitu image layer */}
         <img
           className={styles.designDemo__image}
-          src={`src/assets/room.png`}
+          src={`/room.png`}
           alt="your wallpaper design in a living space"
         />
       </div>

@@ -24,7 +24,7 @@ export function Modal({
   return (
     <dialog className={styles.modal__container} data-testid={dataTestIds.modal}>
       <img
-        src="src/assets/close.png"
+        src="/close.png"
         alt=""
         onClick={onClose}
         aria-label="close"
@@ -53,7 +53,7 @@ export function Modal({
         >
           <img
             className={styles.modal__icon}
-            src={`src/assets/${secondaryCtaLabel}.png`}
+            src={`/${secondaryCtaLabel}.png`}
           />
           {secondaryCtaLabel}
         </button>
@@ -64,7 +64,7 @@ export function Modal({
         >
           <img
             className={styles.modal__icon}
-            src={`src/assets/${tertiaryCtaLabel}.png`}
+            src={`/${tertiaryCtaLabel}.png`}
           />
           {tertiaryCtaLabel}
         </button>

@@ -36,7 +36,7 @@ export function DesignTile() {
         <div className={designTileClassname}>
           <img
             style={{ width: `${imageScale}`, height: `${imageScale}` }}
-            src={`src/assets/${formData.motif}.png`}
+            src={`/${formData.motif}.png`}
             alt={formData.motif}
           />
         </div>
