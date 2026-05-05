@@ -1,12 +1,12 @@
 # Wallpaper Designer
 
-**Wallpaper Designer** is a web application that allows the user to design custom wallpaper products and track their order through production and delivery. 
+[**Wallpaper Designer**](https://wallpaper-designer.netlify.app/) is a web application that allows the user to design custom wallpaper products and track their order through production and delivery. 
 
 ![iphone view](./public/mobile.png)
 
 ## Project Overview
 
-**Wallpaper Designer** provides a personalised product design and order tracking experience. Users can configure bespoke wallpaper designs using interactive design tools, preview results in real time and follow their order's progress. 
+[**Wallpaper Designer**](https://wallpaper-designer.netlify.app/) provides a personalised product design and order tracking experience. Users can configure bespoke wallpaper designs using interactive design tools, preview results in real time and follow their order's progress. 
 
 ## Project Objectives
 
